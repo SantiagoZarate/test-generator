@@ -9,6 +9,6 @@ export const homePageLinks = [
     title: "Multiple choice test",
     description:
       "Design a test with multiple choice questions where students select the correct answer from a set of options.",
-    path: "/multiple-choise",
+    path: "/multiple-choice",
   },
 ];
