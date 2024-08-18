@@ -10,7 +10,7 @@ export function Layout() {
           easy
         </p>
       </header>
-      <main className="max-w-screen-lg mx-auto flex flex-col gap-12 w-full">
+      <main className="max-w-screen-lg mx-auto flex flex-col gap-12 w-full pb-12">
         <Outlet />
       </main>
     </section>
