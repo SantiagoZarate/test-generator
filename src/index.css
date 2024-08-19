@@ -2,3 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
+
+@font-face {
+  font-family: "Geist";
+  src: url("Geist-Regular.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("Geist-Bold.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("Geist-Black.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("Geist-Thin.ttf") format("ttf");
+}

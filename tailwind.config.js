@@ -2,7 +2,11 @@
 export default {
   content: ['./src/**/*.{tsx,ts,jsx,js}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily : {
+        "geist" : ["Geist", "sans-serif"]
+      }
+    },
   },
   plugins: [],
 }
