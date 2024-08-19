@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-export function Layout() {
+export function MainLayout() {
   return (
     <section className="w-full flex flex-col bg-neutral-900 text-neutral-200 min-h-screen">
       <header className="print:hidden max-w-screen-xl mx-auto flex flex-col gap-2 py-24 items-center justify-center">
