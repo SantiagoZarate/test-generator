@@ -1,0 +1,38 @@
+import { useState } from "react";
+import { Button } from "../ui/Button";
+import { Input } from "../ui/Input";
+
+export function FooterForm() {
+  const [value, setValue] = useState<string>("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    fetch(
+      `https://docs.google.com/forms/d/e/1FAIpQLSdUSarbRaANifMj4XDeQgAjRvd5nR6qX-kK7yWhlw9Ylt8-FQ/formResponse?submit=Submit&usp=pp_url&entry.1951521129=${value}`
+    );
+    setValue("");
+  };
+
+  return (
+    <form
+      className="flex-1 flex flex-col gap-2"
+      onSubmit={handleSubmit}
+      action=""
+    >
+      <label htmlFor="suggestion">
+        Would you like to it to have more features?
+      </label>
+      <div className="flex gap-2">
+        <Input
+          className="flex-1 p-1 text-sm"
+          onChange={(e) => setValue(e.currentTarget.value)}
+          placeholder="i want it to have ..."
+          id="suggestion"
+          value={value}
+          type="text"
+        />
+        <Button className="self-end  w-fit">send</Button>
+      </div>
+    </form>
+  );
+}

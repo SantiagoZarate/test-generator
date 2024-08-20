@@ -6,6 +6,7 @@ import { INITIAL_QUESTIONS } from "../../constants/mock-questions";
 import { FireIcon } from "../../components/icons/FireIcon";
 import { useCallback, useState } from "react";
 import { Button } from "../../components/ui/Button";
+import { Input } from "../../components/ui/Input";
 
 export function BasicTestPage() {
   const [questions, setQuestion] = useState<string[]>(
@@ -46,8 +47,7 @@ export function BasicTestPage() {
             <FireIcon />
             Add a new question!
           </span>
-          <input
-            className="rounded-lg bg-neutral-800 border border-neutral-600 p-2"
+          <Input
             placeholder="why does javascript suck?"
             onChange={handleChangeValue}
             name="question"
