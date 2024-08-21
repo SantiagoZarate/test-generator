@@ -2,21 +2,28 @@ import { QuestionsEmpty } from "../../components/question/QuestionsEmpty";
 import QuestionsLayout from "../../components/question/QuestionsLayout";
 import QuestionsList from "../../components/question/QuestionsList";
 import ActionsFooter from "../../components/common/ActionsFooter";
-import { INITIAL_QUESTIONS } from "../../constants/mock-questions";
 import { FireIcon } from "../../components/icons/FireIcon";
 import { useCallback, useState } from "react";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
+import { INITIAL_QUESTIONS } from "../../constants/mock-questions";
 
 export function BasicTestPage() {
+  const [value, setValue] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const [questions, setQuestion] = useState<string[]>(
     import.meta.env.DEV ? INITIAL_QUESTIONS : []
   );
-  const [value, setValue] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    if (value.length < 5) {
+      setError("Question too short");
+      return;
+    } else if (value.length > 120) {
+      setError("Question too large");
+      return;
+    }
     setQuestion((prevState) => [...prevState, value]);
     setValue("");
   };
@@ -25,6 +32,7 @@ export function BasicTestPage() {
     const newValue = e.currentTarget.value;
     if (newValue.startsWith(" ")) return;
     setValue(newValue);
+    setError("");
   };
 
   const handleDeleteQuestion = (text: string) => {
@@ -55,6 +63,7 @@ export function BasicTestPage() {
             id="question"
             type="text"
           />
+          {error && <span className="text-red-600 text-sm">{error}</span>}
         </label>
         <Button disabled={!value.length}>submit</Button>
       </form>
