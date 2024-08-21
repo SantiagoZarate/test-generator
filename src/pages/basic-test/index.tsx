@@ -7,13 +7,22 @@ import { useCallback, useState } from "react";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
 import { INITIAL_QUESTIONS } from "../../constants/mock-questions";
+import { getAiGeneratedSuggestions } from "@/lib/perplexity";
 
 export function BasicTestPage() {
   const [value, setValue] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [loadingAI, setLoadingAI] = useState<boolean>(false);
   const [questions, setQuestion] = useState<string[]>(
     import.meta.env.DEV ? INITIAL_QUESTIONS : []
   );
+
+  const handleGetAiSuggestions = async () => {
+    setLoadingAI(true);
+    await getAiGeneratedSuggestions(questions).finally(() => {
+      setLoadingAI(false);
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,6 +76,17 @@ export function BasicTestPage() {
         </label>
         <Button disabled={!value.length}>submit</Button>
       </form>
+      {questions.length > 4 && (
+        <section>
+          <Button
+            disabled={loadingAI}
+            onClick={handleGetAiSuggestions}
+            className="w-full"
+          >
+            get ai generated suggestions
+          </Button>
+        </section>
+      )}
       {questions.length ? (
         <QuestionsLayout
           footer={
