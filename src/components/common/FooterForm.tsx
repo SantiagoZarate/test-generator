@@ -1,16 +1,23 @@
 import { useState } from "react";
 import { Button } from "../ui/Button";
 import { Input } from "../ui/Input";
+import { toast } from "../ui/use-toast";
 
 export function FooterForm() {
   const [value, setValue] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (value.length < 5) return;
     fetch(
       `https://docs.google.com/forms/d/e/1FAIpQLSdUSarbRaANifMj4XDeQgAjRvd5nR6qX-kK7yWhlw9Ylt8-FQ/formResponse?submit=Submit&usp=pp_url&entry.1951521129=${value}`
-    );
-    setValue("");
+    ).finally(() => {
+      setValue("");
+      toast({
+        title: "Suggestions succesfully submitted",
+        description: "Thanks for your collaboration",
+      });
+    });
   };
 
   return (
