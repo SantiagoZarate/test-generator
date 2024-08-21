@@ -6,6 +6,7 @@ import QuestionsLayout from "../../components/question/QuestionsLayout";
 import ActionsFooter from "../../components/common/ActionsFooter";
 import { QuestionsEmpty } from "../../components/question/QuestionsEmpty";
 import { DeleteButton } from "../../components/ui/DeleteButton";
+import { OptionsList } from "../../components/question/OptionsList";
 
 interface MultipleChoice {
   question: string;
@@ -33,6 +34,15 @@ export function MultipleChoicePage() {
     ]);
     setValue("");
     setOptions([]);
+    setCorrectAnswer(0);
+  };
+
+  const handleMultipleChoiceQuestion = (index: number) => {
+    setMultipleChoiceQuestions((prevState) => {
+      const firstHalf = prevState.slice(0, index);
+      const secondHalf = prevState.slice(index + 1);
+      return [...firstHalf, ...secondHalf];
+    });
   };
 
   return (
@@ -40,30 +50,23 @@ export function MultipleChoicePage() {
       <form
         action=""
         onSubmit={(e) => handleSubmit(e)}
-        className="flex flex-col gap-4"
+        className="flex flex-col gap-4 print:hidden"
       >
-        <label htmlFor="" className="flex flex-col gap-2">
-          new question
+        <label htmlFor="question" className="flex flex-col gap-2">
+          New question
           <input
+            className="bg-neutral-900 border border-neutral-600 rounded-lg p-2"
+            placeholder="what does is mean to be stoic?"
+            name="question"
+            value={value}
+            id="question"
+            type="text"
             onChange={(e) => {
               if (e.currentTarget.value.startsWith(" ")) return;
               setValue(e.currentTarget.value);
             }}
-            type="text"
-            value={value}
-            name="question"
-            className="bg-neutral-900 border border-neutral-600 rounded-lg p-2"
-            placeholder="what does is mean to be stoic?"
           />
         </label>
-        <Button
-          onClick={() => setOptions((prevState) => [...prevState, ""])}
-          type="button"
-          className="border-dashed border-2 bg-neutral-900"
-        >
-          Add option
-          <PlusIconMIcroIcon />
-        </Button>
         {options.map((option, index) => (
           <label
             className="flex flex-col gap-1 capitalize"
@@ -112,9 +115,15 @@ export function MultipleChoicePage() {
             </span>
           </label>
         ))}
-        <Button disabled={options.length < 2}>
-          create multiple choise question
+        <Button
+          onClick={() => setOptions((prevState) => [...prevState, ""])}
+          type="button"
+          className="border-dashed border-2 bg-neutral-900"
+        >
+          Add option
+          <PlusIconMIcroIcon />
         </Button>
+        <Button disabled={options.length < 2}>Submit</Button>
       </form>
       {multipleChoiceQuestions.length ? (
         <QuestionsLayout
@@ -125,22 +134,23 @@ export function MultipleChoicePage() {
             />
           }
           list={
-            <ul className="flex flex-col gap-8">
+            <ul className="flex flex-col">
               {multipleChoiceQuestions.map((multipleChoice, index) => (
                 <li
                   key={multipleChoice.question + index}
-                  className="flex flex-col gap-2"
+                  className="relative flex flex-col gap-2 hover:bg-neutral-800 p-2 rounded-md group"
                 >
+                  <DeleteButton
+                    className="absolute group-hover:opacity-100 opacity-0 right-0 mx-2"
+                    onDelete={() => handleMultipleChoiceQuestion(index)}
+                  />
                   <p className="font-bold capitalize text-xl">
                     {multipleChoice.question}
                   </p>
-                  <ul className="flex flex-col gap-1">
-                    {multipleChoice.options.map((option, index) => (
-                      <li key={index}>
-                        <p className="capitalize text-sm">{option}</p>
-                      </li>
-                    ))}
-                  </ul>
+                  <OptionsList
+                    correctOption={multipleChoice.answer}
+                    options={multipleChoice.options}
+                  />
                 </li>
               ))}
             </ul>
@@ -149,6 +159,7 @@ export function MultipleChoicePage() {
       ) : (
         <QuestionsEmpty />
       )}
+      <div>{JSON.stringify(multipleChoiceQuestions, null, 2)}</div>
     </>
   );
 }
