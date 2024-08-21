@@ -9,7 +9,7 @@ interface Props {
 
 export function Card({ description, title, href }: Props) {
   return (
-    <li className="relative border border-neutral-600 rounded-md overflow-hidden group/grid bg-neutral-800 hover:bg-neutral-900 transition">
+    <li className="relative border border-border rounded-md overflow-hidden group/grid bg-card hover:bg-background transition">
       <GridGradientBackground className="group-hover/grid:saturate-100" />
       <a
         href={href}

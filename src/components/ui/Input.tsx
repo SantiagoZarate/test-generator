@@ -9,7 +9,7 @@ export const Input = React.forwardRef<
     {...args}
     ref={ref}
     className={cn(
-      "rounded-lg bg-neutral-800 border border-neutral-600 p-2 capitalize",
+      "rounded-lg bg-card border border-border p-2 capitalize",
       args.className
     )}
   />
