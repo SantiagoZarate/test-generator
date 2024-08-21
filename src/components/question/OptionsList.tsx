@@ -11,7 +11,8 @@ export function OptionsList({ correctOption, options }: Props) {
           <span className="hidden print:block size-4 border border-neutral-600" />
           <p
             className={`capitalize text-sm ${
-              correctOption === index && "text-green-500"
+              correctOption === index &&
+              "text-green-600 underline print:font-normal print:no-underline"
             }`}
           >
             {option}

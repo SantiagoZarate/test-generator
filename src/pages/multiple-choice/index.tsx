@@ -28,7 +28,7 @@ export function MultipleChoicePage() {
       ...prevState,
       {
         question: value,
-        answer: 0,
+        answer: correctAnswer,
         options,
       },
     ]);
@@ -159,7 +159,6 @@ export function MultipleChoicePage() {
       ) : (
         <QuestionsEmpty />
       )}
-      <div>{JSON.stringify(multipleChoiceQuestions, null, 2)}</div>
     </>
   );
 }
