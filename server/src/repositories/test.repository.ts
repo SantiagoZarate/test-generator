@@ -1,5 +1,6 @@
-import { TestInsert, TestSelect, TestSchema } from "../types/test.types";
 import { db } from "../../drizzle/db";
+import { testSchema } from "../../drizzle/schemas/test.schema";
+import { TestInsert, TestSelect } from "../types/test.types";
 
 export class TestRepository {
   private _db: typeof db;
@@ -16,6 +17,11 @@ export class TestRepository {
   }
 
   async create(data: TestInsert) {
-    throw new Error("Not yet Implemented");
+    const test = await this._db
+      .insert(testSchema)
+      .values(data)
+      .returning({ id: testSchema.id });
+
+    return test;
   }
 }
