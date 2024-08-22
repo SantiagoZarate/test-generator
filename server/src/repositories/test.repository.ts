@@ -1,22 +1,18 @@
-import { Test, TestInsert, TestSelect } from "../types/test.types";
-
-const tests: Test[] = [
-  {
-    created_at: new Date().toDateString(),
-    id: "1",
-    name: "my first test",
-    questions: [
-      "who is messi?",
-      "why is he famous?",
-      "how many world cups has he won?",
-    ],
-  },
-];
+import { TestInsert, TestSelect, TestSchema } from "../types/test.types";
+import { db } from "../../drizzle/db";
 
 export class TestRepository {
-  async getById(id: TestSelect) {
-    return tests[0];
-    // throw new Error("Not yet Implemented");
+  private _db: typeof db;
+  constructor() {
+    this._db = db;
+  }
+
+  async getById({ id }: TestSelect) {
+    const test = await this._db.query.testSchema.findFirst({
+      where: (test, { eq }) => eq(test.id, id),
+    });
+
+    return test;
   }
 
   async create(data: TestInsert) {
