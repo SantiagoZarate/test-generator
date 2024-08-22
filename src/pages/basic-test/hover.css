@@ -1,0 +1,6 @@
+ul.group:hover li {
+  opacity: 0.5;
+}
+ul.group:hover li:hover {
+  opacity: 1 !important;
+}

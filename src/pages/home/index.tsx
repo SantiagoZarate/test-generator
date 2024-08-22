@@ -1,5 +1,5 @@
 import { Card } from "../../components/ui/Card";
-import { homePageLinks } from "../../constants/home-page-links";
+import { homePageLinks } from "../../data/home-page-links";
 
 export function HomePage() {
   return (
