@@ -1,19 +1,14 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import { setMiddleware } from "./middlewares/setMiddleware";
 import { envs } from "../config/envs";
+import testRouter from "./router/test.router";
 
 const app = express();
 
 setMiddleware(app);
 
-app.get("/ping", (req: Request, res: Response) => {
-  console.log("Running");
-
-  res.json({
-    ok: true,
-    message: "pong!",
-  });
-});
+// Handlers
+app.use("/api/tests", testRouter);
 
 export const start = () => {
   app.listen(envs.PORT, () => {
