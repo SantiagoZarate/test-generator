@@ -4,7 +4,7 @@ import { envs } from "./config/envs";
 export default defineConfig({
   dialect: "sqlite",
   schema: "./drizzle/schemas/*",
-  out: "./drizzle",
+  out: "./drizzle/migrations",
   driver: "turso",
   dbCredentials: {
     url: envs.DB_URL,
