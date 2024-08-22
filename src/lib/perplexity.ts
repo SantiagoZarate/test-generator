@@ -8,11 +8,15 @@ const buildPrompt = (message: string): { role: "user"; content: string }[] => {
 export async function getAiGeneratedSuggestions(
   prevQuestions: string[]
 ): Promise<string[]> {
+  const questionsSortedByLength = prevQuestions.sort(
+    (a, b) => b.length - a.length
+  );
+
   const prompt = `
   You are an AI designed to generate educational questions.
   Give me 3 questions suggestions following the cognitive level of the following questions:
 
-   ${prevQuestions.map((q) => q + "\n").join("")}
+   ${questionsSortedByLength.map((q) => q + "\n").join("")}
 
    The language of the output suggestions should be on the same languages as the used on the previous questions, the questions should be open,
    i dont want a yes/no type of question and just give the questions because im going to parse the response right away.

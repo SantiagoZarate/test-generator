@@ -14,7 +14,7 @@ export function Item({ onDelete, children }: Props) {
         className="absolute group-hover:opacity-100 opacity-0 right-0 top-[20%] mx-2"
         onDelete={onDelete}
       />
-      <p className="capitalize">{children}</p>
+      <p className="first-letter:uppercase">{children}</p>
       <div className="hidden print:block border-t border-b border-neutral-500 h-12" />
     </li>
   );
