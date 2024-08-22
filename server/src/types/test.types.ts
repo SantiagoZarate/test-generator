@@ -1,9 +1,11 @@
-export type Test = {
-  id: string;
-  name: string;
-  created_at: string;
-  questions: string[];
-};
+import { testSchema } from "../../drizzle/schemas/test.schema";
+import { type InferInsertModel } from "drizzle-orm";
 
-export type TestSelect = Pick<Test, "id">;
-export type TestInsert = Pick<Test, "name" | "questions">;
+export type TestSchema = Required<
+  InferInsertModel<typeof testSchema> & {
+    questions: string[];
+  }
+>;
+
+export type TestSelect = Pick<TestSchema, "id">;
+export type TestInsert = Pick<TestSchema, "title" | "questions">;
