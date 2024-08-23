@@ -19,7 +19,8 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*" : ["src/*"]
+      "@/*" : ["src/*"],
+      "@backend/*": ["../server/src/types/*"]
     }
   },
   "include": ["vite.config.ts"]
