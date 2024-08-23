@@ -1,5 +1,7 @@
+import { DeleteButton } from "../ui/DeleteButton";
 import { Item } from "../ui/Item";
 import React from "react";
+import { List } from "../ui/List";
 
 interface Props {
   questions: string[];
@@ -7,13 +9,17 @@ interface Props {
 }
 function QuestionsList({ onDelete, questions }: Props) {
   return (
-    <ul className="flex flex-col print:gap-12">
+    <List>
       {questions.map((q, index) => (
-        <Item key={q + index} onDelete={() => onDelete(q)}>
+        <Item key={q + index}>
+          <DeleteButton
+            className="absolute group-hover:opacity-100 opacity-0 right-0 top-[20%] mx-2"
+            onDelete={() => onDelete(q)}
+          />
           {index + 1}. {q}
         </Item>
       ))}
-    </ul>
+    </List>
   );
 }
 

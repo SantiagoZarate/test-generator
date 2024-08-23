@@ -102,7 +102,7 @@ export function BasicTestPage() {
           return;
         }
         linkCreated.current = questions;
-        setShareLink(response.data.id);
+        setShareLink(response.data[0].id);
         toast({
           title: "Link created",
         });
@@ -136,13 +136,13 @@ export function BasicTestPage() {
         </label>
         <Button disabled={!value.length}>submit</Button>
       </form>
-      <section className="print:hidden">
+      <section className="print:hidden flex justify-center">
         {questions.length >= MIN_QUESTIONS_FOR_AI ? (
           <>
             <Button
               disabled={loadingAI}
               onClick={handleGetAiSuggestions}
-              className="w-full"
+              className="w-full inline-flex h-12 animate-background-shine items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 hover:-translate-y-1 transition focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
             >
               get ai generated suggestions
             </Button>

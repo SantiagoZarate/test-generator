@@ -7,7 +7,7 @@ import {
 } from "./test.api.type";
 
 export const testAPI = {
-  create: (data: TestInsert): Promise<APIResponse<PostDataResponse>> => {
+  create: (data: TestInsert): Promise<APIResponse<PostDataResponse[]>> => {
     const options: RequestInit = {
       method: "POST",
       headers: {
