@@ -3,7 +3,10 @@ import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { nanoid } from "nanoid";
 
 export const testSchema = sqliteTable("test", {
-  id: text("id").notNull().default(nanoid()).primaryKey(),
+  id: text("id")
+    .notNull()
+    .$defaultFn(() => nanoid())
+    .primaryKey(),
   created_at: text("created_at")
     .notNull()
     .default(sql`(CURRENT_TIMESTAMP)`),
