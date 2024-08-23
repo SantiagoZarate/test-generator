@@ -102,7 +102,7 @@ export function BasicTestPage() {
           return;
         }
         linkCreated.current = questions;
-        setShareLink(response.data[0].id);
+        setShareLink(response.data.id);
         toast({
           title: "Link created",
         });
@@ -115,6 +115,7 @@ export function BasicTestPage() {
   return (
     <>
       <form
+        data-testid="Basic test form"
         onSubmit={handleSubmit}
         className="print:hidden flex flex-col gap-4 w-full"
       >
