@@ -1,23 +1,28 @@
+import { testAPI } from "@/api/test.api";
+import { ClipboardIcon } from "@/components/icons/ClipboardIcon";
+import { SparkelIcon } from "@/components/icons/SparkelIcon";
+import { toast } from "@/components/ui/use-toast";
+import { MIN_QUESTIONS_FOR_AI } from "@/data/constants";
+import { getAiGeneratedSuggestions } from "@/lib/perplexity";
+import { useCallback, useRef, useState } from "react";
+import ActionsFooter from "../../components/common/ActionsFooter";
+import { FireIcon } from "../../components/icons/FireIcon";
 import { QuestionsEmpty } from "../../components/question/QuestionsEmpty";
 import QuestionsLayout from "../../components/question/QuestionsLayout";
 import QuestionsList from "../../components/question/QuestionsList";
-import ActionsFooter from "../../components/common/ActionsFooter";
-import { FireIcon } from "../../components/icons/FireIcon";
-import { useCallback, useState } from "react";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
 import { INITIAL_QUESTIONS } from "../../data/mock-questions";
-import { getAiGeneratedSuggestions } from "@/lib/perplexity";
-import { SparkelIcon } from "@/components/icons/SparkelIcon";
 import "./hover.css";
-import { toast } from "@/components/ui/use-toast";
-import { MIN_QUESTIONS_FOR_AI } from "@/data/constants";
 
 export function BasicTestPage() {
   const [value, setValue] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [loadingAI, setLoadingAI] = useState<boolean>(false);
+  const [loadingShareLink, setLoadingShareLink] = useState<boolean>(false);
   const [AISuggestions, setAISuggestions] = useState<string[]>([]);
+  const linkCreated = useRef<string[]>([]);
+  const [shareLink, setShareLink] = useState<string>("");
   const [questions, setQuestion] = useState<string[]>(
     import.meta.env.DEV ? INITIAL_QUESTIONS : []
   );
@@ -73,6 +78,39 @@ export function BasicTestPage() {
     (text: string) => handleDeleteQuestion(text),
     [questions]
   );
+
+  const handleShare = () => {
+    // If questions hasnt changed since last shared, do not create another request
+    if (linkCreated.current === questions) {
+      toast({
+        title: "There was an error",
+        description: "A shared link was already created for this questions",
+      });
+      return;
+    }
+
+    setLoadingShareLink(true);
+
+    testAPI
+      .create({ questions, title: "Mocked test title" })
+      .then((response) => {
+        if (!response.ok) {
+          toast({
+            title: "Oops there was an error",
+            description: "Error creating share link",
+          });
+          return;
+        }
+        linkCreated.current = questions;
+        setShareLink(response.data[0].id);
+        toast({
+          title: "Link created",
+        });
+      })
+      .finally(() => {
+        setLoadingShareLink(false);
+      });
+  };
 
   return (
     <>
@@ -136,8 +174,10 @@ export function BasicTestPage() {
         <QuestionsLayout
           footer={
             <ActionsFooter
+              loadingShare={loadingShareLink}
               dataToCopy={questions}
               onClearAll={() => setQuestion([])}
+              onShare={() => handleShare()}
             />
           }
           list={
@@ -149,6 +189,26 @@ export function BasicTestPage() {
         />
       ) : (
         <QuestionsEmpty />
+      )}
+      {shareLink && (
+        <section className="print:hidden p-4 rounded-md bg-card border-dashed border-border flex gap-4 justify-center items-center">
+          <a
+            className="hover:underline"
+            href={`http://localhost:5173/${shareLink}`}
+          >
+            Go to test shared link
+          </a>
+          <Button
+            onClick={() => {
+              navigator.clipboard.writeText(
+                `http://localhost:5173/${shareLink}`
+              );
+              toast({ title: "Copied to clipboard" });
+            }}
+          >
+            <ClipboardIcon />
+          </Button>
+        </section>
       )}
     </>
   );

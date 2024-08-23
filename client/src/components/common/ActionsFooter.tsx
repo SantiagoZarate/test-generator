@@ -1,5 +1,6 @@
 import { BinIcon } from "../icons/BinIcon";
 import { ClipboardIcon } from "../icons/ClipboardIcon";
+import { LinkIcon } from "../icons/LinkIcon";
 import { PrintIcon } from "../icons/PrintIcon";
 import { Button } from "../ui/Button";
 import React from "react";
@@ -7,9 +8,16 @@ import React from "react";
 interface Props {
   onClearAll: () => void;
   dataToCopy: any[];
+  onShare: () => void;
+  loadingShare: boolean;
 }
 
-function ActionsFooter({ dataToCopy, onClearAll }: Props) {
+function ActionsFooter({
+  dataToCopy,
+  onClearAll,
+  onShare,
+  loadingShare,
+}: Props) {
   return (
     <footer className="print:hidden flex gap-2 justify-end">
       <Button
@@ -41,6 +49,10 @@ function ActionsFooter({ dataToCopy, onClearAll }: Props) {
       >
         Copy All
         <ClipboardIcon />
+      </Button>
+      <Button disabled={loadingShare} onClick={onShare}>
+        Share
+        <LinkIcon />
       </Button>
     </footer>
   );

@@ -2,10 +2,11 @@ import { envs } from "@/config/envs";
 import { TestInsert, TestSchema, TestSelect } from "@backend/test.types";
 
 export const testAPI = {
-  create: (data: TestInsert) => {
+  create: (data: TestInsert): Promise<APIPostResponse> => {
     const options: RequestInit = {
+      method: "POST",
       headers: {
-        accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     };
@@ -20,3 +21,12 @@ export const testAPI = {
     );
   },
 };
+
+export interface APIPostResponse {
+  ok: boolean;
+  data: Datum[];
+}
+
+export interface Datum {
+  id: string;
+}
