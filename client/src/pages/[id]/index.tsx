@@ -1,5 +1,6 @@
 import { testAPI } from "@/api/test.api";
-import QuestionsList from "@/components/question/QuestionsList";
+import { Item } from "@/components/ui/Item";
+import { List } from "@/components/ui/List";
 import { PrintButton } from "@/components/ui/PrintButton";
 import { TestSchema } from "@backend/test.types";
 import { useEffect, useState } from "react";
@@ -19,7 +20,11 @@ export function TestPage() {
         <h2 className="font-semibold text-2xl">{test?.title}</h2>
         <p>{test?.created_at}</p>
       </header>
-      <QuestionsList onDelete={() => {}} questions={test?.questions ?? []} />
+      <List>
+        {test?.questions.map((q) => (
+          <Item>{q}</Item>
+        ))}
+      </List>
       <footer className="print:hidden flex justify-end">
         <PrintButton />
       </footer>
