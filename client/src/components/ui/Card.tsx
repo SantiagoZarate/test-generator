@@ -12,6 +12,7 @@ export function Card({ description, title, href }: Props) {
     <li className="relative border border-border rounded-md overflow-hidden group/grid bg-card hover:bg-background transition">
       <GridGradientBackground className="group-hover/grid:saturate-100" />
       <a
+        data-testid={`${title}`}
         href={href}
         className="relative z-10 overflow-hidden flex flex-col gap-2 p-4 group"
       >
