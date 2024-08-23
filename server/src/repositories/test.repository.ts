@@ -1,7 +1,7 @@
-import { sql, eq } from "drizzle-orm";
 import { db } from "../../drizzle/db";
 import { questionSchema, testSchema } from "../../drizzle/schemas/test.schema";
 import { TestInsert, TestSelect } from "../types/test.types";
+import { NotFoundError } from "../utils/errors";
 
 export class TestRepository {
   private _db: typeof db;
@@ -20,6 +20,10 @@ export class TestRepository {
         },
       },
     });
+
+    if (!test) {
+      throw new NotFoundError(`Test with id: ${id} not found`);
+    }
 
     return test;
   }
