@@ -12,6 +12,13 @@ export class TestRepository {
   async getById({ id }: TestSelect) {
     const test = await this._db.query.testSchema.findFirst({
       where: (test, { eq }) => eq(test.id, id),
+      with: {
+        questions: {
+          columns: {
+            test_id: false,
+          },
+        },
+      },
     });
 
     return test;

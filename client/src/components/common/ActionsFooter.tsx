@@ -1,9 +1,9 @@
+import React from "react";
 import { BinIcon } from "../icons/BinIcon";
 import { ClipboardIcon } from "../icons/ClipboardIcon";
 import { LinkIcon } from "../icons/LinkIcon";
-import { PrintIcon } from "../icons/PrintIcon";
 import { Button } from "../ui/Button";
-import React from "react";
+import { PrintButton } from "../ui/PrintButton";
 
 interface Props {
   onClearAll: () => void;
@@ -20,14 +20,7 @@ function ActionsFooter({
 }: Props) {
   return (
     <footer className="print:hidden flex gap-2 justify-end">
-      <Button
-        onClick={() => {
-          window.print();
-        }}
-      >
-        Print
-        <PrintIcon />
-      </Button>
+      <PrintButton />
       <Button
         onClick={() => {
           onClearAll();
