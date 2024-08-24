@@ -1,14 +1,14 @@
 import { ArrowTopRIghtIcon } from "../icons/ArrowTopRIghtIcon";
 import { GridGradientBackground } from "./GridGradientBackground";
-import "../../styles/test.css";
 
 interface Props {
   title: string;
   description: string;
   href?: string;
+  draw: JSX.Element;
 }
 
-export function Card({ description, title, href }: Props) {
+export function Card({ description, title, href, draw }: Props) {
   return (
     <li className="relative border border-border rounded-md overflow-hidden group/grid bg-card hover:bg-background transition">
       <GridGradientBackground className="group-hover/grid:saturate-100" />
@@ -18,12 +18,7 @@ export function Card({ description, title, href }: Props) {
         className="relative z-10 overflow-hidden group grid grid-cols-4 "
       >
         <div className="border-border border-r flex items-end justify-center">
-          <div className="test">
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
+          {draw}
         </div>
         <section className="col-span-3 flex flex-col gap-2 p-4">
           <header className="flex gap-2">
