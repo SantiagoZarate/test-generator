@@ -11,6 +11,7 @@ export function HomePage() {
             description={link.description}
             title={link.title}
             href={link.path}
+            draw={link.draw}
           />
         ))}
       </ul>
