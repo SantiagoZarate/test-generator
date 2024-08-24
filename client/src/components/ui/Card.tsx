@@ -1,5 +1,6 @@
 import { ArrowTopRIghtIcon } from "../icons/ArrowTopRIghtIcon";
 import { GridGradientBackground } from "./GridGradientBackground";
+import "../../styles/test.css";
 
 interface Props {
   title: string;
@@ -14,15 +15,25 @@ export function Card({ description, title, href }: Props) {
       <a
         data-testid={`${title}`}
         href={href}
-        className="relative z-10 overflow-hidden flex flex-col gap-2 p-4 group"
+        className="relative z-10 overflow-hidden group grid grid-cols-4 "
       >
-        <header className="flex gap-2">
-          <h2 className="font-bold capitalize">{title}</h2>
-          <span className="group-hover:translate-x-1  p-1 group-hover:-translate-y-1 transition">
-            <ArrowTopRIghtIcon />
-          </span>
-        </header>
-        <p className="text-neutral-400">{description}</p>
+        <div className="border-border border-r flex items-end justify-center">
+          <div className="test">
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
+        </div>
+        <section className="col-span-3 flex flex-col gap-2 p-4">
+          <header className="flex gap-2">
+            <h2 className="font-bold capitalize">{title}</h2>
+            <span className="group-hover:translate-x-1  p-1 group-hover:-translate-y-1 transition">
+              <ArrowTopRIghtIcon />
+            </span>
+          </header>
+          <p className="text-neutral-400">{description}</p>
+        </section>
       </a>
     </li>
   );
