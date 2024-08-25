@@ -1,30 +1,30 @@
-import { testAPI } from "@/api/test.api";
-import { ClipboardIcon } from "@/components/icons/ClipboardIcon";
-import { SparkelIcon } from "@/components/icons/SparkelIcon";
-import { toast } from "@/components/ui/use-toast";
-import { MIN_QUESTIONS_FOR_AI } from "@/data/constants";
-import { getAiGeneratedSuggestions } from "@/lib/perplexity";
-import { useCallback, useRef, useState } from "react";
-import ActionsFooter from "../../components/common/ActionsFooter";
-import { FireIcon } from "../../components/icons/FireIcon";
-import { QuestionsEmpty } from "../../components/question/QuestionsEmpty";
-import QuestionsLayout from "../../components/question/QuestionsLayout";
-import QuestionsList from "../../components/question/QuestionsList";
-import { Button } from "../../components/ui/Button";
-import { Input } from "../../components/ui/Input";
-import { INITIAL_QUESTIONS } from "../../data/mock-questions";
-import "./hover.css";
+import { testAPI } from '@/api/test.api';
+import { ClipboardIcon } from '@/components/icons/ClipboardIcon';
+import { SparkelIcon } from '@/components/icons/SparkelIcon';
+import { toast } from '@/components/ui/use-toast';
+import { MIN_QUESTIONS_FOR_AI } from '@/data/constants';
+import { getAiGeneratedSuggestions } from '@/lib/perplexity';
+import { useCallback, useRef, useState } from 'react';
+import ActionsFooter from '../../components/common/ActionsFooter';
+import { FireIcon } from '../../components/icons/FireIcon';
+import { QuestionsEmpty } from '../../components/question/QuestionsEmpty';
+import QuestionsLayout from '../../components/question/QuestionsLayout';
+import QuestionsList from '../../components/question/QuestionsList';
+import { Button } from '../../components/ui/Button';
+import { Input } from '../../components/ui/Input';
+import { INITIAL_QUESTIONS } from '../../data/mock-questions';
+import './hover.css';
 
 export function BasicTestPage() {
-  const [value, setValue] = useState<string>("");
-  const [error, setError] = useState<string>("");
+  const [value, setValue] = useState<string>('');
+  const [error, setError] = useState<string>('');
   const [loadingAI, setLoadingAI] = useState<boolean>(false);
   const [loadingShareLink, setLoadingShareLink] = useState<boolean>(false);
   const [AISuggestions, setAISuggestions] = useState<string[]>([]);
   const linkCreated = useRef<string[]>([]);
-  const [shareLink, setShareLink] = useState<string>("");
+  const [shareLink, setShareLink] = useState<string>('');
   const [questions, setQuestion] = useState<string[]>(
-    import.meta.env.DEV ? INITIAL_QUESTIONS : [],
+    import.meta.env.DEV ? INITIAL_QUESTIONS : []
   );
 
   const handleGetAiSuggestions = async () => {
@@ -42,28 +42,28 @@ export function BasicTestPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (value.length < 5) {
-      setError("Question too short");
+      setError('Question too short');
       return;
     } else if (value.length > 120) {
-      setError("Question too large");
+      setError('Question too large');
       return;
     }
     handleAddQuestion(value);
-    setValue("");
+    setValue('');
   };
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.currentTarget.value;
-    if (newValue.startsWith(" ")) return;
+    if (newValue.startsWith(' ')) return;
     setValue(newValue);
-    setError("");
+    setError('');
   };
 
   const handleAddQuestion = (question: string) => {
     if (questions.find((q) => q === question)) {
       toast({
-        title: "Oops there was an error!",
-        description: "Duplicated questions are not allowed",
+        title: 'Oops there was an error!',
+        description: 'Duplicated questions are not allowed',
       });
       return;
     }
@@ -76,15 +76,15 @@ export function BasicTestPage() {
 
   const memoizedHandleDelete = useCallback(
     (text: string) => handleDeleteQuestion(text),
-    [questions],
+    [questions]
   );
 
   const handleShare = () => {
     // If questions hasnt changed since last shared, do not create another request
     if (linkCreated.current === questions) {
       toast({
-        title: "There was an error",
-        description: "A shared link was already created for this questions",
+        title: 'There was an error',
+        description: 'A shared link was already created for this questions',
       });
       return;
     }
@@ -92,19 +92,19 @@ export function BasicTestPage() {
     setLoadingShareLink(true);
 
     testAPI
-      .create({ questions, title: "Mocked test title" })
+      .create({ questions, title: 'Mocked test title' })
       .then((response) => {
         if (!response.ok) {
           toast({
-            title: "Oops there was an error",
-            description: "Error creating share link",
+            title: 'Oops there was an error',
+            description: 'Error creating share link',
           });
           return;
         }
         linkCreated.current = questions;
-        setShareLink(response.data[0].id);
+        setShareLink(response.data[0]!.id);
         toast({
-          title: "Link created",
+          title: 'Link created',
         });
       })
       .finally(() => {
@@ -142,7 +142,7 @@ export function BasicTestPage() {
             <Button
               disabled={loadingAI}
               onClick={handleGetAiSuggestions}
-              className="animate-background-shine inline-flex h-12 w-full items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+              className="inline-flex h-12 w-full items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
             >
               get ai generated suggestions
             </Button>
@@ -153,7 +153,7 @@ export function BasicTestPage() {
                   onClick={() => {
                     handleAddQuestion(suggestion);
                     setAISuggestions((prevState) =>
-                      prevState.filter((p) => p !== suggestion),
+                      prevState.filter((p) => p !== suggestion)
                     );
                   }}
                   key={index}
@@ -201,9 +201,9 @@ export function BasicTestPage() {
           <Button
             onClick={() => {
               navigator.clipboard.writeText(
-                `http://localhost:5173/${shareLink}`,
+                `http://localhost:5173/${shareLink}`
               );
-              toast({ title: "Copied to clipboard" });
+              toast({ title: 'Copied to clipboard' });
             }}
           >
             <ClipboardIcon />
