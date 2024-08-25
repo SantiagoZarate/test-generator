@@ -1,4 +1,4 @@
-import "../../styles/test.css";
+import '../../styles/test.css';
 
 export function TestDraw() {
   return (

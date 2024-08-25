@@ -7,6 +7,7 @@
     "dev": "pnpm --filter client dev & pnpm --filter server dev",
     "dev:fe": "pnpm --filter client dev",
     "dev:be": "pnpm --filter server dev",
+    "lint:staged": "pnpm --filter client lint:staged",
     "prepare": "husky"
   },
   "keywords": [],

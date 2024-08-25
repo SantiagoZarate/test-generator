@@ -1,17 +1,15 @@
 import { PropsWithChildren } from "react";
 
-interface Props extends PropsWithChildren {}
-
-export function Item({ children }: Props) {
+export function Item({ children }: PropsWithChildren) {
   console.log("Rendering");
 
   return (
     <li
       id="item"
-      className="relative group flex flex-col gap-8 hover:bg-neutral-700 p-2 rounded-md"
+      className="group relative flex flex-col gap-8 rounded-md p-2 hover:bg-neutral-700"
     >
       <p className="first-letter:uppercase">{children}</p>
-      <div className="hidden print:block border-t border-b border-neutral-500 h-12" />
+      <div className="hidden h-12 border-y border-neutral-500 print:block" />
     </li>
   );
 }

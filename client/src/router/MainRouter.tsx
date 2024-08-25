@@ -1,9 +1,9 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { BasicTestPage } from "../pages/basic-test";
-import { HomePage } from "../pages/home";
-import { MultipleChoicePage } from "../pages/multiple-choice";
-import { MainLayout } from "../layouts/MainLayout";
-import { TestPage } from "@/pages/[id]";
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { BasicTestPage } from '../pages/basic-test';
+import { HomePage } from '../pages/home';
+import { MultipleChoicePage } from '../pages/multiple-choice';
+import { MainLayout } from '../layouts/MainLayout';
+import { TestPage } from '@/pages/[id]';
 
 export default function MainRouter() {
   return (

@@ -1,19 +1,19 @@
-import { SparkelIcon } from "../icons/SparkelIcon";
-import { FooterForm } from "./FooterForm";
+import { SparkelIcon } from '../icons/SparkelIcon';
+import { FooterForm } from './FooterForm';
 
 export function Footer() {
   return (
-    <footer className="print:hidden border-t border-neutral-600 pt-6 pb-20 flex items-start">
-      <section className="flex-1 flex gap-1 items-center text-neutral-400">
+    <footer className="flex items-start border-t border-neutral-600 pb-20 pt-6 print:hidden">
+      <section className="flex flex-1 items-center gap-1 text-neutral-400">
         <SparkelIcon />
-        made by{" "}
+        made by{' '}
         <a
           target="_blank"
-          className="hover:underline text-neutral-200"
+          className="text-neutral-200 hover:underline"
           href="https://www.github.com/SantiagoZarate"
         >
           Santiago Zarate
-        </a>{" "}
+        </a>{' '}
         powered by Vite
       </section>
       <FooterForm />

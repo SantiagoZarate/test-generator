@@ -1,17 +1,17 @@
-import { envs } from "@/config/envs";
-import { TestInsert, TestSchema, TestSelect } from "@backend/test.types";
+import { envs } from '@/config/envs';
+import { TestInsert, TestSchema, TestSelect } from '@backend/test.types';
 import {
   APIResponse,
   GetDataResponse,
   PostDataResponse,
-} from "./test.api.type";
+} from './test.api.type';
 
 export const testAPI = {
   create: (data: TestInsert): Promise<APIResponse<PostDataResponse[]>> => {
     const options: RequestInit = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     };
@@ -26,7 +26,7 @@ export const testAPI = {
         return {
           title: data.title,
           id: data.id,
-          created_at: "",
+          created_at: '',
           questions: data.questions.map((q) => q.content),
         };
       })

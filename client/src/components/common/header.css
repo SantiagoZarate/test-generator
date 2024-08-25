@@ -1,11 +1,11 @@
 :root {
-  --header-bg: rgb(230,230,230);
-  --header-border: rgb(182,182,182);
+  --header-bg: rgb(230, 230, 230);
+  --header-border: rgb(182, 182, 182);
 }
 
 .dark {
-  --header-bg: rgb(23,23,23);
-  --header-border: rgb(82,82,82);
+  --header-bg: rgb(23, 23, 23);
+  --header-border: rgb(82, 82, 82);
 }
 
 .header {
@@ -21,6 +21,6 @@
     border-bottom: 1px solid var(--header-border);
     backdrop-filter: blur(10px);
     background-color: var(--header-bg);
-    box-shadow: 0px 2px 15px rgba(0,0,0,0.2);
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.2);
   }
 }

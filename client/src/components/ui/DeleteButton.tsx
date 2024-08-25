@@ -1,5 +1,5 @@
-import { cn } from "../../lib/cn";
-import { CrossMicroIcon } from "../icons/CrossMicroIcon";
+import { cn } from '../../lib/cn';
+import { CrossMicroIcon } from '../icons/CrossMicroIcon';
 
 interface Props {
   onDelete: () => void;
@@ -12,7 +12,7 @@ export function DeleteButton({ onDelete, className }: Props) {
       type="button"
       onClick={() => onDelete()}
       className={cn(
-        "p-1 rounded-md bg-neutral-900 border border-neutral-500 hover:bg-neutral-700 transition",
+        'rounded-md border border-neutral-500 bg-neutral-900 p-1 transition hover:bg-neutral-700',
         className
       )}
     >

@@ -1,14 +1,14 @@
-:root{
-  --test-border: hsl(0deg,0%,82%);
+:root {
+  --test-border: hsl(0deg, 0%, 82%);
   --triangle-size: 10px;
 }
 
 .dark {
-  --test-border: hsl(0deg,0%,32%);
+  --test-border: hsl(0deg, 0%, 32%);
 }
 
 .test {
-  border-radius: .5em;
+  border-radius: 0.5em;
   border-top-right-radius: 0px;
   border: 1px solid var(--test-border);
   aspect-ratio: 2/3;
@@ -17,8 +17,8 @@
   transition: transform 150ms;
   display: flex;
   flex-direction: column;
-  gap: .5em;
-  padding: .5em;
+  gap: 0.5em;
+  padding: 0.5em;
   padding-top: 1em;
   position: relative;
 }
@@ -28,7 +28,7 @@
   position: absolute;
   top: -1px;
   right: -1px;
-  content: "";
+  content: '';
   width: 0;
   height: 0;
   border-top: var(--triangle-size) solid var(--test-border);
@@ -39,24 +39,24 @@
 
 /* Skeleton lines */
 .test > span {
-  height: .25em;
+  height: 0.25em;
   border-radius: 1em;
   background-color: var(--test-border);
   transition: width 500ms;
 
-  &:nth-child(2){
+  &:nth-child(2) {
     width: 10%;
   }
 
-  &:nth-child(1){
+  &:nth-child(1) {
     width: 50%;
   }
 
-  &:nth-child(3){
+  &:nth-child(3) {
     width: 80%;
   }
 
-  &:last-child{
+  &:last-child {
     width: 0%;
   }
 }
@@ -66,11 +66,11 @@
   transform: translateY(10px);
   transition: transform 150ms;
 
-  & > span{
+  & > span {
     width: 100%;
   }
 
-  & > span:last-child{
+  & > span:last-child {
     width: 40%;
   }
 }
