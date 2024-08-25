@@ -24,7 +24,7 @@ export function BasicTestPage() {
   const linkCreated = useRef<string[]>([]);
   const [shareLink, setShareLink] = useState<string>("");
   const [questions, setQuestion] = useState<string[]>(
-    import.meta.env.DEV ? INITIAL_QUESTIONS : []
+    import.meta.env.DEV ? INITIAL_QUESTIONS : [],
   );
 
   const handleGetAiSuggestions = async () => {
@@ -76,7 +76,7 @@ export function BasicTestPage() {
 
   const memoizedHandleDelete = useCallback(
     (text: string) => handleDeleteQuestion(text),
-    [questions]
+    [questions],
   );
 
   const handleShare = () => {
@@ -117,7 +117,7 @@ export function BasicTestPage() {
       <form
         data-testid="Basic test form"
         onSubmit={handleSubmit}
-        className="print:hidden flex flex-col gap-4 w-full"
+        className="flex w-full flex-col gap-4 print:hidden"
       >
         <label htmlFor="question" className="flex flex-col gap-2">
           <span className="flex gap-2">
@@ -132,28 +132,28 @@ export function BasicTestPage() {
             id="question"
             type="text"
           />
-          {error && <span className="text-red-600 text-sm">{error}</span>}
+          {error && <span className="text-sm text-red-600">{error}</span>}
         </label>
         <Button disabled={!value.length}>submit</Button>
       </form>
-      <section className="print:hidden flex justify-center">
+      <section className="flex justify-center print:hidden">
         {questions.length >= MIN_QUESTIONS_FOR_AI ? (
           <>
             <Button
               disabled={loadingAI}
               onClick={handleGetAiSuggestions}
-              className="w-full inline-flex h-12 animate-background-shine items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 hover:-translate-y-1 transition focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+              className="animate-background-shine inline-flex h-12 w-full items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
             >
               get ai generated suggestions
             </Button>
-            <ul className="flex flex-col group py-4">
+            <ul className="group flex flex-col py-4">
               {AISuggestions.map((suggestion, index) => (
                 <li
-                  className="p-4 rounded-md hover:bg-card cursor-pointer flex items-center gap-2 hover:-translate-y-1 transition"
+                  className="flex cursor-pointer items-center gap-2 rounded-md p-4 transition hover:-translate-y-1 hover:bg-card"
                   onClick={() => {
                     handleAddQuestion(suggestion);
                     setAISuggestions((prevState) =>
-                      prevState.filter((p) => p !== suggestion)
+                      prevState.filter((p) => p !== suggestion),
                     );
                   }}
                   key={index}
@@ -176,7 +176,6 @@ export function BasicTestPage() {
           footer={
             <ActionsFooter
               loadingShare={loadingShareLink}
-              dataToCopy={questions}
               onClearAll={() => setQuestion([])}
               onShare={() => handleShare()}
             />
@@ -192,7 +191,7 @@ export function BasicTestPage() {
         <QuestionsEmpty />
       )}
       {shareLink && (
-        <section className="print:hidden p-4 rounded-md bg-card border-dashed border-border flex gap-4 justify-center items-center">
+        <section className="flex items-center justify-center gap-4 rounded-md border-dashed border-border bg-card p-4 print:hidden">
           <a
             className="hover:underline"
             href={`http://localhost:5173/${shareLink}`}
@@ -202,7 +201,7 @@ export function BasicTestPage() {
           <Button
             onClick={() => {
               navigator.clipboard.writeText(
-                `http://localhost:5173/${shareLink}`
+                `http://localhost:5173/${shareLink}`,
               );
               toast({ title: "Copied to clipboard" });
             }}

@@ -7,12 +7,12 @@ export function OptionsList({ correctOption, options }: Props) {
   return (
     <ul className="flex flex-col gap-1">
       {options.map((option, index) => (
-        <li key={index} className="flex gap-2 items-center">
-          <span className="hidden print:block size-4 border border-neutral-600" />
+        <li key={index} className="flex items-center gap-2">
+          <span className="hidden size-4 border border-neutral-600 print:block" />
           <p
-            className={`capitalize text-sm ${
+            className={`text-sm capitalize ${
               correctOption === index &&
-              "text-green-600 underline print:font-normal print:no-underline"
+              'text-green-600 underline print:font-normal print:no-underline'
             }`}
           >
             {option}

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface Props {
   footer: JSX.Element;
@@ -9,7 +9,7 @@ function QuestionsLayout({ footer, list }: Props) {
   return (
     <section className="flex flex-col gap-4">
       <section className="flex flex-col gap-2">
-        <header className="font-bold text-xl">Your questions</header>
+        <header className="text-xl font-bold">Your questions</header>
         {list}
       </section>
       {footer}

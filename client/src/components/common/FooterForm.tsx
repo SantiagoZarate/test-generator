@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Button } from "../ui/Button";
-import { Input } from "../ui/Input";
-import { toast } from "../ui/use-toast";
+import { useState } from 'react';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/Input';
+import { toast } from '../ui/use-toast';
 
 export function FooterForm() {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -12,17 +12,17 @@ export function FooterForm() {
     fetch(
       `https://docs.google.com/forms/d/e/1FAIpQLSdUSarbRaANifMj4XDeQgAjRvd5nR6qX-kK7yWhlw9Ylt8-FQ/formResponse?submit=Submit&usp=pp_url&entry.1951521129=${value}`
     ).finally(() => {
-      setValue("");
+      setValue('');
       toast({
-        title: "Suggestions succesfully submitted",
-        description: "Thanks for your collaboration",
+        title: 'Suggestions succesfully submitted',
+        description: 'Thanks for your collaboration',
       });
     });
   };
 
   return (
     <form
-      className="flex-1 flex flex-col gap-2"
+      className="flex flex-1 flex-col gap-2"
       onSubmit={handleSubmit}
       action=""
     >
@@ -38,7 +38,7 @@ export function FooterForm() {
           value={value}
           type="text"
         />
-        <Button className="self-end  w-fit">send</Button>
+        <Button className="w-fit self-end">send</Button>
       </div>
     </form>
   );

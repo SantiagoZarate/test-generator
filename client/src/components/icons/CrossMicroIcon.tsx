@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 interface Props {
   className?: string;
@@ -11,7 +11,7 @@ export function CrossMicroIcon({ className }: Props) {
       viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      className={cn("size-4 cross-svg", className)}
+      className={cn('cross-svg size-4', className)}
     >
       <path
         className="cross-path"

@@ -45,6 +45,12 @@ export function MultipleChoicePage() {
     });
   };
 
+  const handleShare = () => {
+    console.log("Sharing test");
+  };
+
+  const loadingState = true;
+
   return (
     <>
       <form
@@ -55,7 +61,7 @@ export function MultipleChoicePage() {
         <label htmlFor="question" className="flex flex-col gap-2">
           New question
           <input
-            className="bg-neutral-900 border border-neutral-600 rounded-lg p-2"
+            className="rounded-lg border border-neutral-600 bg-neutral-900 p-2"
             placeholder="what does is mean to be stoic?"
             name="question"
             value={value}
@@ -99,7 +105,7 @@ export function MultipleChoicePage() {
                 hidden
               />
               <label
-                className="size-8 border cursor-pointer border-neutral-600 rounded-md bg-transparent peer-checked:bg-green-400 transition"
+                className="size-8 cursor-pointer rounded-md border border-neutral-600 bg-transparent transition peer-checked:bg-green-400"
                 htmlFor={"option-checkbox" + index}
               />
               <DeleteButton
@@ -118,7 +124,7 @@ export function MultipleChoicePage() {
         <Button
           onClick={() => setOptions((prevState) => [...prevState, ""])}
           type="button"
-          className="border-dashed border-2 bg-neutral-900"
+          className="border-2 border-dashed bg-neutral-900"
         >
           Add option
           <PlusIconMIcroIcon />
@@ -129,7 +135,8 @@ export function MultipleChoicePage() {
         <QuestionsLayout
           footer={
             <ActionsFooter
-              dataToCopy={multipleChoiceQuestions}
+              loadingShare={loadingState}
+              onShare={handleShare}
               onClearAll={() => setMultipleChoiceQuestions([])}
             />
           }
@@ -138,13 +145,13 @@ export function MultipleChoicePage() {
               {multipleChoiceQuestions.map((multipleChoice, index) => (
                 <li
                   key={multipleChoice.question + index}
-                  className="relative flex flex-col gap-2 hover:bg-neutral-800 p-2 rounded-md group"
+                  className="group relative flex flex-col gap-2 rounded-md p-2 hover:bg-neutral-800"
                 >
                   <DeleteButton
-                    className="absolute group-hover:opacity-100 opacity-0 right-0 mx-2"
+                    className="absolute right-0 mx-2 opacity-0 group-hover:opacity-100"
                     onDelete={() => handleMultipleChoiceQuestion(index)}
                   />
-                  <p className="font-bold capitalize text-xl">
+                  <p className="text-xl font-bold capitalize">
                     {multipleChoice.question}
                   </p>
                   <OptionsList

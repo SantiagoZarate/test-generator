@@ -1,5 +1,5 @@
-import { PrintIcon } from "../icons/PrintIcon";
-import { Button } from "./Button";
+import { PrintIcon } from '../icons/PrintIcon';
+import { Button } from './Button';
 
 export function PrintButton() {
   return (
