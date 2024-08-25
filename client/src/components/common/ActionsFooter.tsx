@@ -1,8 +1,8 @@
-import React from "react";
-import { BinIcon } from "../icons/BinIcon";
-import { LinkIcon } from "../icons/LinkIcon";
-import { Button } from "../ui/Button";
-import { PrintButton } from "../ui/PrintButton";
+import React from 'react';
+import { BinIcon } from '../icons/BinIcon';
+import { LinkIcon } from '../icons/LinkIcon';
+import { Button } from '../ui/Button';
+import { PrintButton } from '../ui/PrintButton';
 
 interface Props {
   onClearAll: () => void;

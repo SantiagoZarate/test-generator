@@ -1,0 +1,53 @@
+:root {
+  --triangle-card: hsl(0deg, 0%, 14%);
+  --triangle-bg: hsl(0deg, 0%, 7%);
+}
+
+.base-test {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 0.5em;
+  padding-top: 1.5em;
+  width: 70%;
+  aspect-ratio: 2/3;
+  border-radius: 0.5em;
+  border-top-right-radius: 0px;
+  border: 1px solid var(--test-border);
+  transform: translateY(50px);
+  transition: transform 150ms;
+}
+
+/* Triangle */
+.base-test::before {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: var(--triangle-size) solid var(--triangle-card);
+  border-right: var(--triangle-size) solid var(--triangle-card);
+  border-left: var(--triangle-size) solid transparent;
+  border-bottom: var(--triangle-size) solid transparent;
+  transition: border-color 150ms;
+}
+
+.base-test::after {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: var(--triangle-size) solid transparent;
+  border-right: var(--triangle-size) solid transparent;
+  border-left: var(--triangle-size) solid var(--test-border);
+  border-bottom: var(--triangle-size) solid var(--test-border);
+}
+
+*:hover > div > .base-test::before {
+  border-color: var(--triangle-bg);
+  transition: border-color 150ms;
+}
