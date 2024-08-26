@@ -1,10 +1,11 @@
+import { Link } from 'react-router-dom';
 import { ArrowTopRIghtIcon } from '../icons/ArrowTopRIghtIcon';
 import { GridGradientBackground } from './GridGradientBackground';
 
 interface Props {
   title: string;
   description: string;
-  href?: string;
+  href: string;
   draw: JSX.Element;
 }
 
@@ -12,9 +13,9 @@ export function Card({ description, title, href, draw }: Props) {
   return (
     <li className="group/grid relative overflow-hidden rounded-md border border-border bg-card transition hover:bg-background">
       <GridGradientBackground />
-      <a
+      <Link
+        to={href}
         data-testid={`${title}`}
-        href={href}
         className="group relative z-10 grid grid-cols-[auto_1fr] divide-x"
       >
         <div className="flex aspect-square items-end justify-center">
@@ -29,7 +30,7 @@ export function Card({ description, title, href, draw }: Props) {
           </header>
           <p className="text-neutral-400">{description}</p>
         </section>
-      </a>
+      </Link>
     </li>
   );
 }

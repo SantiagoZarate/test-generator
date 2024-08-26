@@ -24,7 +24,7 @@ export function BasicTestPage() {
   const linkCreated = useRef<string[]>([]);
   const [shareLink, setShareLink] = useState<string>('');
   const [questions, setQuestion] = useState<string[]>(
-    import.meta.env.DEV ? INITIAL_QUESTIONS : []
+    import.meta.env.MODE === 'development' ? INITIAL_QUESTIONS : []
   );
 
   const handleGetAiSuggestions = async () => {
@@ -115,7 +115,9 @@ export function BasicTestPage() {
   return (
     <>
       <form
-        data-testid="Basic test form"
+        aria-label="basic test form"
+        action="create basic test form"
+        data-testid="basic-test-form"
         onSubmit={handleSubmit}
         className="flex w-full flex-col gap-4 print:hidden"
       >
