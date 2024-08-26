@@ -3,7 +3,7 @@ import { homePageLinks } from '../../data/home-page-links';
 
 export function HomePage() {
   return (
-    <section className="grid h-full grid-rows-[1fr_auto] gap-4">
+    <section className="">
       <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {homePageLinks.map((link) => (
           <Card
