@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint ./src",
     "preview": "vite preview",
-    "test:e2e": "vitest --run",
+    "test:int": "vitest --run --mode test",
     "format": "prettier --write ./src",
     "lint:fix": "eslint ./src --fix",
     "lint:staged": "npx lint-staged"

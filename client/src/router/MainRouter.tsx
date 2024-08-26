@@ -8,14 +8,20 @@ import { TestPage } from '@/pages/[id]';
 export default function MainRouter() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/:id" element={<TestPage />} />
-          <Route path="/basic-test" element={<BasicTestPage />} />
-          <Route path="/multiple-choice" element={<MultipleChoicePage />} />
-        </Route>
-      </Routes>
+      <App />
     </BrowserRouter>
+  );
+}
+
+export function App() {
+  return (
+    <Routes>
+      <Route element={<MainLayout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/:id" element={<TestPage />} />
+        <Route path="/basic-test" element={<BasicTestPage />} />
+        <Route path="/multiple-choice" element={<MultipleChoicePage />} />
+      </Route>
+    </Routes>
   );
 }

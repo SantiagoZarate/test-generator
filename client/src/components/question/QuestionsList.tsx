@@ -9,7 +9,7 @@ interface Props {
 }
 function QuestionsList({ onDelete, questions }: Props) {
   return (
-    <List>
+    <List data-testid="questions-list">
       {questions.map((q, index) => (
         <Item key={q + index}>
           <DeleteButton
