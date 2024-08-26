@@ -47,7 +47,7 @@ export async function getAiGeneratedSuggestions(
   return await fetch('https://api.perplexity.ai/chat/completions', options)
     .then((response) => response.json())
     .then((response: PPXT_Response) => {
-      const content = response.choices[0].message.content;
+      const content = response.choices[0]!.message.content;
       const cleanContent = content
         .split('')
         .slice(7, content.length - 3)

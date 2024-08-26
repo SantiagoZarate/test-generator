@@ -11,11 +11,11 @@ interface Props {
 export function Card({ description, title, href, draw }: Props) {
   return (
     <li className="group/grid relative overflow-hidden rounded-md border border-border bg-card transition hover:bg-background">
-      <GridGradientBackground className="group-hover/grid:saturate-100" />
+      <GridGradientBackground />
       <a
         data-testid={`${title}`}
         href={href}
-        className="group relative z-10 grid grid-cols-[auto_1fr] divide-x overflow-hidden"
+        className="group relative z-10 grid grid-cols-[auto_1fr] divide-x"
       >
         <div className="flex aspect-square items-end justify-center">
           {draw}

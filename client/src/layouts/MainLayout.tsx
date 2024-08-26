@@ -6,18 +6,16 @@ import { Toaster } from '@/components/ui/toaster';
 
 export function MainLayout() {
   return (
-    <section className="font-geist relative flex size-full flex-col bg-background text-primary">
+    <section className="relative flex size-full flex-col text-pretty bg-background font-dmsans text-primary antialiased">
       <Header />
-      <Toaster />
-      <section className="mx-auto grid min-h-screen w-full max-w-screen-lg grid-rows-[1fr_auto]">
-        <section>
-          <Hero />
-          <main className="mx-auto flex w-full flex-col gap-12 px-4 pb-12">
-            <Outlet />
-          </main>
-        </section>
+      <section className="mx-auto grid min-h-screen w-full grid-rows-[auto_1fr_auto] gap-8">
+        <Hero />
+        <main className="mx-auto flex w-full max-w-screen-lg flex-col gap-12 px-4 pb-12">
+          <Outlet />
+        </main>
         <Footer />
       </section>
+      <Toaster />
     </section>
   );
 }
