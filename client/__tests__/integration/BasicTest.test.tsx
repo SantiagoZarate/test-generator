@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import { UserEvent, userEvent } from '@testing-library/user-event';
-import { beforeEach, describe, expect, test } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test } from 'vitest';
 import { BasicTestPage } from '../../src/pages/basic-test';
 import { type TestContext } from './testContext';
 
@@ -41,6 +41,19 @@ class BasicTestPOM {
       index
     ];
   };
+
+  public deleteQuestion = async (index: number) => {
+    const deleteButton = this.getQuestionList()
+      .querySelectorAll('li')
+      .item(index)
+      .querySelector('button');
+
+    await this._user.click(deleteButton!);
+  };
+
+  public get input() {
+    return this._input;
+  }
 }
 
 describe('Basic Test Page Test', () => {
@@ -49,7 +62,11 @@ describe('Basic Test Page Test', () => {
     ctx.user = userEvent.setup();
   });
 
-  test.skip<TestContext>('Add and Delete question', async ({ user }) => {
+  afterEach(() => {
+    cleanup();
+  });
+
+  test<TestContext>('Initial state page', async () => {
     const form = await screen.getByRole('form');
     expect(form).toBeDefined();
 
@@ -64,23 +81,24 @@ describe('Basic Test Page Test', () => {
     const submitFormButton = form.querySelector('button');
     expect(submitFormButton).toBeDefined();
     expect(submitFormButton!.disabled).toBeTruthy();
+  });
 
-    await user.type(inputForm!, TEST_MOCKUP_QUESTIONS[0]);
-    await user.click(submitFormButton!);
+  test<TestContext>('Add and Delete question', async () => {
+    const page = new BasicTestPOM(screen);
+    await page.addQuestion(TEST_MOCKUP_QUESTIONS[0]);
 
-    expect(inputForm?.value).toBe('');
+    expect(page.input.value).toBe('');
 
-    const questionsList = await screen.getByTestId('questions-list');
+    const questionsList = page.getQuestionList();
     expect(questionsList).toBeDefined();
     expect(questionsList.childElementCount).toBe(1);
 
     const firstQuestion = questionsList.querySelector('li');
     expect(firstQuestion).toBeDefined();
 
-    const deleteButton = firstQuestion!.querySelector('button');
-    expect(deleteButton).toBeDefined();
-    await user.click(deleteButton!);
+    await page.deleteQuestion(0);
 
+    const questionsPlaceholder = screen.getByTestId('questions-placeholder');
     expect(questionsPlaceholder).toBeDefined();
     screen.debug();
   });
