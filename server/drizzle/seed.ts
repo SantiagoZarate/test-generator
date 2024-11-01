@@ -1,5 +1,5 @@
 import { envs } from "../config/envs";
-import { db } from "./db";
+import { db } from "./connection";
 import { questionSchema, testSchema } from "./schemas/test.schema";
 import { MOCK_TESTS } from "./seed/test.mock";
 
