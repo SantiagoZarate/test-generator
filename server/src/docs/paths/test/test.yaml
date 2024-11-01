@@ -1,0 +1,13 @@
+get:
+  summary: get all the tests
+  tags: [Tests]
+  responses:
+    "200":
+      description: tests list
+      content:
+        application/json:
+          schema:
+            type: object
+            # items:
+            # $ref: "../schemas/post-schema.yaml"
+          example:
