@@ -7,7 +7,8 @@
     "dev": "pnpm swagger:build && ts-node-dev ./src/index.ts",
     "swagger:build": "npx swagger-cli bundle src/docs/index.yaml --outfile src/docs/build/swagger.yaml --type yaml",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "cross-env SEED=TRUE tsx ./drizzle/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -32,8 +33,10 @@
     "@types/node": "22.5.0",
     "@types/swagger-ui-express": "4.1.7",
     "@types/yamljs": "0.2.34",
+    "cross-env": "7.0.3",
     "drizzle-kit": "0.24.1",
     "morgan": "1.10.0",
-    "ts-node-dev": "2.0.0"
+    "ts-node-dev": "2.0.0",
+    "tsx": "4.19.2"
   }
 }
