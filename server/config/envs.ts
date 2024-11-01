@@ -3,7 +3,7 @@ import { z } from "zod";
 config();
 
 const envsShema = z.object({
-  MODE: z.enum(["dev", "prod"]),
+  MODE: z.enum(["dev", "prod"]).default("dev"),
   PORT: z.coerce.number(),
   DB_URL: z.string(),
   DB_TOKEN: z.string(),
