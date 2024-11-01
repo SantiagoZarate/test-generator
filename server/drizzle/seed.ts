@@ -1,14 +1,7 @@
 import { envs } from "../config/envs";
-import { TestInsert } from "../src/types/test.types";
 import { db } from "./db";
 import { questionSchema, testSchema } from "./schemas/test.schema";
-
-const MOCK_TESTS: TestInsert[] = [
-  {
-    questions: ["Hola que onda"],
-    title: "primer test",
-  },
-];
+import { MOCK_TESTS } from "./seed/test.mock";
 
 async function seed() {
   try {
@@ -20,7 +13,7 @@ async function seed() {
     await db.delete(questionSchema);
     await db.delete(testSchema);
 
-    const results = await Promise.all(
+    await Promise.all(
       MOCK_TESTS.map(async (mock) => {
         const newTest = await db
           .insert(testSchema)
@@ -29,9 +22,9 @@ async function seed() {
           })
           .returning({ id: testSchema.id });
 
-        const questions = await Promise.all(
+        await Promise.all(
           mock.questions.map(async (q) => {
-            const newQuestion = await db.insert(questionSchema).values({
+            await db.insert(questionSchema).values({
               content: q,
               test_id: newTest[0].id,
             });
@@ -40,7 +33,7 @@ async function seed() {
       })
     );
 
-    console.log("Seeded complete");
+    console.log("🌱 -- Seeded complete");
   } catch (error) {
     console.log(error);
   }
