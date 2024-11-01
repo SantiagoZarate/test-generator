@@ -1,14 +1,11 @@
 import express from "express";
 import "express-async-errors";
-
 // Configs
 import { envs } from "../config/envs";
 import { swaggerSpecs, swaggerUi } from "../config/swagger";
-
 // Middlewares
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 import { setMiddleware } from "./middlewares/setMiddleware";
-
 // Routes
 import testRouter from "./router/test.router";
 import { redirectToDocs } from "./utils/redirectToDocs";
