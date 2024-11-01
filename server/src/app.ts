@@ -11,12 +11,14 @@ import { setMiddleware } from "./middlewares/setMiddleware";
 
 // Routes
 import testRouter from "./router/test.router";
+import { redirectToDocs } from "./utils/redirectToDocs";
 
 const app = express();
 
 setMiddleware(app);
 
 // Handlers
+app.get("/", redirectToDocs);
 app.use("/api/tests", testRouter);
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
