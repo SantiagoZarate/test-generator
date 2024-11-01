@@ -1,0 +1,15 @@
+openapi: 3.0.0
+info:
+  title: Test generator API
+  version: 1.0.0
+  description: Documentación de la API usando Swagger
+servers:
+  - url: http://localhost:3000/api
+    description: Sandbox server (uses test data)
+tags:
+  - name: Tests
+    description: manage tests API
+paths:
+  # tests endpoints
+  /test:
+    $ref: "./paths/test/test.yaml"

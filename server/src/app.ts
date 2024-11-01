@@ -1,9 +1,16 @@
-import "express-async-errors";
 import express from "express";
-import { setMiddleware } from "./middlewares/setMiddleware";
+import "express-async-errors";
+
+// Configs
 import { envs } from "../config/envs";
-import testRouter from "./router/test.router";
+import { swaggerSpecs, swaggerUi } from "../config/swagger";
+
+// Middlewares
 import { errorMiddleware } from "./middlewares/errorMiddleware";
+import { setMiddleware } from "./middlewares/setMiddleware";
+
+// Routes
+import testRouter from "./router/test.router";
 
 const app = express();
 
@@ -11,6 +18,7 @@ setMiddleware(app);
 
 // Handlers
 app.use("/api/tests", testRouter);
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 app.use(errorMiddleware);
 
