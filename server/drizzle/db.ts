@@ -1,12 +1,9 @@
-import { drizzle } from "drizzle-orm/libsql";
 import { createClient } from "@libsql/client";
-import { envs } from "../config/envs";
+import { drizzle } from "drizzle-orm/libsql";
+import dbConfig from "../config/db";
 import schemas from "./schemas";
 
-const client = createClient({
-  url: envs.DB_URL,
-  authToken: envs.DB_TOKEN,
-});
+const client = createClient(dbConfig);
 
 export const db = drizzle(client, {
   logger: true,
