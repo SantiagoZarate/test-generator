@@ -13,16 +13,20 @@ export const multipleChoiceTestSchema = sqliteTable("multiple_choice_test", {
   title: text("title").notNull(),
 });
 
-export const multipleChoiceQuestionSchema = sqliteTable("question", {
-  id: text("id")
-    .notNull()
-    .$defaultFn(() => nanoid())
-    .primaryKey(),
-  content: text("content"),
-  test_id: text("test_id")
-    .references(() => multipleChoiceTestSchema.id)
-    .notNull(),
-});
+export const multipleChoiceQuestionSchema = sqliteTable(
+  "multiple_choice_question",
+  {
+    id: text("id")
+      .notNull()
+      .$defaultFn(() => nanoid())
+      .primaryKey(),
+    order: integer("order"),
+    content: text("content"),
+    test_id: text("test_id")
+      .references(() => multipleChoiceTestSchema.id, { onDelete: "cascade" })
+      .notNull(),
+  }
+);
 
 export const multipleChoiceTestRelations = relations(
   multipleChoiceTestSchema,
@@ -49,7 +53,7 @@ export const optionSchema = sqliteTable("option", {
     .notNull()
     .default(false),
   question_id: text("question_id")
-    .references(() => multipleChoiceQuestionSchema.id)
+    .references(() => multipleChoiceQuestionSchema.id, { onDelete: "cascade" })
     .notNull(),
 });
 
