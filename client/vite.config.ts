@@ -25,7 +25,6 @@ export default defineConfig({
         target: process.env.VITE_TEST_API_URL,
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
