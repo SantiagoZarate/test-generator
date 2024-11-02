@@ -3,22 +3,23 @@ import { OptionsList } from '@/components/question/OptionsList';
 import QuestionsLayout from '@/components/question/QuestionsLayout';
 import { DeleteButton } from '@/components/ui/DeleteButton';
 import { useMultipleChoiceTestStore } from '@/stores/multipleChoiceTestStore';
+import { useState } from 'react';
 
 export function MultipleQuestionsList() {
   const { questions, deleteQuestion, resetQuestions } =
     useMultipleChoiceTestStore((state) => state);
+  const [isLoading] = useState(false);
 
   const handleShare = () => {
     console.log('Sharing test');
+    console.log({ questions });
   };
-
-  const loadingState = true;
 
   return (
     <QuestionsLayout
       footer={
         <ActionsFooter
-          loadingShare={loadingState}
+          loadingShare={isLoading}
           onShare={handleShare}
           onClearAll={() => resetQuestions()}
         />
