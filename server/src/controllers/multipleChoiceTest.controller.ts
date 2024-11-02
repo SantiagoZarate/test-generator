@@ -8,6 +8,7 @@ class MultipleChoiceTestController {
     const data = await multipleChoiceTestRepository.getOne({ id });
 
     res.json({
+      ok: true,
       data,
     });
   }

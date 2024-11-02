@@ -15,6 +15,7 @@ export const testController = {
   async create(req: Request, res: Response) {
     const data = req.body;
     const result = await testService.create(data);
+
     return res.json({
       ok: true,
       data: result,
