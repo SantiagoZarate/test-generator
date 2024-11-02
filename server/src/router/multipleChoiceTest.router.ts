@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { testController as controller } from "../controllers/test.controller";
+import { multipleChoiceTestController as controller } from "../controllers/multipleChoiceTest.controller";
 import { multipleChoiceTestSchemaValidation } from "../lib/zod-schemas/multipleChoiceTest.validation";
 import { validateData } from "../middlewares/schemaValidations";
 

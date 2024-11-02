@@ -52,7 +52,7 @@ class MultipleChoiceTestRepository {
             order: index + 1,
           }));
 
-          await tx.insert(optionSchema).values(newOptions);
+          await tx.insert(optionSchema).values(newOptions as any);
         })
       );
       return test[0];
