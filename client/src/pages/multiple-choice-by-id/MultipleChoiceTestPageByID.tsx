@@ -1,42 +1,92 @@
 import { multipleChoiceTestAPI } from '@/api/multipleChoiceTest/multipleChoiceTest.api';
+import { Button } from '@/components/ui/Button';
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 export function MultipleChoiceTestPageByID() {
   const { id } = useParams();
+  const [chosenAnswer, setChoseAnswer] = useState<number[]>([]);
+  const [showResults, setShowResults] = useState<boolean>(false);
 
   const { isLoading, isError, data } = useQuery({
     queryKey: ['multiple-choice-test'],
     queryFn: () => multipleChoiceTestAPI.getOne(id!),
   });
 
+  const handleUpdateAnswer = (index: number, value: number) => {
+    const newAnswers = [...chosenAnswer];
+    newAnswers[index] = value;
+    setChoseAnswer(newAnswers);
+  };
+
+  const handleFinishTest = () => {
+    setShowResults(true);
+    console.log({ chosenAnswer });
+  };
+
+  const handleResetTest = () => {
+    setShowResults(false);
+    setChoseAnswer([]);
+  };
+
   return (
-    <section>
+    <section className="flex flex-col gap-12">
       <header>
         <h1 className="text-2xl font-semibold">{data?.title}</h1>
       </header>
-      <section>
+      <section className="flex flex-col gap-8">
         {data?.questions.map((question, index) => (
-          <article>
-            <p>{question.content}</p>
+          <article className="flex flex-col gap-4" key={question.id}>
+            <p>
+              {index + 1} - {question.content}
+            </p>
             <ul className="flex flex-col">
-              {question.options.map((option) => (
-                <label
-                  key={option.order}
-                  htmlFor={`${index}-option-${option.order}`}
-                  className="cursor-pointer p-2 transition hover:bg-border"
-                >
-                  <input
-                    id={`${index}-option-${option.order}`}
-                    name={`question-${index}`}
-                    type="radio"
-                  />
-                  {option.content}
-                </label>
-              ))}
+              {question.options.map((option, optionIndex) => {
+                let optionClass =
+                  'cursor-pointer p-2 transition hover:bg-border';
+                if (showResults && chosenAnswer[index] !== undefined) {
+                  if (chosenAnswer[index] === optionIndex) {
+                    optionClass += option.isCorrect
+                      ? ' bg-green-500'
+                      : ' bg-red-500';
+                  }
+                }
+
+                return (
+                  <label
+                    key={option.order}
+                    htmlFor={`${index}-option-${option.order}`}
+                    className={optionClass}
+                  >
+                    <input
+                      disabled={showResults}
+                      checked={chosenAnswer[index] === optionIndex}
+                      onChange={() => handleUpdateAnswer(index, optionIndex)}
+                      id={`${index}-option-${option.order}`}
+                      name={`question-${index}`}
+                      type="radio"
+                    />
+                    {option.content}
+                  </label>
+                );
+              })}
             </ul>
           </article>
         ))}
+        <footer className="flex flex-col gap-2">
+          <Button
+            disabled={
+              chosenAnswer.length !== data?.questions.length || showResults
+            }
+            onClick={handleFinishTest}
+          >
+            Finish
+          </Button>
+          <Button onClick={handleResetTest} disabled={!showResults}>
+            Reset
+          </Button>
+        </footer>
       </section>
       {isError && <div>There was an error...</div>}
       {isLoading && <div>is loading...</div>}
