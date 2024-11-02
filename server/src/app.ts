@@ -9,6 +9,7 @@ import { setMiddleware } from "./middlewares/setMiddleware";
 // Routes
 import multipleChoiceTestRouter from "./router/multipleChoiceTest.router";
 import testRouter from "./router/test.router";
+import { healthcheck } from "./utils/healthcheck";
 import { redirectToDocs } from "./utils/redirectToDocs";
 
 const app = express();
@@ -17,6 +18,7 @@ setMiddleware(app);
 
 // Handlers
 app.get("/", redirectToDocs);
+app.get("/health", healthcheck);
 app.use("/api/tests", testRouter);
 app.use("/api/multiple-choice-tests", multipleChoiceTestRouter);
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
