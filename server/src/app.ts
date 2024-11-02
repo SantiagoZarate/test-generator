@@ -30,3 +30,5 @@ export const start = () => {
     console.log(`Server running on http://localhost:${envs.PORT ?? 3000}`);
   });
 };
+
+export default app;
