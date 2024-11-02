@@ -13,15 +13,26 @@ export function MultipleChoiceTestPageByID() {
   return (
     <section>
       <header>
-        <h1>{data?.title}</h1>
+        <h1 className="text-2xl font-semibold">{data?.title}</h1>
       </header>
       <section>
-        {data?.questions.map((question) => (
+        {data?.questions.map((question, index) => (
           <article>
             <p>{question.content}</p>
-            <ul className="flex flex-col gap-2 rounded-xl border border-border p-4">
-              {question.options.map((option, idx) => (
-                <li key={idx}>{option.content}</li>
+            <ul className="flex flex-col">
+              {question.options.map((option) => (
+                <label
+                  key={option.order}
+                  htmlFor={`${index}-option-${option.order}`}
+                  className="cursor-pointer p-2 transition hover:bg-border"
+                >
+                  <input
+                    id={`${index}-option-${option.order}`}
+                    name={`question-${index}`}
+                    type="radio"
+                  />
+                  {option.content}
+                </label>
               ))}
             </ul>
           </article>
