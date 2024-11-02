@@ -4,7 +4,7 @@ import { ApiError } from "../utils/errors";
 
 export function errorMiddleware(
   error: ApiError,
-  request: Request,
+  _req: Request,
   res: Response,
   next: NextFunction
 ) {
