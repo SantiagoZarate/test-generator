@@ -30,6 +30,19 @@ export function MultipleChoiceTestPageByID() {
     setChoseAnswer([]);
   };
 
+  const calculateTotalScore = () => {
+    return chosenAnswer.reduce((score, answer, index) => {
+      const correctAnswerIndex = getIndexOfCorrectAnswer(index);
+      return correctAnswerIndex === answer ? score + 1 : score;
+    }, 0);
+  };
+
+  const getIndexOfCorrectAnswer = (index: number) => {
+    return (
+      data?.questions[index]?.options.findIndex((opt) => opt.isCorrect) ?? -1
+    );
+  };
+
   return (
     <section className="flex flex-col gap-12">
       <header>
@@ -57,7 +70,7 @@ export function MultipleChoiceTestPageByID() {
                   <label
                     key={option.order}
                     htmlFor={`${index}-option-${option.order}`}
-                    className={optionClass}
+                    className={'flex items-center gap-2 ' + optionClass}
                   >
                     <input
                       disabled={showResults}
@@ -87,6 +100,11 @@ export function MultipleChoiceTestPageByID() {
             Reset
           </Button>
         </footer>
+        {showResults && (
+          <p>
+            Score: {calculateTotalScore()}/{data?.questions.length}
+          </p>
+        )}
       </section>
       {isError && <div>There was an error...</div>}
       {isLoading && <div>is loading...</div>}
