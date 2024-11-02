@@ -12,7 +12,7 @@ const envsShema = z.object({
 
 export const envs = envsShema.parse({
   MODE: process.env.MODE,
-  PORT: process.env.PORT,
+  PORT: process.env.PORT || 4000,
   DB_URL: process.env.TURSO_DB_URL,
   DB_TOKEN: process.env.TURSO_DB_TOKEN,
   SEED: process.env.SEED || false,
