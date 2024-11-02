@@ -2,7 +2,7 @@ import express from "express";
 import "express-async-errors";
 // Configs
 import { envs } from "../config/envs";
-import { swaggerSpecs, swaggerUi } from "../config/swagger";
+import { swaggerSpecs, swaggerUi, SwaggerUiOptions } from "../config/swagger";
 // Middlewares
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 import { setMiddleware } from "./middlewares/setMiddleware";
@@ -21,7 +21,11 @@ app.get("/", redirectToDocs);
 app.get("/health", healthcheck);
 app.use("/api/tests", testRouter);
 app.use("/api/multiple-choice-tests", multipleChoiceTestRouter);
-app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+app.use(
+  "/api/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpecs, SwaggerUiOptions)
+);
 
 app.use(errorMiddleware);
 
