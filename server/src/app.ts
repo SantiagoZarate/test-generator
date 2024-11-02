@@ -19,8 +19,8 @@ setMiddleware(app);
 // Handlers
 app.get("/", redirectToDocs);
 app.get("/health", healthcheck);
-app.use("/api/tests", testRouter);
-app.use("/api/multiple-choice-tests", multipleChoiceTestRouter);
+app.use("/api/test", testRouter);
+app.use("/api/multiple-choice-test", multipleChoiceTestRouter);
 app.use(
   "/api/docs",
   swaggerUi.serve,
