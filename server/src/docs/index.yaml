@@ -6,10 +6,18 @@ info:
 servers:
   - url: http://localhost:3000/api
     description: Sandbox server (uses test data)
+  - url: test-generator-api-swart.vercel.app/api
+    description: Production server
 tags:
   - name: Tests
     description: manage tests API
+  - name: Multiple Choice Test
+    description: manage multiple choice test API
 paths:
   # tests endpoints
   /test:
     $ref: "./paths/test/test.yaml"
+
+  # multiple choice endpoints
+  /multiple-choice-test:
+    $ref: "./paths/multipleChoiceTest/multiple-choice-test.yaml"

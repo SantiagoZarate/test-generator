@@ -9,6 +9,8 @@ servers:
 tags:
   - name: Tests
     description: manage tests API
+  - name: Multiple Choice Test
+    description: manage multiple choice test API
 paths:
   /test:
     get:
@@ -23,3 +25,73 @@ paths:
               schema:
                 type: object
               example: null
+  /multiple-choice-test:
+    post:
+      tags:
+        - Multiple Choice Test
+      summary: Create a new multiple choice test
+      description: This endpoint allows you to create a new multiple choice test with a title and a list of questions.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: primer test multiple choice
+                questions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        example: quien es messi
+                      answer:
+                        type: integer
+                        description: Index of the correct option in the options array.
+                        example: 0
+                      options:
+                        type: array
+                        items:
+                          type: string
+                        example:
+                          - un jugador de futbol
+                          - un streamer
+                          - un escritor
+              required:
+                - title
+                - questions
+      responses:
+        '201':
+          description: Test created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier for the created test
+                    example: test_12345
+                  title:
+                    type: string
+                  questions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        content:
+                          type: string
+                        answer:
+                          type: integer
+                        options:
+                          type: array
+                          items:
+                            type: string
+        '400':
+          description: Bad Request - Invalid input data
+        '500':
+          description: Internal Server Error
