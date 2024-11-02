@@ -7,6 +7,7 @@ import { swaggerSpecs, swaggerUi } from "../config/swagger";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 import { setMiddleware } from "./middlewares/setMiddleware";
 // Routes
+import multipleChoiceTestRouter from "./router/multipleChoiceTest.router";
 import testRouter from "./router/test.router";
 import { redirectToDocs } from "./utils/redirectToDocs";
 
@@ -17,6 +18,7 @@ setMiddleware(app);
 // Handlers
 app.get("/", redirectToDocs);
 app.use("/api/tests", testRouter);
+app.use("/api/multiple-choice", multipleChoiceTestRouter);
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 app.use(errorMiddleware);
