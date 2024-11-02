@@ -14,7 +14,11 @@ class MultipleChoiceTestRepository {
     const data = await db.query.multipleChoiceTestSchema.findFirst({
       where: (test) => eq(test.id, id),
       with: {
-        questions: true,
+        questions: {
+          with: {
+            options: true,
+          },
+        },
       },
     });
 
