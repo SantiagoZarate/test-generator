@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm swagger:build && ts-node-dev ./src/index.ts",
-    "build": "tsc -p tsconfig.json && mkdir -p ./dist/src/docs/build && cp ./src/docs/build/swagger.yaml ./dist/src/docs/build",
+    "build": "pnpm swagger:build && tsc -p tsconfig.json && mkdir -p ./dist/src/docs/build && cp ./src/docs/build/swagger.yaml ./dist/src/docs/build",
     "start": "node ./dist/src/index.js",
     "swagger:build": "npx swagger-cli bundle src/docs/index.yaml --outfile src/docs/build/swagger.yaml --type yaml",
     "db:generate": "drizzle-kit generate",
