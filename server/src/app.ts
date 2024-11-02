@@ -18,7 +18,7 @@ setMiddleware(app);
 // Handlers
 app.get("/", redirectToDocs);
 app.use("/api/tests", testRouter);
-app.use("/api/multiple-choice", multipleChoiceTestRouter);
+app.use("/api/multiple-choice-tests", multipleChoiceTestRouter);
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 app.use(errorMiddleware);
