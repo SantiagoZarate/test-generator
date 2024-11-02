@@ -32,6 +32,9 @@ importers:
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
+      dotenv:
+        specifier: 16.4.5
+        version: 16.4.5
       lucide-react:
         specifier: ^0.429.0
         version: 0.429.0(react@18.3.1)
