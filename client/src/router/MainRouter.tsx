@@ -1,4 +1,5 @@
 import { TestPage } from '@/pages/[id]';
+import { MultipleChoiceTestPageByID } from '@/pages/multiple-choice-by-id/MultipleChoiceTestPageByID';
 import { createBrowserRouter } from 'react-router-dom';
 import { MainLayout } from '../layouts/MainLayout';
 import { BasicTestPage } from '../pages/basic-test/BasicTestPage';
@@ -16,7 +17,7 @@ export const mainRouter = createBrowserRouter([
       },
       {
         element: <TestPage />,
-        path: '/:id',
+        path: '/basic-test/:id',
       },
       {
         element: <BasicTestPage />,
@@ -25,6 +26,10 @@ export const mainRouter = createBrowserRouter([
       {
         element: <MultipleChoicePage />,
         path: '/multiple-choice',
+      },
+      {
+        element: <MultipleChoiceTestPageByID />,
+        path: '/multiple-choice/:id',
       },
     ],
   },
