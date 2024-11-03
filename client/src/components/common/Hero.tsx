@@ -3,7 +3,7 @@ export function Hero() {
     <section className="relative w-full border-b [mask-image:linear-gradient(90deg,transparent_10%,#000_25%,#000_75%,transparent_90%)] print:hidden">
       <div className="absolute bottom-0 z-0">
         <img
-          src="images/sunbeam.avif"
+          src="./images/sunbeam.avif"
           className="rotate-180 -hue-rotate-60"
           alt=""
         />
