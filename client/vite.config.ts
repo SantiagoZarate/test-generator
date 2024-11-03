@@ -5,7 +5,8 @@ import path from 'node:path';
 import { defineConfig } from 'vite';
 
 import { config } from 'dotenv';
-config();
+const envPath = `.env.${process.env.NODE_ENV}`;
+config({ path: envPath });
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,5 +23,15 @@ export default defineConfig({
   server: {
     port: Number(process.env.PORT) || 4000,
     strictPort: true,
+    proxy: {
+      '/api': {
+        target: process.env.VITE_TEST_API_URL,
+        changeOrigin: true,
+        secure: process.env.NODE_ENV === 'production',
+        rewrite: (path) => {
+          return path;
+        },
+      },
+    },
   },
 });

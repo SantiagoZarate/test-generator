@@ -1,7 +1,6 @@
-import { envs } from '@/config/envs';
 import { MPTest } from './multipleChoiceTest.type';
 
-const ENDPOINT = envs.TEST_API_URL + '/api/multiple-choice-test';
+const ENDPOINT = '/api/multiple-choice-test';
 
 export const multipleChoiceTestAPI = {
   async getOne(id: string): Promise<MPTest> {
