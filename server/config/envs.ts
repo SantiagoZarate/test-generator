@@ -1,14 +1,7 @@
 import { config } from "dotenv";
 import { z } from "zod";
 
-let path: string;
-
-if (process.env.NODE_ENV === "development") {
-  path = ".env.dev";
-} else {
-  path = ".env.prod";
-}
-
+let path: string = `.env.${process.env.NODE_ENV}`;
 config({ path });
 
 const envsShema = z.object({
@@ -26,5 +19,3 @@ export const envs = envsShema.parse({
   DB_TOKEN: process.env.TURSO_DB_TOKEN || "",
   SEED: process.env.SEED || false,
 });
-
-console.log(envs);
