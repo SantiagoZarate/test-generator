@@ -1,12 +1,12 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/api/:path*",
+      "destination": "https://test-generator-api-swart.vercel.app/api/:path*"
     },
     {
-      "source": "/api/:path(.*)",
-      "destination": "https://test-generator-api-swart.vercel.app/api/:path*"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
