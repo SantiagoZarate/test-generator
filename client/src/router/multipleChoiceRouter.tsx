@@ -1,4 +1,3 @@
-import { MultipleChoiceTestsPage } from '@/pages/multiple-choice-all/MultipleChoiceTestsPage';
 import { MultipleChoiceTestPageByID } from '@/pages/multiple-choice-by-id/MultipleChoiceTestPageByID';
 import { MultipleChoicePage } from '@/pages/multiple-choice/MultipleChoiceTestPage';
 import { RouteObject } from 'react-router-dom';
@@ -14,10 +13,6 @@ const multipleChoiceRouter: RouteObject[] = [
   {
     element: <MultipleChoiceTestPageByID />,
     path: BASE + '/:id',
-  },
-  {
-    element: <MultipleChoiceTestsPage />,
-    path: BASE + '/all',
   },
 ];
 

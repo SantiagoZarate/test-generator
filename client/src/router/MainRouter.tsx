@@ -1,4 +1,6 @@
+import { BrowseLayout } from '@/layouts/BrowseLayout';
 import { TestPage } from '@/pages/[id]';
+import { MultipleChoiceTestsPage } from '@/pages/multiple-choice-all/MultipleChoiceTestsPage';
 import { createBrowserRouter } from 'react-router-dom';
 import { MainLayout } from '../layouts/MainLayout';
 import { BasicTestPage } from '../pages/basic-test/BasicTestPage';
@@ -21,6 +23,16 @@ export const mainRouter = createBrowserRouter([
       {
         element: <BasicTestPage />,
         path: '/basic-test',
+      },
+      {
+        element: <BrowseLayout />,
+        path: '/browse',
+        children: [
+          {
+            path: '/browse/multiple-choice-test',
+            element: <MultipleChoiceTestsPage />,
+          },
+        ],
       },
       ...multipleChoiceRouter,
     ],
