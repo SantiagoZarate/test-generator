@@ -9,6 +9,11 @@ export class TestRepository {
     this._db = db;
   }
 
+  async getAll() {
+    const data = await db.query.testSchema.findMany();
+    return data;
+  }
+
   async getById({ id }: TestSelect) {
     const test = await this._db.query.testSchema.findFirst({
       where: (test, { eq }) => eq(test.id, id),

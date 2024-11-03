@@ -2,6 +2,14 @@ import { Request, Response } from "express";
 import { testService } from "../services/test.service";
 
 export const testController = {
+  async getAll(_req: Request, res: Response) {
+    const data = await testService.getAll();
+
+    res.json({
+      ok: true,
+      data,
+    });
+  },
   async getOne(req: Request, res: Response) {
     const { id } = req.params;
     console.log(id);
