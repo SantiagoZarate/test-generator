@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { multipleChoiceTestRepository } from "../repositories/multipleChoiceTest.repository";
+import { multipleChoiceTestService } from "../services/multipleChoiceTest.service";
 
 class MultipleChoiceTestController {
   async getAll(_req: Request, res: Response) {
-    const data = await multipleChoiceTestRepository.getAll();
+    const data = await multipleChoiceTestService.getAll();
     res.json({ data });
   }
 
