@@ -5,7 +5,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/api/:path*",
+      "source": "/api/:path(.*)",
       "destination": "https://test-generator-api-swart.vercel.app/api/:path*"
     }
   ]
