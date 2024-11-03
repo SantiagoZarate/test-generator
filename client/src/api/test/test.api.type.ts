@@ -1,9 +1,3 @@
-// Common structure of my api response
-export interface APIResponse<D> {
-  ok: boolean;
-  data: D;
-}
-
 export interface PostDataResponse {
   id: string;
 }

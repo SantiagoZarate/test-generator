@@ -1,4 +1,4 @@
-import { testAPI } from '@/api/test.api';
+import { testAPI } from '@/api/test/test.api';
 import { Item } from '@/components/ui/Item';
 import { List } from '@/components/ui/List';
 import { PrintButton } from '@/components/ui/PrintButton';

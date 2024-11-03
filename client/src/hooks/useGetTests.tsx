@@ -1,4 +1,4 @@
-import { testAPI } from '@/api/test.api';
+import { testAPI } from '@/api/test/test.api';
 import { useQuery } from '@tanstack/react-query';
 
 export function useGetTests() {

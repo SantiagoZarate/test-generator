@@ -1,4 +1,4 @@
-import { testAPI } from '@/api/test.api';
+import { testAPI } from '@/api/test/test.api';
 import { ClipboardIcon } from '@/components/icons/ClipboardIcon';
 import { SparkelIcon } from '@/components/icons/SparkelIcon';
 import { toast } from '@/components/ui/use-toast';

@@ -1,9 +1,6 @@
 import { TestInsert, TestSchema, TestSelect } from '@backend/test.types';
-import {
-  APIResponse,
-  GetDataResponse,
-  PostDataResponse,
-} from './test.api.type';
+import { APIResponse, GetAllTests } from '../interface';
+import { GetDataResponse, PostDataResponse } from './test.api.type';
 
 const ENDPOINT = '/api/test';
 
@@ -31,9 +28,9 @@ export const testAPI = {
       })
     );
   },
-  getAll: (): Promise<GetDataResponse[]> => {
+  getAll: (): Promise<GetAllTests[]> => {
     return fetch(ENDPOINT + '/')
       .then((response) => response.json())
-      .then((response: APIResponse<GetDataResponse[]>) => response.data);
+      .then((response: APIResponse<GetAllTests[]>) => response.data);
   },
 };

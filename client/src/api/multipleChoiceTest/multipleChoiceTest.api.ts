@@ -1,5 +1,5 @@
-import { APIResponse } from '../test.api.type';
-import { GetAllMPTests, MPTest } from './multipleChoiceTest.type';
+import { APIResponse, GetAllTests } from '../interface';
+import { MPTest } from './multipleChoiceTest.type';
 
 const ENDPOINT = '/api/multiple-choice-test';
 
@@ -9,9 +9,9 @@ export const multipleChoiceTestAPI = {
       .then((response) => response.json())
       .then((response) => response.data);
   },
-  async getAll(): Promise<GetAllMPTests[]> {
+  async getAll(): Promise<GetAllTests[]> {
     return fetch(ENDPOINT)
       .then((response) => response.json())
-      .then((response: APIResponse<GetAllMPTests[]>) => response.data);
+      .then((response: APIResponse<GetAllTests[]>) => response.data);
   },
 };
