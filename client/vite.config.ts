@@ -22,12 +22,5 @@ export default defineConfig({
   server: {
     port: Number(process.env.PORT) || 4000,
     strictPort: true,
-    proxy: {
-      '/api': {
-        target: process.env.VITE_TEST_API_URL,
-        changeOrigin: true,
-        secure: false,
-      },
-    },
   },
 });
