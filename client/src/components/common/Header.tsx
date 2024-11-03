@@ -6,7 +6,7 @@ import { ThemeSwitcher } from './ThemeSwitcher';
 const NAVBAR_LINKS = [
   {
     value: 'browse',
-    path: '/browse',
+    path: '/browse/test',
   },
 ];
 
@@ -21,7 +21,9 @@ export function Header() {
           </Link>
           <nav className="flex gap-2">
             {NAVBAR_LINKS.map((link) => (
-              <Link to={link.path}>{link.value}</Link>
+              <Link key={link.path} to={link.path}>
+                {link.value}
+              </Link>
             ))}
           </nav>
         </section>
