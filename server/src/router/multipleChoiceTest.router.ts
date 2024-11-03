@@ -5,6 +5,7 @@ import { validateData } from "../middlewares/schemaValidations";
 
 const router = Router();
 
+router.get("/", controller.getAll);
 router.get("/:id", controller.getOne);
 router.post(
   "/",

@@ -1,14 +1,14 @@
 import { z } from "zod";
 
-const questionValidations = z.object({
+const questionSchemaValidations = z.object({
   content: z.string(),
-  options: z.string().array(),
-  answer: z.coerce.number(),
+  options: z.array(z.string()).min(2),
+  answer: z.coerce.number().min(0),
 });
 
 export const multipleChoiceTestSchemaValidation = z.object({
   title: z.string(),
-  questions: z.array(questionValidations),
+  questions: z.array(questionSchemaValidations).min(1).max(20),
 });
 
 export type MPTestSchema = z.infer<typeof multipleChoiceTestSchemaValidation>;

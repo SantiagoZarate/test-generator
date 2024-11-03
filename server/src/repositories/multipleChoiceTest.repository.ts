@@ -5,12 +5,22 @@ import {
   multipleChoiceTestSchema,
   optionSchema,
 } from "../../drizzle/schemas/multipleTest.schema";
+import {
+  MultipleChoiceTestDTO,
+  MultipleChoiceTestQuestionsDTO,
+  multipleChoiceTestQuestionsSchemaDTO,
+} from "../dtos/mutlipleChoiceTest.dto";
 import { MCTestInsert, MCTestSelect } from "../types/multipleChoiceTest.types";
 
 class MultipleChoiceTestRepository {
   private readonly entity = multipleChoiceTestSchema;
 
-  async getOne({ id }: MCTestSelect) {
+  async getAll(): Promise<MultipleChoiceTestDTO[]> {
+    const data = await db.query.multipleChoiceTestSchema.findMany();
+    return data;
+  }
+
+  async getOne({ id }: MCTestSelect): Promise<MultipleChoiceTestQuestionsDTO> {
     const data = await db.query.multipleChoiceTestSchema.findFirst({
       where: (test) => eq(test.id, id),
       with: {
@@ -26,7 +36,7 @@ class MultipleChoiceTestRepository {
       console.log("NO EXISTE");
     }
 
-    return data;
+    return multipleChoiceTestQuestionsSchemaDTO.parse(data);
   }
 
   async create(data: MCTestInsert): Promise<MCTestSelect> {

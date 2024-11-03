@@ -3,6 +3,11 @@ import { StatusCodes } from "http-status-codes";
 import { multipleChoiceTestRepository } from "../repositories/multipleChoiceTest.repository";
 
 class MultipleChoiceTestController {
+  async getAll(_req: Request, res: Response) {
+    const data = await multipleChoiceTestRepository.getAll();
+    res.json({ data });
+  }
+
   async getOne(req: Request, res: Response) {
     const { id } = req.params;
     const data = await multipleChoiceTestRepository.getOne({ id });
