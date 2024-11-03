@@ -17,7 +17,7 @@ export function Navbar() {
           key={link.path}
           to={link.path}
           className={`transition ${
-            pathname.includes(link.path)
+            pathname.includes(link.value)
               ? 'font-semibold opacity-100'
               : 'opacity-40'
           }`}

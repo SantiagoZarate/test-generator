@@ -15,7 +15,10 @@ export function BrowseList({ tests }: Props) {
             className="flex cursor-pointer items-center justify-between rounded-lg p-1 px-2 transition hover:bg-border"
           >
             <p>{test.title}</p>
-            <p>{test.questionsCounts}questions</p>
+            <p>
+              {test.questionsCounts}{' '}
+              {test.questionsCounts > 1 ? 'preguntas' : 'pregunta'}
+            </p>
           </Link>
         </li>
       ))}
