@@ -3,7 +3,7 @@ import { envs } from "./config/envs";
 
 let dbCredentials;
 
-if (envs.MODE === "dev") {
+if (envs.MODE === "development") {
   dbCredentials = {
     url: "file:./drizzle/local.db",
   };

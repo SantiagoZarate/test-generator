@@ -7,6 +7,7 @@ import { swaggerSpecs, swaggerUi, SwaggerUiOptions } from "../config/swagger";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 import { setMiddleware } from "./middlewares/setMiddleware";
 // Routes
+import chalk from "chalk";
 import multipleChoiceTestRouter from "./router/multipleChoiceTest.router";
 import testRouter from "./router/test.router";
 import { healthcheck } from "./utils/healthcheck";
@@ -31,7 +32,12 @@ app.use(errorMiddleware);
 
 export const start = () => {
   app.listen(envs.PORT, () => {
-    console.log(`Server running on http://localhost:${envs.PORT ?? 3000}`);
+    console.log(
+      chalk.blue(
+        `🚀 -- Server running on http://localhost:${envs.PORT ?? 3000}`
+      )
+    );
+    console.log(chalk.green(`🚧 -- Mode: ${envs.MODE}`));
   });
 };
 

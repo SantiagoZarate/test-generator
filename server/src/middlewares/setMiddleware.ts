@@ -1,7 +1,7 @@
-import { json, urlencoded, Application } from "express";
+import cors from "cors";
+import { Application, json, urlencoded } from "express";
 import morgan from "morgan";
 import { envs } from "../../config/envs";
-import cors from "cors";
 
 export function setMiddleware(app: Application) {
   // Allow incoming post requests
@@ -13,7 +13,7 @@ export function setMiddleware(app: Application) {
   );
 
   // Log requests on dev mode
-  envs.MODE === "dev" && app.use(morgan("dev"));
+  envs.MODE === "development" && app.use(morgan("dev"));
 
   // Allow CORS
   app.use(cors());

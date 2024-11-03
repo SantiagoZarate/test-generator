@@ -4,7 +4,7 @@ import { envs } from "./envs";
 
 let config: Config;
 
-if (envs.MODE === "dev") {
+if (envs.MODE === "development") {
   config = {
     url: `file:${path.resolve(__dirname, "../drizzle/local.db")}`,
   };
