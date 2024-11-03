@@ -1,10 +1,11 @@
-import { envs } from '@/config/envs';
 import { TestInsert, TestSchema, TestSelect } from '@backend/test.types';
 import {
   APIResponse,
   GetDataResponse,
   PostDataResponse,
 } from './test.api.type';
+
+const ENDPOINT = '/api/test';
 
 export const testAPI = {
   create: (data: TestInsert): Promise<APIResponse<PostDataResponse[]>> => {
@@ -16,12 +17,10 @@ export const testAPI = {
       body: JSON.stringify(data),
     };
 
-    return fetch(`${envs.TEST_API_URL}/api/tests`, options).then((response) =>
-      response.json()
-    );
+    return fetch(ENDPOINT, options).then((response) => response.json());
   },
   getById: ({ id }: TestSelect): Promise<TestSchema> => {
-    return fetch(`${envs.TEST_API_URL}/api/tests/${id}`).then((response) =>
+    return fetch(ENDPOINT + '/' + id).then((response) =>
       response.json().then(({ data }: APIResponse<GetDataResponse>) => {
         return {
           title: data.title,
@@ -31,5 +30,10 @@ export const testAPI = {
         };
       })
     );
+  },
+  getAll: (): Promise<GetDataResponse[]> => {
+    return fetch(ENDPOINT + '/')
+      .then((response) => response.json())
+      .then((response: APIResponse<GetDataResponse[]>) => response.data);
   },
 };
