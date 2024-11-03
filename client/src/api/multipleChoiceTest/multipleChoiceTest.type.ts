@@ -19,3 +19,10 @@ export interface Option {
   isCorrect: boolean;
   question_id: string;
 }
+
+export interface GetAllMPTests {
+  id: string;
+  created_at: Date;
+  title: string;
+  questionsCounts: number;
+}
