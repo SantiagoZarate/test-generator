@@ -1,4 +1,6 @@
 import { GetAllTests } from '@/api/interface';
+import { MotionItem } from '@/components/motion/MotionItem';
+import { MotionList } from '@/components/motion/MotionList';
 import { Link } from 'react-router-dom';
 
 interface Props {
@@ -7,9 +9,9 @@ interface Props {
 
 export function BrowseList({ tests }: Props) {
   return (
-    <ul className="flex flex-col divide-y divide-border">
+    <MotionList className="flex flex-col divide-y divide-border">
       {tests.map((test) => (
-        <li className="py-1" key={test.id}>
+        <MotionItem className="py-1" key={test.id}>
           <Link
             to={`/multiple-choice/${test.id}`}
             className="flex cursor-pointer items-center justify-between rounded-lg p-1 px-2 transition hover:bg-border"
@@ -20,8 +22,8 @@ export function BrowseList({ tests }: Props) {
               {test.questionsCounts > 1 ? 'preguntas' : 'pregunta'}
             </p>
           </Link>
-        </li>
+        </MotionItem>
       ))}
-    </ul>
+    </MotionList>
   );
 }
