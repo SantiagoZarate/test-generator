@@ -1,7 +1,7 @@
 import { Toaster } from '@/components/ui/toaster';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 import { Footer } from '../components/common/Footer';
-import { Header } from '../components/common/Header';
+import { Header } from '../components/common/header/Header';
 import { Hero } from '../components/common/Hero';
 
 export function MainLayout() {

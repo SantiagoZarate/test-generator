@@ -1,14 +1,8 @@
 import { Link } from 'react-router-dom';
-import { AcademicCapIcon } from '../icons/AcademicCapIcon';
+import { AcademicCapIcon } from '../../icons/AcademicCapIcon';
+import { ThemeSwitcher } from '../ThemeSwitcher';
 import './header.css';
-import { ThemeSwitcher } from './ThemeSwitcher';
-
-const NAVBAR_LINKS = [
-  {
-    value: 'browse',
-    path: '/browse/test',
-  },
-];
+import { Navbar } from './NavBar';
 
 export function Header() {
   return (
@@ -19,13 +13,7 @@ export function Header() {
             <AcademicCapIcon />
             <p className="px-2 font-semibold capitalize">Test Builder</p>
           </Link>
-          <nav className="flex gap-2">
-            {NAVBAR_LINKS.map((link) => (
-              <Link key={link.path} to={link.path}>
-                {link.value}
-              </Link>
-            ))}
-          </nav>
+          <Navbar />
         </section>
         <ThemeSwitcher />
       </section>
