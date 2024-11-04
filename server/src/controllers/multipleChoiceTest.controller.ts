@@ -28,6 +28,15 @@ class MultipleChoiceTestController {
       results,
     });
   }
+
+  async delete(req: Request, res: Response) {
+    const { id } = req.params;
+    await multipleChoiceTestRepository.deleteById({ id });
+
+    res.status(StatusCodes.NO_CONTENT).json({
+      message: "Multiple choice test deleted succesfully",
+    });
+  }
 }
 
 export const multipleChoiceTestController = new MultipleChoiceTestController();

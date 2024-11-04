@@ -7,6 +7,7 @@ const router = Router();
 
 router.get("/", controller.getAll);
 router.get("/:id", controller.getOne);
+router.delete("/:id", controller.delete);
 router.post(
   "/",
   validateData(multipleChoiceTestSchemaValidation),

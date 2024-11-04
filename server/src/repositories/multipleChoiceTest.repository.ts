@@ -74,6 +74,14 @@ class MultipleChoiceTestRepository {
 
     return testID;
   }
+
+  async deleteById({ id }: MCTestSelect): Promise<boolean> {
+    const data = await db
+      .delete(multipleChoiceTestSchema)
+      .where(eq(multipleChoiceTestSchema.id, id));
+
+    return data.rowsAffected === 1;
+  }
 }
 
 export const multipleChoiceTestRepository = new MultipleChoiceTestRepository();
