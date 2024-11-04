@@ -48,10 +48,34 @@ describe('REGULAR TEST', () => {
       await request.post(URL).send(payload).expect(StatusCodes.CREATED);
     });
 
-    it('should return a 400 response when creating an invalid test', async () => {
+    it('should return a 400 response when creating a test with empty title', async () => {
+      const invalidPayload: TestSchemaValidation = {
+        title: '',
+        questions: ['question'],
+      };
+
+      await request
+        .post(URL)
+        .send(invalidPayload)
+        .expect(StatusCodes.BAD_REQUEST);
+    });
+
+    it('should return a 400 response when creating a test with empty questions array', async () => {
       const invalidPayload: TestSchemaValidation = {
         title: 'new test',
         questions: [],
+      };
+
+      await request
+        .post(URL)
+        .send(invalidPayload)
+        .expect(StatusCodes.BAD_REQUEST);
+    });
+
+    it('should return a 400 response when creating a test with exceding amount of questions', async () => {
+      const invalidPayload: TestSchemaValidation = {
+        title: 'new test',
+        questions: Array(11).fill('question'),
       };
 
       await request
