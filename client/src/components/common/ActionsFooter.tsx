@@ -8,14 +8,14 @@ interface Props {
   onClearAll: () => void;
   onShare: () => void;
   loadingShare: boolean;
-  isCreatingTest: boolean;
+  isCreatingTest?: boolean;
 }
 
 function ActionsFooter({
   onClearAll,
   onShare,
   loadingShare,
-  isCreatingTest,
+  isCreatingTest = false,
 }: Props) {
   return (
     <footer className="flex justify-end gap-2 print:hidden">

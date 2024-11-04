@@ -102,7 +102,7 @@ export function BasicTestPage() {
           return;
         }
         linkCreated.current = questions;
-        setShareLink(response.data[0]!.id);
+        setShareLink(response.data.results.id);
         toast({
           title: 'Link created',
         });

@@ -1,11 +1,11 @@
 import { TestInsert, TestSchema, TestSelect } from '@backend/test.types';
-import { APIResponse, GetAllTests } from '../interface';
-import { GetDataResponse, PostDataResponse } from './test.api.type';
+import { APIResponse, GetAllTests, PostDataResponse } from '../interface';
+import { GetDataResponse } from './test.api.type';
 
 const ENDPOINT = '/api/test';
 
 export const testAPI = {
-  create: (data: TestInsert): Promise<APIResponse<PostDataResponse[]>> => {
+  create: (data: TestInsert): Promise<APIResponse<PostDataResponse>> => {
     const options: RequestInit = {
       method: 'POST',
       headers: {
