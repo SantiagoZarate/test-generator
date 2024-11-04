@@ -1,14 +1,23 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { testService } from '../services/test.service';
+import { getPaginatedParams } from '../utils/getPaginatedParams';
 
 export const testController = {
-  async getAll(_req: Request, res: Response) {
-    const data = await testService.getAll();
+  async getAll(req: Request, res: Response) {
+    const pagination = getPaginatedParams(req.query);
+
+    const { tests, totalPages, totalTests } =
+      await testService.getAll(pagination);
 
     res.json({
       ok: true,
-      data,
+      data: tests,
+      info: {
+        currentPage: pagination.page,
+        totalPages,
+        totalTests,
+      },
     });
   },
   async getOne(req: Request, res: Response) {

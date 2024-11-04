@@ -1,13 +1,24 @@
 import { TestRepository } from '../repositories/test.repository';
 import { TestInsert, TestSelect } from '../types/test.types';
-import { NotFoundError } from '../utils/errors';
+import { BadRequestError, NotFoundError } from '../utils/errors';
+import { PaginateConfig } from '../utils/getPaginatedParams';
 
 const testRepository = new TestRepository();
 
 export const testService = {
-  async getAll() {
-    const tests = await testRepository.getAll();
-    return tests;
+  async getAll(config: PaginateConfig) {
+    const totalTests = await testRepository.getCount();
+
+    console.log(config);
+
+    const totalPages = Math.ceil(totalTests / config.limit);
+
+    if (config.page < 0 || config.page > totalPages) {
+      throw new BadRequestError('Page out of index');
+    }
+
+    const tests = await testRepository.getAll(config);
+    return { tests, totalPages, totalTests };
   },
   async getOne({ id }: TestSelect) {
     const test = await testRepository.getById({ id });

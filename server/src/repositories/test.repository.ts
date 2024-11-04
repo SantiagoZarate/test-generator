@@ -1,8 +1,9 @@
-import { eq } from 'drizzle-orm';
+import { count, eq } from 'drizzle-orm';
 import { db } from '../../drizzle/connection';
 import { questionSchema, testSchema } from '../../drizzle/schemas/test.schema';
 import { TestInsert, TestSelect } from '../types/test.types';
 import { NotFoundError } from '../utils/errors';
+import { PaginateConfig } from '../utils/getPaginatedParams';
 
 export class TestRepository {
   private _db: typeof db;
@@ -10,9 +11,20 @@ export class TestRepository {
     this._db = db;
   }
 
-  async getAll() {
-    const data = await db.query.testSchema.findMany();
+  async getAll({ limit, page }: PaginateConfig) {
+    const data = await db.query.testSchema.findMany({
+      limit,
+      offset: (page - 1) * limit,
+    });
     return data;
+  }
+
+  async getCount(): Promise<number> {
+    const data = await db
+      .select({ count: count(testSchema.id) })
+      .from(testSchema);
+
+    return data[0].count;
   }
 
   async getById({ id }: TestSelect) {
