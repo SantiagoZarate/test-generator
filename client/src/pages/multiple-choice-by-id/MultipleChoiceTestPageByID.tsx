@@ -46,12 +46,12 @@ export function MultipleChoiceTestPageByID() {
   return (
     <section className="flex flex-col gap-12">
       <header>
-        <h1 className="text-2xl font-semibold">{data?.title}</h1>
+        <h1 className="text-2xl font-bold capitalize">{data?.title}</h1>
       </header>
       <section className="flex flex-col gap-8">
         {data?.questions.map((question, index) => (
           <article className="flex flex-col gap-4" key={question.id}>
-            <p>
+            <p className="text-lg font-semibold">
               {index + 1} - {question.content}
             </p>
             <ul className="flex flex-col">

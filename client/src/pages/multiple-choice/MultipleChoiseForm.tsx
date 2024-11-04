@@ -16,6 +16,8 @@ export function MultipleChoiseForm() {
     updateCorrectOption,
     updateOptionValue,
     updateNewQuestion,
+    testTitle,
+    updateTitle,
   } = useMultipleChoiceTestStore((state) => state);
 
   const handleSubmit = (e: FormEvent) => {
@@ -29,6 +31,17 @@ export function MultipleChoiseForm() {
       onSubmit={handleSubmit}
       className="flex flex-col gap-4 print:hidden"
     >
+      <label htmlFor="title" className="flex flex-col gap-2">
+        Test title
+        <input
+          className="rounded-lg border border-neutral-600 bg-neutral-900 p-2"
+          placeholder="My new test"
+          name="title"
+          id="title"
+          value={testTitle}
+          onChange={(e) => updateTitle(e.target.value)}
+        />
+      </label>
       <label htmlFor="question" className="flex flex-col gap-2">
         New question
         <input

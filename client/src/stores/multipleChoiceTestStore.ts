@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 interface MultipleChoice {
-  question: string;
+  content: string;
   options: string[];
   answer: number;
 }
@@ -9,6 +9,7 @@ interface MultipleChoice {
 interface State {
   questions: MultipleChoice[];
   newQuestionValue: string;
+  testTitle: string;
   correctAnswer: number;
   options: string[];
 }
@@ -16,6 +17,7 @@ interface State {
 interface Action {
   updateCorrectOption: (newValue: number) => void;
   updateNewQuestion: (value: string) => void;
+  updateTitle: (value: string) => void;
   deleteOption: (index: number) => void;
   addQuestion: () => void;
   addOption: () => void;
@@ -29,11 +31,15 @@ const useMultipleChoiceTestStore = create<State & Action>((set) => ({
   options: [],
   newQuestionValue: '',
   questions: [],
+  testTitle: '',
   addOption() {
     set((prevState) => ({ ...prevState, options: [...prevState.options, ''] }));
   },
   updateCorrectOption(newValue) {
     set((prevState) => ({ ...prevState, correctAnswer: newValue }));
+  },
+  updateTitle(newValue) {
+    set((prevState) => ({ ...prevState, testTitle: newValue }));
   },
   deleteOption(index) {
     set((prevState) => {
@@ -62,7 +68,7 @@ const useMultipleChoiceTestStore = create<State & Action>((set) => ({
         ...prevState.questions,
         {
           answer: prevState.correctAnswer,
-          question: prevState.newQuestionValue,
+          content: prevState.newQuestionValue,
           options: prevState.options,
         },
       ],

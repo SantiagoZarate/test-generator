@@ -26,3 +26,12 @@ export interface GetAllMPTests {
   title: string;
   questionsCounts: number;
 }
+
+export interface TestInsert {
+  title: string;
+  questions: {
+    content: string;
+    options: string[];
+    answer: number;
+  }[];
+}

@@ -1,7 +1,3 @@
-export interface PostDataResponse {
-  id: string;
-}
-
 export interface GetDataResponse {
   id: string;
   created_at: Date;

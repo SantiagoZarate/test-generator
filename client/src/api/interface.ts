@@ -10,3 +10,10 @@ export interface GetAllTests {
   created_at: string;
   questionsCounts: number;
 }
+
+export interface PostDataResponse {
+  message: string;
+  results: {
+    id: string;
+  };
+}
