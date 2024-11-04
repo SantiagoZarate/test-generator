@@ -1,3 +1,4 @@
+import { eq } from 'drizzle-orm';
 import { db } from '../../drizzle/connection';
 import { questionSchema, testSchema } from '../../drizzle/schemas/test.schema';
 import { TestInsert, TestSelect } from '../types/test.types';
@@ -51,5 +52,10 @@ export class TestRepository {
     });
 
     return test;
+  }
+
+  async delete({ id }: TestSelect) {
+    const data = await db.delete(testSchema).where(eq(testSchema.id, id));
+    return data.rowsAffected === 1;
   }
 }

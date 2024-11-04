@@ -30,4 +30,12 @@ export const testController = {
       data: result,
     });
   },
+  async delete(req: Request, res: Response) {
+    const { id } = req.params;
+    await testService.delete({ id });
+
+    res.status(StatusCodes.NO_CONTENT).json({
+      message: 'Test deleted succesfully',
+    });
+  },
 };

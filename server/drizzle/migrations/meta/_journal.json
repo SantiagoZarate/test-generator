@@ -8,6 +8,13 @@
       "when": 1730493354116,
       "tag": "0000_nappy_swordsman",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1730758967184,
+      "tag": "0001_uneven_satana",
+      "breakpoints": true
     }
   ]
 }

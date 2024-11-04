@@ -1,11 +1,17 @@
 import { StatusCodes } from 'http-status-codes';
 import { db } from '../drizzle/connection';
+import { seed } from '../drizzle/seed';
 import { MOCK_TESTS } from '../drizzle/seed/test.mock';
 import { TestSchemaValidation } from '../src/lib/zod-schemas/test.validation';
 import { request } from './jest.setup';
 
 describe('REGULAR TEST', () => {
   const URL = '/api/test';
+
+  beforeEach(async () => {
+    await seed();
+  });
+
   describe('GET /api/test', () => {
     it('should return a 200 and a list of tests', async () => {
       await request
@@ -82,6 +88,20 @@ describe('REGULAR TEST', () => {
         .post(URL)
         .send(invalidPayload)
         .expect(StatusCodes.BAD_REQUEST);
+    });
+  });
+
+  describe('DELETE /api/test', () => {
+    it('should return a 204 response when deleting a test', async () => {
+      const test = await db.query.testSchema.findFirst();
+
+      await request.delete(URL + '/' + test?.id).expect(StatusCodes.NO_CONTENT);
+    });
+
+    it('should return a 404 response when deleting an invalid test', async () => {
+      const invalidID = 'invalid-id';
+
+      await request.delete(URL + '/' + invalidID).expect(StatusCodes.NOT_FOUND);
     });
   });
 });

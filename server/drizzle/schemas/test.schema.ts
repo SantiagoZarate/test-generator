@@ -16,7 +16,7 @@ export const testSchema = sqliteTable('test', {
 export const questionSchema = sqliteTable('question', {
   content: text('question'),
   test_id: text('test_id')
-    .references(() => testSchema.id)
+    .references(() => testSchema.id, { onDelete: 'cascade' })
     .notNull(),
 });
 

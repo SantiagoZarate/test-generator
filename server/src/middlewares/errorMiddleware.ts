@@ -9,6 +9,7 @@ export function errorMiddleware(
 ) {
   const errorMessage: string = error.message ?? 'Internal server error';
   const statusCode = error.statusCode ?? 500;
+  console.error(error.stack);
 
   res.status(statusCode).json({
     ok: false,

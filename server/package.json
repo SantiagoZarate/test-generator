@@ -14,7 +14,7 @@
     "db:migrate:test": "NODE_ENV=test drizzle-kit migrate",
     "lint": "eslint . --fix -c eslint.config.mjs",
     "format": "prettier . --write",
-    "test": "jest --detectOpenHandles --silent"
+    "test": "jest --runInBand --detectOpenHandles --silent"
   },
   "keywords": [],
   "author": "",
