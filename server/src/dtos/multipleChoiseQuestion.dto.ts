@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { MultipleChoiceQuestionRAW } from "../types/multipleChoiceTest.types";
-import { optionSchemaDTO } from "./option.dto";
+import { z } from 'zod';
+import { MultipleChoiceQuestionRAW } from '../types/multipleChoiceTest.types';
+import { optionSchemaDTO } from './option.dto';
 
 export const multipleChoiceQuestionSchemaDTO = z.object({
   id: z.string(),

@@ -1,7 +1,7 @@
-import { createClient } from "@libsql/client";
-import { drizzle } from "drizzle-orm/libsql";
-import dbConfig from "../config/db";
-import schemas from "./schemas";
+import { createClient } from '@libsql/client';
+import { drizzle } from 'drizzle-orm/libsql';
+import dbConfig from '../config/db';
+import schemas from './schemas';
 
 const client = createClient(dbConfig);
 

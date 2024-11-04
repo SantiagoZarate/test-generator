@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 const questionSchemaValidations = z.object({
   content: z.string(),

@@ -1,12 +1,12 @@
-import { Config } from "@libsql/client";
-import path from "path";
-import { envs } from "./envs";
+import { Config } from '@libsql/client';
+import path from 'path';
+import { envs } from './envs';
 
 let config: Config;
 
-if (envs.MODE === "development") {
+if (envs.MODE === 'development') {
   config = {
-    url: `file:${path.resolve(__dirname, "../drizzle/local.db")}`,
+    url: `file:${path.resolve(__dirname, '../drizzle/local.db')}`,
   };
 } else {
   config = {

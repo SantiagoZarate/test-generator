@@ -1,5 +1,5 @@
-import { TestRepository } from "../repositories/test.repository";
-import { TestInsert, TestSelect } from "../types/test.types";
+import { TestRepository } from '../repositories/test.repository';
+import { TestInsert, TestSelect } from '../types/test.types';
 
 const testRepository = new TestRepository();
 

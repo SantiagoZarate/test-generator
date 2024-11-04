@@ -1,16 +1,16 @@
-import { eq } from "drizzle-orm";
-import { db } from "../../drizzle/connection";
+import { eq } from 'drizzle-orm';
+import { db } from '../../drizzle/connection';
 import {
   multipleChoiceQuestionSchema,
   multipleChoiceTestSchema,
   optionSchema,
-} from "../../drizzle/schemas/multipleTest.schema";
+} from '../../drizzle/schemas/multipleTest.schema';
 import {
   MultipleChoiceTestDTO,
   MultipleChoiceTestQuestionsDTO,
   multipleChoiceTestQuestionsSchemaDTO,
-} from "../dtos/mutlipleChoiceTest.dto";
-import { MCTestInsert, MCTestSelect } from "../types/multipleChoiceTest.types";
+} from '../dtos/mutlipleChoiceTest.dto';
+import { MCTestInsert, MCTestSelect } from '../types/multipleChoiceTest.types';
 
 class MultipleChoiceTestRepository {
   private readonly entity = multipleChoiceTestSchema;
@@ -33,7 +33,7 @@ class MultipleChoiceTestRepository {
     });
 
     if (!data) {
-      console.log("NO EXISTE");
+      console.log('NO EXISTE');
     }
 
     return multipleChoiceTestQuestionsSchemaDTO.parse(data);

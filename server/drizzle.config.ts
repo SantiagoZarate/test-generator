@@ -1,11 +1,11 @@
-import { defineConfig } from "drizzle-kit";
-import { envs } from "./config/envs";
+import { defineConfig } from 'drizzle-kit';
+import { envs } from './config/envs';
 
 let dbCredentials;
 
-if (envs.MODE === "development") {
+if (envs.MODE === 'development') {
   dbCredentials = {
-    url: "file:./drizzle/local.db",
+    url: 'file:./drizzle/local.db',
   };
 } else {
   dbCredentials = {
@@ -15,9 +15,9 @@ if (envs.MODE === "development") {
 }
 
 export default defineConfig({
-  dialect: "sqlite",
-  schema: "./drizzle/schemas/*",
-  out: "./drizzle/migrations",
-  driver: "turso",
+  dialect: 'sqlite',
+  schema: './drizzle/schemas/*',
+  out: './drizzle/migrations',
+  driver: 'turso',
   dbCredentials,
 });

@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { testService } from "../services/test.service";
+import { Request, Response } from 'express';
+import { testService } from '../services/test.service';
 
 export const testController = {
   async getAll(_req: Request, res: Response) {

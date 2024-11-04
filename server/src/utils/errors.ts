@@ -1,4 +1,4 @@
-import statusCodes from "http-status-codes";
+import statusCodes from 'http-status-codes';
 
 export class ApiError extends Error {
   readonly statusCode: number;

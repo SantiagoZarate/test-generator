@@ -1,12 +1,12 @@
-import { envs } from "../config/envs";
-import { db } from "./connection";
-import { questionSchema, testSchema } from "./schemas/test.schema";
-import { MOCK_TESTS } from "./seed/test.mock";
+import { envs } from '../config/envs';
+import { db } from './connection';
+import { questionSchema, testSchema } from './schemas/test.schema';
+import { MOCK_TESTS } from './seed/test.mock';
 
 async function seed() {
   try {
     if (!envs.SEED) {
-      throw new Error("This file must be executed on seed mode");
+      throw new Error('This file must be executed on seed mode');
     }
 
     // DROP DB Manually
@@ -33,7 +33,7 @@ async function seed() {
       }),
     );
 
-    console.log("🌱 -- Seeded complete");
+    console.log('🌱 -- Seeded complete');
   } catch (error) {
     console.log(error);
   }

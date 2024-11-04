@@ -1,16 +1,16 @@
-import type { Config } from "jest";
+import type { Config } from 'jest';
 
 const config: Config = {
   clearMocks: true,
-  coverageProvider: "v8",
+  coverageProvider: 'v8',
   testTimeout: 10000,
-  testEnvironment: "node",
+  testEnvironment: 'node',
   transform: {
-    "^.+.tsx?$": ["ts-jest", {}],
+    '^.+.tsx?$': ['ts-jest', {}],
   },
-  preset: "ts-jest",
-  testPathIgnorePatterns: ["/node_modules/", "/dist/"],
-  testMatch: ["**/tests/**/*.test.ts"],
+  preset: 'ts-jest',
+  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+  testMatch: ['**/tests/**/*.test.ts'],
 };
 
 export default config;

@@ -1,21 +1,21 @@
-import { relations, sql } from "drizzle-orm";
-import { sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { nanoid } from "nanoid";
+import { relations, sql } from 'drizzle-orm';
+import { sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { nanoid } from 'nanoid';
 
-export const testSchema = sqliteTable("test", {
-  id: text("id")
+export const testSchema = sqliteTable('test', {
+  id: text('id')
     .notNull()
     .$defaultFn(() => nanoid())
     .primaryKey(),
-  created_at: text("created_at")
+  created_at: text('created_at')
     .notNull()
     .default(sql`(CURRENT_TIMESTAMP)`),
-  title: text("title").notNull(),
+  title: text('title').notNull(),
 });
 
-export const questionSchema = sqliteTable("question", {
-  content: text("question"),
-  test_id: text("test_id")
+export const questionSchema = sqliteTable('question', {
+  content: text('question'),
+  test_id: text('test_id')
     .references(() => testSchema.id)
     .notNull(),
 });

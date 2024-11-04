@@ -1,5 +1,5 @@
-import { multipleChoiceQuestionRepository } from "../repositories/multipleChoiceQuestion.repository";
-import { multipleChoiceTestRepository } from "../repositories/multipleChoiceTest.repository";
+import { multipleChoiceQuestionRepository } from '../repositories/multipleChoiceQuestion.repository';
+import { multipleChoiceTestRepository } from '../repositories/multipleChoiceTest.repository';
 
 class MultipleChoiceTestService {
   private readonly repository = multipleChoiceTestRepository;

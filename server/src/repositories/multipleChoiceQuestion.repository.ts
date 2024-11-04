@@ -1,7 +1,7 @@
-import { count, eq } from "drizzle-orm";
-import { db } from "../../drizzle/connection";
-import { multipleChoiceQuestionSchema } from "../../drizzle/schemas/multipleTest.schema";
-import { MCTestSelect } from "../types/multipleChoiceTest.types";
+import { count, eq } from 'drizzle-orm';
+import { db } from '../../drizzle/connection';
+import { multipleChoiceQuestionSchema } from '../../drizzle/schemas/multipleTest.schema';
+import { MCTestSelect } from '../types/multipleChoiceTest.types';
 
 class MultipleChoiceQuestionRepository {
   async getQuestionCountByTest({ id }: MCTestSelect) {

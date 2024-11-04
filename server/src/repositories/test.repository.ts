@@ -1,7 +1,7 @@
-import { db } from "../../drizzle/connection";
-import { questionSchema, testSchema } from "../../drizzle/schemas/test.schema";
-import { TestInsert, TestSelect } from "../types/test.types";
-import { NotFoundError } from "../utils/errors";
+import { db } from '../../drizzle/connection';
+import { questionSchema, testSchema } from '../../drizzle/schemas/test.schema';
+import { TestInsert, TestSelect } from '../types/test.types';
+import { NotFoundError } from '../utils/errors';
 
 export class TestRepository {
   private _db: typeof db;

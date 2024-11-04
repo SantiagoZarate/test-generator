@@ -1,29 +1,29 @@
-import { relations, sql } from "drizzle-orm";
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { nanoid } from "nanoid";
+import { relations, sql } from 'drizzle-orm';
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { nanoid } from 'nanoid';
 
-export const multipleChoiceTestSchema = sqliteTable("multiple_choice_test", {
-  id: text("id")
+export const multipleChoiceTestSchema = sqliteTable('multiple_choice_test', {
+  id: text('id')
     .notNull()
     .$defaultFn(() => nanoid())
     .primaryKey(),
-  created_at: text("created_at")
+  created_at: text('created_at')
     .notNull()
     .default(sql`(CURRENT_TIMESTAMP)`),
-  title: text("title").notNull(),
+  title: text('title').notNull(),
 });
 
 export const multipleChoiceQuestionSchema = sqliteTable(
-  "multiple_choice_question",
+  'multiple_choice_question',
   {
-    id: text("id")
+    id: text('id')
       .notNull()
       .$defaultFn(() => nanoid())
       .primaryKey(),
-    order: integer("order"),
-    content: text("content"),
-    test_id: text("test_id")
-      .references(() => multipleChoiceTestSchema.id, { onDelete: "cascade" })
+    order: integer('order'),
+    content: text('content'),
+    test_id: text('test_id')
+      .references(() => multipleChoiceTestSchema.id, { onDelete: 'cascade' })
       .notNull(),
   },
 );
@@ -46,14 +46,14 @@ export const multipleChoiceQuestionRelations = relations(
   }),
 );
 
-export const optionSchema = sqliteTable("option", {
-  content: text("content"),
-  order: integer("order"),
-  isCorrect: integer("is_correct", { mode: "boolean" })
+export const optionSchema = sqliteTable('option', {
+  content: text('content'),
+  order: integer('order'),
+  isCorrect: integer('is_correct', { mode: 'boolean' })
     .notNull()
     .default(false),
-  question_id: text("question_id")
-    .references(() => multipleChoiceQuestionSchema.id, { onDelete: "cascade" })
+  question_id: text('question_id')
+    .references(() => multipleChoiceQuestionSchema.id, { onDelete: 'cascade' })
     .notNull(),
 });
 

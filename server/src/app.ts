@@ -1,29 +1,29 @@
-import express from "express";
-import "express-async-errors";
+import express from 'express';
+import 'express-async-errors';
 // Configs
-import { envs } from "../config/envs";
-import { swaggerSpecs, swaggerUi, SwaggerUiOptions } from "../config/swagger";
+import { envs } from '../config/envs';
+import { swaggerSpecs, swaggerUi, SwaggerUiOptions } from '../config/swagger';
 // Middlewares
-import { errorMiddleware } from "./middlewares/errorMiddleware";
-import { setMiddleware } from "./middlewares/setMiddleware";
+import { errorMiddleware } from './middlewares/errorMiddleware';
+import { setMiddleware } from './middlewares/setMiddleware';
 // Routes
-import chalk from "chalk";
-import multipleChoiceTestRouter from "./router/multipleChoiceTest.router";
-import testRouter from "./router/test.router";
-import { healthcheck } from "./utils/healthcheck";
-import { redirectToDocs } from "./utils/redirectToDocs";
+import chalk from 'chalk';
+import multipleChoiceTestRouter from './router/multipleChoiceTest.router';
+import testRouter from './router/test.router';
+import { healthcheck } from './utils/healthcheck';
+import { redirectToDocs } from './utils/redirectToDocs';
 
 const app = express();
 
 setMiddleware(app);
 
 // Handlers
-app.get("/", redirectToDocs);
-app.get("/health", healthcheck);
-app.use("/api/test", testRouter);
-app.use("/api/multiple-choice-test", multipleChoiceTestRouter);
+app.get('/', redirectToDocs);
+app.get('/health', healthcheck);
+app.use('/api/test', testRouter);
+app.use('/api/multiple-choice-test', multipleChoiceTestRouter);
 app.use(
-  "/api/docs",
+  '/api/docs',
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpecs, SwaggerUiOptions),
 );

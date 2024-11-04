@@ -12,6 +12,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:seed": "cross-env SEED=TRUE tsx ./drizzle/seed.ts",
     "lint": "eslint . --fix -c eslint.config.mjs",
+    "format": "prettier . --write",
     "test": "jest"
   },
   "keywords": [],
@@ -49,6 +50,7 @@
     "globals": "^15.9.0",
     "jest": "29.7.0",
     "morgan": "1.10.0",
+    "prettier": "3.3.3",
     "ts-jest": "29.2.5",
     "ts-node-dev": "2.0.0",
     "tsx": "4.19.2",

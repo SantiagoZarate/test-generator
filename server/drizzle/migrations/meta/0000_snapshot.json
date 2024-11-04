@@ -42,12 +42,8 @@
           "name": "multiple_choice_question_test_id_multiple_choice_test_id_fk",
           "tableFrom": "multiple_choice_question",
           "tableTo": "multiple_choice_test",
-          "columnsFrom": [
-            "test_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["test_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -125,12 +121,8 @@
           "name": "option_question_id_multiple_choice_question_id_fk",
           "tableFrom": "option",
           "tableTo": "multiple_choice_question",
-          "columnsFrom": [
-            "question_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["question_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -162,12 +154,8 @@
           "name": "question_test_id_test_id_fk",
           "tableFrom": "question",
           "tableTo": "test",
-          "columnsFrom": [
-            "test_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["test_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }

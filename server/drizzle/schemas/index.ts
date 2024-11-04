@@ -3,7 +3,7 @@ import {
   questionSchema,
   testRelations,
   testSchema,
-} from "./test.schema";
+} from './test.schema';
 
 import {
   multipleChoiceQuestionRelations,
@@ -12,7 +12,7 @@ import {
   multipleChoiceTestSchema,
   optionRelations,
   optionSchema,
-} from "./multipleTest.schema";
+} from './multipleTest.schema';
 
 export default {
   testSchema,

@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import { ZodError } from "zod";
-import { ApiError } from "../utils/errors";
+import { NextFunction, Request, Response } from 'express';
+import { ZodError } from 'zod';
+import { ApiError } from '../utils/errors';
 
 export function errorMiddleware(
   error: ApiError,
@@ -8,13 +8,13 @@ export function errorMiddleware(
   res: Response,
   next: NextFunction,
 ) {
-  let errorMessage: string = error.message ?? "Internal server error";
+  let errorMessage: string = error.message ?? 'Internal server error';
   const statusCode = error.statusCode ?? 500;
 
   if (error instanceof ZodError) {
-    errorMessage = "";
+    errorMessage = '';
     error.errors.forEach(({ path, message }) => {
-      errorMessage += `${path.join(".")} is ${message}; `;
+      errorMessage += `${path.join('.')} is ${message}; `;
     });
   }
 

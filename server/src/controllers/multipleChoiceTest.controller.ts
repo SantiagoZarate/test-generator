@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { StatusCodes } from "http-status-codes";
-import { multipleChoiceTestRepository } from "../repositories/multipleChoiceTest.repository";
-import { multipleChoiceTestService } from "../services/multipleChoiceTest.service";
+import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { multipleChoiceTestRepository } from '../repositories/multipleChoiceTest.repository';
+import { multipleChoiceTestService } from '../services/multipleChoiceTest.service';
 
 class MultipleChoiceTestController {
   async getAll(_req: Request, res: Response) {
@@ -24,7 +24,7 @@ class MultipleChoiceTestController {
     const results = await multipleChoiceTestRepository.create(data);
 
     res.status(StatusCodes.CREATED).json({
-      message: "Multiple choice test created succesfully",
+      message: 'Multiple choice test created succesfully',
       results,
     });
   }
@@ -34,7 +34,7 @@ class MultipleChoiceTestController {
     await multipleChoiceTestRepository.deleteById({ id });
 
     res.status(StatusCodes.NO_CONTENT).json({
-      message: "Multiple choice test deleted succesfully",
+      message: 'Multiple choice test deleted succesfully',
     });
   }
 }

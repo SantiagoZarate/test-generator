@@ -1,5 +1,5 @@
-import { testSchema } from "../../drizzle/schemas/test.schema";
-import { type InferInsertModel } from "drizzle-orm";
+import { testSchema } from '../../drizzle/schemas/test.schema';
+import { type InferInsertModel } from 'drizzle-orm';
 
 export type TestSchema = Required<
   InferInsertModel<typeof testSchema> & {
@@ -7,5 +7,5 @@ export type TestSchema = Required<
   }
 >;
 
-export type TestSelect = Pick<TestSchema, "id">;
-export type TestInsert = Pick<TestSchema, "title" | "questions">;
+export type TestSelect = Pick<TestSchema, 'id'>;
+export type TestInsert = Pick<TestSchema, 'title' | 'questions'>;
