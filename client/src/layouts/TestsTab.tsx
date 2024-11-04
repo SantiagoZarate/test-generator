@@ -18,7 +18,7 @@ export function TestsTab() {
     <section className="flex gap-1">
       {TESTS_TAB.map((tab) => (
         <Link
-          className={`rounded-md border border-border px-4 py-1 text-xs transition ${pathname === tab.path && 'bg-black'}`}
+          className={`rounded-md border border-border px-4 py-1 text-xs transition ${pathname === tab.path && 'bg-foreground text-background'}`}
           key={tab.path}
           to={tab.path}
         >

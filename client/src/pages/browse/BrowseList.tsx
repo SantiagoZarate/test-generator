@@ -18,7 +18,7 @@ export function BrowseList({ tests }: Props) {
             className="flex cursor-pointer items-center justify-between rounded-lg p-1 px-2 transition hover:bg-border"
           >
             <section className="flex items-center gap-2">
-              <span className="text-red-50 opacity-0 transition group-hover:opacity-100">
+              <span className="opacity-0 transition group-hover:opacity-100">
                 <ArrowUpRigthMicroIcon />
               </span>
               <p className="-translate-x-6 transition group-hover:translate-x-0">
