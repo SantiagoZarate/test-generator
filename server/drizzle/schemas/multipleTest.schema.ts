@@ -25,14 +25,14 @@ export const multipleChoiceQuestionSchema = sqliteTable(
     test_id: text("test_id")
       .references(() => multipleChoiceTestSchema.id, { onDelete: "cascade" })
       .notNull(),
-  }
+  },
 );
 
 export const multipleChoiceTestRelations = relations(
   multipleChoiceTestSchema,
   ({ many }) => ({
     questions: many(multipleChoiceQuestionSchema),
-  })
+  }),
 );
 
 export const multipleChoiceQuestionRelations = relations(
@@ -43,7 +43,7 @@ export const multipleChoiceQuestionRelations = relations(
       references: [multipleChoiceTestSchema.id],
     }),
     options: many(optionSchema),
-  })
+  }),
 );
 
 export const optionSchema = sqliteTable("option", {

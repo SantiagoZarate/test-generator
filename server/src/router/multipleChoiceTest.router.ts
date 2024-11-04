@@ -11,7 +11,7 @@ router.delete("/:id", controller.delete);
 router.post(
   "/",
   validateData(multipleChoiceTestSchemaValidation),
-  controller.create
+  controller.create,
 );
 
 export default router;

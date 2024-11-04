@@ -9,11 +9,13 @@ export function setMiddleware(app: Application) {
   app.use(
     urlencoded({
       extended: true,
-    })
+    }),
   );
 
   // Log requests on dev mode
-  envs.MODE === "development" && app.use(morgan("dev"));
+  if (envs.MODE === "development") {
+    app.use(morgan("dev"));
+  }
 
   // Allow CORS
   app.use(cors());

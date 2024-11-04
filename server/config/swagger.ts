@@ -3,7 +3,7 @@ import swaggerUi, { SwaggerUiOptions } from "swagger-ui-express";
 import yaml from "yamljs";
 
 const swaggerSpecs = yaml.load(
-  path.resolve(__dirname, "../src/docs/build/swagger.yaml")
+  path.resolve(__dirname, "../src/docs/build/swagger.yaml"),
 );
 
 const SwaggerUiOptions: SwaggerUiOptions = {

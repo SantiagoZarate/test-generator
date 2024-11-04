@@ -14,7 +14,7 @@ class MultipleChoiceTestService {
           await multipleChoiceQuestionRepository.getQuestionCountByTest({
             id: test.id,
           }),
-      }))
+      })),
     );
 
     return testsWithMoreInfo;

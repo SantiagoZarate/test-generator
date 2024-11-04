@@ -6,22 +6,22 @@ export function errorMiddleware(
   error: ApiError,
   _req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
-  let message: string = error.message ?? "Internal server error";
+  let errorMessage: string = error.message ?? "Internal server error";
   const statusCode = error.statusCode ?? 500;
 
   if (error instanceof ZodError) {
-    message = "";
-    error.errors.forEach((issue: any) => {
-      message += `${issue.path.join(".")} is ${issue.message}; `;
+    errorMessage = "";
+    error.errors.forEach(({ path, message }) => {
+      errorMessage += `${path.join(".")} is ${message}; `;
     });
   }
 
   res.status(statusCode).json({
     ok: false,
     status: statusCode,
-    message,
+    message: errorMessage,
   });
 
   next(error);

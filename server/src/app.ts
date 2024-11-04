@@ -25,7 +25,7 @@ app.use("/api/multiple-choice-test", multipleChoiceTestRouter);
 app.use(
   "/api/docs",
   swaggerUi.serve,
-  swaggerUi.setup(swaggerSpecs, SwaggerUiOptions)
+  swaggerUi.setup(swaggerSpecs, SwaggerUiOptions),
 );
 
 app.use(errorMiddleware);
@@ -34,8 +34,8 @@ export const start = () => {
   app.listen(envs.PORT, () => {
     console.log(
       chalk.blue(
-        `🚀 -- Server running on http://localhost:${envs.PORT ?? 3000}`
-      )
+        `🚀 -- Server running on http://localhost:${envs.PORT ?? 3000}`,
+      ),
     );
     console.log(chalk.green(`🚧 -- Mode: ${envs.MODE}`));
   });

@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 import { z } from "zod";
 
-let path: string = `.env.${process.env.NODE_ENV}`;
+const path: string = `.env.${process.env.NODE_ENV}`;
 config({ path });
 
 const envsShema = z.object({

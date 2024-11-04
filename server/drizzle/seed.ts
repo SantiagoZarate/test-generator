@@ -28,9 +28,9 @@ async function seed() {
               content: q,
               test_id: newTest[0].id,
             });
-          })
+          }),
         );
-      })
+      }),
     );
 
     console.log("🌱 -- Seeded complete");
