@@ -9,8 +9,14 @@
     "noUnusedLocals": true /* Enable error reporting when local variables aren't read. */,
     "noUnusedParameters": true /* Raise an error when a function parameter isn't read. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "types": ["@types/jest"]
   },
-  "include": ["src/**/*.ts", "drizzle/**/*.ts", "config/**/*.ts"],
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts",
+    "drizzle/**/*.ts",
+    "config/**/*.ts"
+  ],
   "exclude": ["node_modules/", "dist/"]
 }

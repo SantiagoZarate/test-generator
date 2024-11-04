@@ -1,18 +1,24 @@
 import pluginJs from "@eslint/js";
+import jestPlugin from "eslint-plugin-jest";
 import prettierPlugin from "eslint-plugin-prettier/recommended";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+  pluginJs.configs.recommended,
+  prettierPlugin,
+  ...tseslint.configs.recommended,
   {
-    files: ["./src/**/*.ts"],
+    files: ["**/*.ts", "tests/**"],
   },
   {
     ignores: ["dist/**", "node_modules/**"],
   },
-  { languageOptions: { globals: globals.node } },
-  pluginJs.configs.recommended,
-  prettierPlugin,
-  ...tseslint.configs.recommended,
+  {
+    languageOptions: { globals: { ...globals.node, ...globals.jest } },
+    plugins: {
+      jest: jestPlugin,
+    },
+  },
 ];
