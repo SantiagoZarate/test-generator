@@ -2,22 +2,17 @@ import { Config } from '@libsql/client';
 import path from 'path';
 import { envs } from './envs';
 
-let config: Config;
+function getDbCredentials(): Config {
+  if (envs.MODE !== 'production') {
+    return {
+      url: `file:${path.join(process.cwd(), `/drizzle/local.${envs.MODE}.db`)}`,
+    };
+  }
 
-// If we are in production mode, override config
-if (envs.MODE === 'production') {
-  config = {
+  return {
     url: envs.DB_URL,
     authToken: envs.DB_TOKEN,
   };
-} else if (envs.MODE === 'test') {
-  config = {
-    url: `file:${path.resolve(__dirname, '../drizzle/local.test.db')}`,
-  };
-} else {
-  config = {
-    url: `file:${path.resolve(__dirname, '../drizzle/local.db')}`,
-  };
 }
 
-export default config;
+export default getDbCredentials;
