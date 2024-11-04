@@ -3,12 +3,8 @@ import { db } from './connection';
 import { questionSchema, testSchema } from './schemas/test.schema';
 import { MOCK_TESTS } from './seed/test.mock';
 
-async function seed() {
+export async function seed() {
   try {
-    if (!envs.SEED) {
-      throw new Error('This file must be executed on seed mode');
-    }
-
     // DROP DB Manually
     await db.delete(questionSchema);
     await db.delete(testSchema);
@@ -39,4 +35,6 @@ async function seed() {
   }
 }
 
-seed();
+if (envs.SEED) {
+  seed();
+}

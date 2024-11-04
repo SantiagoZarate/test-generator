@@ -7,6 +7,10 @@ if (envs.MODE === 'development') {
   dbCredentials = {
     url: 'file:./drizzle/local.db',
   };
+} else if (envs.MODE === 'test') {
+  dbCredentials = {
+    url: 'file:./drizzle/local.test.db',
+  };
 } else {
   dbCredentials = {
     url: envs.DB_URL,

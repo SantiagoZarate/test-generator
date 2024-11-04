@@ -11,6 +11,7 @@ const config: Config = {
   preset: 'ts-jest',
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
   testMatch: ['**/tests/**/*.test.ts'],
+  globalSetup: './tests/setup/globalSetup.ts',
 };
 
 export default config;
