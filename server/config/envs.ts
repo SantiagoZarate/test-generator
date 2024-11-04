@@ -5,7 +5,7 @@ const path: string = `.env.${process.env.NODE_ENV}`;
 config({ path });
 
 const envsShema = z.object({
-  MODE: z.enum(['development', 'production']).default('development'),
+  MODE: z.enum(['development', 'production', 'test']).default('development'),
   PORT: z.coerce.number(),
   DB_URL: z.string(),
   DB_TOKEN: z.string(),
