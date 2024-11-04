@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import { testService } from '../services/test.service';
 
 export const testController = {
@@ -24,7 +25,7 @@ export const testController = {
     const data = req.body;
     const result = await testService.create(data);
 
-    return res.json({
+    return res.status(StatusCodes.CREATED).json({
       ok: true,
       data: result,
     });

@@ -13,3 +13,9 @@ export class NotFoundError extends ApiError {
     super(message, statusCodes.NOT_FOUND);
   }
 }
+
+export class BadRequestError extends ApiError {
+  constructor(message: string) {
+    super(message, statusCodes.BAD_REQUEST);
+  }
+}
