@@ -27,11 +27,11 @@ export function FooterForm() {
       action=""
     >
       <label htmlFor="suggestion">
-        Would you like to it to have more features?
+        Would you like it to have more features?
       </label>
       <div className="flex gap-2">
         <Input
-          className="flex-1 p-1 text-sm"
+          className="flex-1 p-1 px-2 text-sm"
           onChange={(e) => setValue(e.currentTarget.value)}
           placeholder="i want it to have ..."
           id="suggestion"
