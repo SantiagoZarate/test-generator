@@ -17,3 +17,21 @@ export interface PostDataResponse {
     id: string;
   };
 }
+
+export interface PaginatedResponse<T> extends APIResponse<T> {
+  info: {
+    currentPage: number;
+    totalPages: number;
+    totalTests: number;
+  };
+}
+
+export interface PaginatesGetAllTests {
+  tests: GetAllTests[];
+  nextPage: number;
+  info: {
+    currentPage: number;
+    totalPages: number;
+    totalTests: number;
+  };
+}
