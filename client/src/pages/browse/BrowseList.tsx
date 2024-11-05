@@ -1,11 +1,11 @@
-import { GetAllTests } from '@/api/interface';
+import { Test } from '@/api/interface';
 import { ArrowUpRigthMicroIcon } from '@/components/icons/ArrowUpRigthMicroIcon';
 import { MotionItem } from '@/components/motion/MotionItem';
 import { MotionList } from '@/components/motion/MotionList';
 import { Link } from 'react-router-dom';
 
 interface Props {
-  tests: GetAllTests[];
+  tests: Test[];
 }
 
 export function BrowseList({ tests }: Props) {

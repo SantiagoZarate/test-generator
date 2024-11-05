@@ -1,10 +1,10 @@
 import { TestInsert, TestSchema, TestSelect } from '@backend/test.types';
 import {
   APIResponse,
-  GetAllTests,
+  GetAllTestsPaginated,
   PaginatedResponse,
-  PaginatesGetAllTests,
   PostDataResponse,
+  Test,
 } from '../interface';
 import { GetDataResponse } from './test.api.type';
 
@@ -34,10 +34,14 @@ export const testAPI = {
       })
     );
   },
-  getAll: ({ page = 1 }: { page?: number }): Promise<PaginatesGetAllTests> => {
+  getAll: ({
+    page = 1,
+  }: {
+    page?: number;
+  }): Promise<GetAllTestsPaginated<Test[]>> => {
     return fetch(ENDPOINT + '?page=' + page)
       .then((response) => response.json())
-      .then((response: PaginatedResponse<GetAllTests[]>) => ({
+      .then((response: PaginatedResponse<Test[]>) => ({
         tests: response.data,
         nextPage: response.info.currentPage + 1,
         info: {

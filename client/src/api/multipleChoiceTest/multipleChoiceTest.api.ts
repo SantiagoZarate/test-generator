@@ -1,4 +1,9 @@
-import { APIResponse, GetAllTests, PostDataResponse } from '../interface';
+import {
+  GetAllTestsPaginated,
+  PaginatedResponse,
+  PostDataResponse,
+  Test,
+} from '../interface';
 import { MPTest, TestInsert } from './multipleChoiceTest.type';
 
 const ENDPOINT = '/api/multiple-choice-test';
@@ -9,10 +14,18 @@ export const multipleChoiceTestAPI = {
       .then((response) => response.json())
       .then((response) => response.data);
   },
-  async getAll(): Promise<GetAllTests[]> {
-    return fetch(ENDPOINT)
+  async getAll({
+    page = 1,
+  }: {
+    page?: number;
+  }): Promise<GetAllTestsPaginated<Test>> {
+    return fetch(ENDPOINT + '?page=' + page)
       .then((response) => response.json())
-      .then((response: APIResponse<GetAllTests[]>) => response.data);
+      .then((response: PaginatedResponse<Test>) => ({
+        info: { ...response.info },
+        nextPage: response.info.currentPage + 1,
+        tests: response.data,
+      }));
   },
   async create(data: TestInsert): Promise<string> {
     const options: RequestInit = {

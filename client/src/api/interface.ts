@@ -4,7 +4,7 @@ export interface APIResponse<D> {
   data: D;
 }
 
-export interface GetAllTests {
+export interface Test {
   id: string;
   title: string;
   created_at: string;
@@ -18,20 +18,17 @@ export interface PostDataResponse {
   };
 }
 
-export interface PaginatedResponse<T> extends APIResponse<T> {
-  info: {
-    currentPage: number;
-    totalPages: number;
-    totalTests: number;
-  };
+export type PaginatedResponse<T> = APIResponse<T> & Pagination;
+
+export interface GetAllTestsPaginated<T> extends Pagination {
+  tests: T;
+  nextPage: number;
 }
 
-export interface PaginatesGetAllTests {
-  tests: GetAllTests[];
-  nextPage: number;
+type Pagination = {
   info: {
     currentPage: number;
     totalPages: number;
     totalTests: number;
   };
-}
+};
