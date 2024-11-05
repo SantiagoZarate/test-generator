@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { count, eq } from 'drizzle-orm';
 import { db } from '../../drizzle/connection';
 import {
   multipleChoiceQuestionSchema,
@@ -11,13 +11,28 @@ import {
   multipleChoiceTestQuestionsSchemaDTO,
 } from '../dtos/mutlipleChoiceTest.dto';
 import { MCTestInsert, MCTestSelect } from '../types/multipleChoiceTest.types';
+import { PaginateConfig } from '../utils/getPaginatedParams';
 
 class MultipleChoiceTestRepository {
   private readonly entity = multipleChoiceTestSchema;
 
-  async getAll(): Promise<MultipleChoiceTestDTO[]> {
-    const data = await db.query.multipleChoiceTestSchema.findMany();
+  async getAll({
+    limit,
+    page,
+  }: PaginateConfig): Promise<MultipleChoiceTestDTO[]> {
+    const data = await db.query.multipleChoiceTestSchema.findMany({
+      limit,
+      offset: (page - 1) * limit,
+    });
     return data;
+  }
+
+  async getCount(): Promise<number> {
+    const data = await db
+      .select({ count: count(multipleChoiceTestSchema.id) })
+      .from(multipleChoiceTestSchema);
+
+    return data[0].count;
   }
 
   async getOne({ id }: MCTestSelect): Promise<MultipleChoiceTestQuestionsDTO> {

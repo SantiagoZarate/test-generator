@@ -2,11 +2,23 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { multipleChoiceTestRepository } from '../repositories/multipleChoiceTest.repository';
 import { multipleChoiceTestService } from '../services/multipleChoiceTest.service';
+import { getPaginatedParams } from '../utils/getPaginatedParams';
 
 class MultipleChoiceTestController {
-  async getAll(_req: Request, res: Response) {
-    const data = await multipleChoiceTestService.getAll();
-    res.json({ data });
+  async getAll(req: Request, res: Response) {
+    const pagination = getPaginatedParams(req.query);
+
+    const { testsWithMoreInfo, totalPages, totalTests } =
+      await multipleChoiceTestService.getAll(pagination);
+
+    res.json({
+      data: testsWithMoreInfo,
+      info: {
+        currentPage: pagination.page,
+        totalPages,
+        totalTests,
+      },
+    });
   }
 
   async getOne(req: Request, res: Response) {
