@@ -1,8 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 import { db } from '../drizzle/connection';
 import { seed } from '../drizzle/seed';
-import { MOCK_TESTS } from '../drizzle/seed/test.mock';
 import { TestSchemaValidation } from '../src/lib/zod-schemas/test.validation';
+import { DEFAULT_LIMIT } from '../src/utils/getPaginatedParams';
 import { request } from './jest.setup';
 
 describe('REGULAR TEST', () => {
@@ -19,7 +19,7 @@ describe('REGULAR TEST', () => {
         .expect(StatusCodes.OK)
         .expect(({ body }) => {
           expect(Array.isArray(body.data)).toBe(true);
-          expect(body.data.length).toBe(MOCK_TESTS.length);
+          expect(body.data.length).toBe(DEFAULT_LIMIT);
         });
     });
   });
