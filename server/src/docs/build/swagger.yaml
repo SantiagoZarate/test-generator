@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: Documentación de la API usando Swagger
 servers:
-  - url: 'http://localhost:3000/api'
+  - url: 'http://localhost:4000/api'
     description: Sandbox server (uses test data)
   - url: test-generator-api-swart.vercel.app/api
     description: Production server
@@ -19,6 +19,23 @@ paths:
       summary: get all the tests
       tags:
         - Tests
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            description: Número máximo de posts a devolver
+          required: false
+          description: Limita el número de posts devueltos (por defecto devuelve todos)
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+            description: Número de posts a saltar antes de comenzar a devolver los resultados
+          required: false
+          description: Saltar los primeros 'n' posts (para paginación)
       responses:
         '200':
           description: tests list

@@ -1,6 +1,6 @@
 import { Request } from 'express';
 
-const DEFAULT_LIMIT = 10;
+const DEFAULT_LIMIT = 5;
 
 export interface PaginateConfig {
   limit: number;
