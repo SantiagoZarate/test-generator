@@ -30,7 +30,10 @@ const authAPI = {
         if (!response.ok) {
           return null;
         }
-        return response.json().then((res) => res.data);
+
+        return response.json().then((res) => {
+          return res.data;
+        });
       })
       .catch((e) => {
         console.log(e);

@@ -1,7 +1,9 @@
+import { AuthLayout } from '@/layouts/AuthLayout';
 import { BrowseLayout } from '@/layouts/BrowseLayout';
 import { TestPage } from '@/pages/[id]';
 import { BrowseMultipleChoiceTestsPage } from '@/pages/browse/BrowseMultipleChoiceTestsPage';
 import { BrowseTestsPage } from '@/pages/browse/BrowseTestsPage';
+import { ProfilePage } from '@/pages/profile/ProfilePage';
 import { RedirectLoginPage } from '@/pages/redirect/RedirectLoginPage';
 import { RedirectRegisterPage } from '@/pages/redirect/RedirectRegisterPage';
 import { createBrowserRouter } from 'react-router-dom';
@@ -48,6 +50,15 @@ export const mainRouter = createBrowserRouter([
           {
             path: '/browse/test',
             element: <BrowseTestsPage />,
+          },
+        ],
+      },
+      {
+        element: <AuthLayout />,
+        children: [
+          {
+            path: '/profile',
+            element: <ProfilePage />,
           },
         ],
       },

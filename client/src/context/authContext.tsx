@@ -21,10 +21,25 @@ export const authContext = createContext<AuthContextProps | null>(null);
 
 export function AuthProvider({ children }: PropsWithChildren) {
   const queryClient = useQueryClient();
+
+  const getMe = async () => {
+    const userInfo = await authAPI.getUser();
+    localStorage.setItem('test-builder-user', JSON.stringify(userInfo));
+    return userInfo;
+  };
+
+  const retrieveUser = () => {
+    const userInfo = localStorage.getItem('test-builder-user');
+    if (userInfo) {
+      return JSON.parse(userInfo);
+    }
+    return null;
+  };
+
   const { data, isLoading, isError, refetch } = useQuery<User | null>({
     queryKey: ['user'],
-    queryFn: authAPI.getUser,
-    initialData: null,
+    queryFn: getMe,
+    initialData: retrieveUser,
   });
 
   const logout = () => {
