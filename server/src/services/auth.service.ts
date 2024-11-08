@@ -3,14 +3,17 @@ import { ScopeData } from '../types/auth/scopeData.types';
 import { GoogleCode } from '../types/googleCodeResponse.types';
 
 class AuthService {
-  async getAccesToken(code: string): Promise<GoogleCode> {
+  async getAccesToken(
+    code: string,
+    redirect_uri: string = 'http://localhost:7000/redirect',
+  ): Promise<GoogleCode> {
     const url = 'https://accounts.google.com/o/oauth2/token';
     const body = new URLSearchParams({
-      grant_type: 'authorization_code',
-      code: code,
-      client_id: envs.CLIENT_ID,
       client_secret: envs.CLIENT_SECRET,
-      redirect_uri: 'http://localhost:7000/redirect',
+      grant_type: 'authorization_code',
+      client_id: envs.CLIENT_ID,
+      redirect_uri,
+      code: code,
     }).toString();
 
     const options: RequestInit = {
