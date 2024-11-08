@@ -1,41 +1,47 @@
 import { authAPI } from '@/api/auth/auth.api';
-import { createContext, PropsWithChildren, useEffect, useState } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { createContext, PropsWithChildren } from 'react';
 
 interface AuthContextProps {
-  user: string | null;
+  user: User | null;
+  isLoading: boolean;
+  isError: boolean;
   isLogged: boolean;
   logout: () => void;
-  login: () => void;
+  getMe: () => void;
+}
+
+interface User {
+  name: string;
+  email: string;
+  id: string;
 }
 
 export const authContext = createContext<AuthContextProps | null>(null);
 
 export function AuthProvider({ children }: PropsWithChildren) {
-  const [user, setUser] = useState<string | null>(null);
-
-  useEffect(() => {
-    login();
-  }, []);
+  const queryClient = useQueryClient();
+  const { data, isLoading, isError, refetch } = useQuery<User | null>({
+    queryKey: ['user'],
+    queryFn: authAPI.getUser,
+    initialData: null,
+  });
 
   const logout = () => {
     authAPI.logout().then(() => {
-      setUser(null);
-    });
-  };
-
-  const login = () => {
-    authAPI.getUser().then((response) => {
-      setUser(response.data.name);
+      queryClient.setQueryData(['user'], () => null);
     });
   };
 
   return (
     <authContext.Provider
       value={{
-        isLogged: user !== null,
-        user,
+        isLogged: !!data,
+        user: data,
+        isError,
+        isLoading,
         logout,
-        login,
+        getMe: () => refetch(),
       }}
     >
       {children}

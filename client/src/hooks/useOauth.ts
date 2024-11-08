@@ -1,12 +1,9 @@
 import { authAPI } from '@/api/auth/auth.api';
 import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from './useAuth';
+import { redirect, useLocation } from 'react-router-dom';
 
 export function useOauth() {
-  const { login } = useAuth();
   const location = useLocation();
-  const redirect = useNavigate();
 
   const queryParams = new URLSearchParams(location.search);
 
@@ -24,6 +21,7 @@ export function useOauth() {
     if (!code) {
       throw new Error('Code must be provided');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const registerUser = () => {
@@ -35,12 +33,7 @@ export function useOauth() {
   };
 
   const loginUser = () => {
-    authAPI.login(code!).then(() => {
-      login();
-      setTimeout(() => {
-        redirect('/');
-      }, 5000);
-    });
+    return authAPI.login(code!);
   };
 
   return {

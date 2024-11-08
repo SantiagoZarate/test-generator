@@ -1,5 +1,3 @@
-import { redirect } from 'react-router-dom';
-
 const ENDPOINT = '/api/auth';
 
 const authAPI = {
@@ -13,11 +11,6 @@ const authAPI = {
   async login(code: string) {
     authRequest(ENDPOINT + '/login?code=' + code)
       .then((response) => response.json())
-      .then(() => {
-        setTimeout(() => {
-          redirect('/');
-        }, 5000);
-      })
       .catch(() => {
         console.error('Login failed');
       });
@@ -33,8 +26,18 @@ const authAPI = {
     return fetch(ENDPOINT + '/me', {
       credentials: 'include',
     })
-      .then((response) => response.json())
-      .catch((e) => console.log(e));
+      .then((response) => {
+        if (!response.ok) {
+          return null;
+        }
+        return response.json().then((res) => res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log('RUNNING');
+
+        return null;
+      });
   },
 };
 

@@ -26,7 +26,7 @@ export function Header() {
           <section className="flex items-center gap-2">
             {isLogged ? (
               <>
-                <p>{user}</p>
+                <p>{user?.name}</p>
                 <Button onClick={logout}>logout</Button>
               </>
             ) : (
