@@ -9,9 +9,13 @@ const cookieName = 'sessionToken';
 class AuthController {
   async register(req: AuthRequest, res: Response) {
     // Store user on the app database
+    console.log('REGISTERING', req.scopeData);
+
     const userID = await userService.register(req.scopeData!);
 
-    const userToken = jsonwebtoken.sign(userID, envs.JWT_SECRET);
+    const userToken = jsonwebtoken.sign({ id: userID.id }, envs.JWT_SECRET, {
+      expiresIn: '1h',
+    });
 
     // Send user token via cookies (contains userID)
     res.cookie(cookieName, userToken, {

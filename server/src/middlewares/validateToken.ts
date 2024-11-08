@@ -9,6 +9,8 @@ export function validateToken(
   _res: Response,
   next: NextFunction,
 ) {
+  console.log(req.cookies);
+
   const token = req.cookies['sessionToken'];
 
   if (!token) {

@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { Application, json, urlencoded } from 'express';
 import morgan from 'morgan';
@@ -16,6 +17,9 @@ export function setBaseMiddleware(app: Application) {
   if (envs.MODE === 'development') {
     app.use(morgan('dev'));
   }
+
+  // Read cookies
+  app.use(cookieParser());
 
   // Allow CORS
   app.use(cors());

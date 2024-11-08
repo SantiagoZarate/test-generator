@@ -37,7 +37,7 @@ class MultipleChoiceTestController {
 
     const results = await multipleChoiceTestRepository.create({
       ...data,
-      user_id: req.user,
+      user_id: req.user?.id,
     });
 
     res.status(StatusCodes.CREATED).json({
