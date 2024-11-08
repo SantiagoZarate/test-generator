@@ -1,6 +1,7 @@
 import { relations, sql } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { nanoid } from 'nanoid';
+import { userSchema } from './user.schema';
 
 export const multipleChoiceTestSchema = sqliteTable('multiple_choice_test', {
   id: text('id')
@@ -11,6 +12,11 @@ export const multipleChoiceTestSchema = sqliteTable('multiple_choice_test', {
     .notNull()
     .default(sql`(CURRENT_TIMESTAMP)`),
   title: text('title').notNull(),
+  user_id: text('user_id')
+    .references(() => userSchema.id, {
+      onDelete: 'cascade',
+    })
+    .notNull(),
 });
 
 export const multipleChoiceQuestionSchema = sqliteTable(
@@ -30,8 +36,12 @@ export const multipleChoiceQuestionSchema = sqliteTable(
 
 export const multipleChoiceTestRelations = relations(
   multipleChoiceTestSchema,
-  ({ many }) => ({
+  ({ many, one }) => ({
     questions: many(multipleChoiceQuestionSchema),
+    user: one(userSchema, {
+      references: [userSchema.id],
+      fields: [multipleChoiceTestSchema.user_id],
+    }),
   }),
 );
 
