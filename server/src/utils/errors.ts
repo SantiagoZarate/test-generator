@@ -19,3 +19,9 @@ export class BadRequestError extends ApiError {
     super(message, statusCodes.BAD_REQUEST);
   }
 }
+
+export class UnauthorizedError extends ApiError {
+  constructor(message: string) {
+    super(message, statusCodes.UNAUTHORIZED);
+  }
+}

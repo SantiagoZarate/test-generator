@@ -60,7 +60,7 @@ class MultipleChoiceTestRepository {
         .insert(this.entity)
         .values({
           title: data.title,
-          user_id: 'a',
+          user_id: data.user_id,
         })
         .returning({ id: this.entity.id });
 

@@ -23,5 +23,5 @@ export type MultipleChoiceTestSchema = MultipleChoiceTestRAW & {
 };
 
 export type MCTestSelect = Pick<MultipleChoiceTestSchema, 'id'>;
-export type MCTestInsert = Pick<MultipleChoiceTestSchema, 'title'> &
+export type MCTestInsert = Pick<MultipleChoiceTestSchema, 'title' | 'user_id'> &
   MPTestSchema;

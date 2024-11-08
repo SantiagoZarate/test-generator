@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { multipleChoiceTestRepository } from '../repositories/multipleChoiceTest.repository';
 import { multipleChoiceTestService } from '../services/multipleChoiceTest.service';
+import { AuthRequest } from '../types/authRequest';
 import { getPaginatedParams } from '../utils/getPaginatedParams';
 
 class MultipleChoiceTestController {
@@ -31,9 +32,13 @@ class MultipleChoiceTestController {
     });
   }
 
-  async create(req: Request, res: Response) {
+  async create(req: AuthRequest, res: Response) {
     const data = req.body;
-    const results = await multipleChoiceTestRepository.create(data);
+
+    const results = await multipleChoiceTestRepository.create({
+      ...data,
+      user_id: req.user,
+    });
 
     res.status(StatusCodes.CREATED).json({
       message: 'Multiple choice test created succesfully',
