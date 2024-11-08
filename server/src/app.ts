@@ -11,6 +11,7 @@ import chalk from 'chalk';
 import authRouter from './router/auth.router';
 import multipleChoiceTestRouter from './router/multipleChoiceTest.router';
 import testRouter from './router/test.router';
+import userRouter from './router/user.router';
 import { healthcheck } from './utils/healthcheck';
 import { redirectToDocs } from './utils/redirectToDocs';
 
@@ -23,6 +24,7 @@ app.get('/', redirectToDocs);
 app.get('/health', healthcheck);
 app.use('/api/auth', authRouter);
 app.use('/api/test', testRouter);
+app.use('/api/user', userRouter);
 app.use('/api/multiple-choice-test', multipleChoiceTestRouter);
 app.use(
   '/api/docs',

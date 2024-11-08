@@ -31,6 +31,18 @@ class UserRepository {
 
     return data;
   }
+
+  async getUserProfile({ id }: UserSelect) {
+    const data = await db.query.userSchema.findFirst({
+      where: (user) => eq(user.id, id),
+      with: {
+        multipleChoiceTests: true,
+        tests: true,
+      },
+    });
+
+    return data;
+  }
 }
 
 export const userRepository = new UserRepository();

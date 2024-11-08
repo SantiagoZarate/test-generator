@@ -33,6 +33,11 @@ class UserService {
     const user = await userRepository.getById({ id });
     return user;
   }
+
+  async getUserProfile({ id }: UserSelect) {
+    const data = await userRepository.getUserProfile({ id });
+    return data;
+  }
 }
 
 export const userService = new UserService();
