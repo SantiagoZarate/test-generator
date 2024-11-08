@@ -1,3 +1,5 @@
+import { Button } from '@/components/ui/Button';
+import { useAuth } from '@/hooks/useAuth';
 import { Link } from 'react-router-dom';
 import { AcademicCapIcon } from '../../icons/AcademicCapIcon';
 import { ThemeSwitcher } from '../ThemeSwitcher';
@@ -7,6 +9,8 @@ import { Navbar } from './NavBar';
 import { RegisterButton } from './RegisterButton';
 
 export function Header() {
+  const { isLogged, user, logout } = useAuth();
+
   return (
     <header className="header fixed top-0 z-50 w-full px-4 py-2 print:hidden">
       <section className="mx-auto flex w-full max-w-screen-lg justify-between">
@@ -19,9 +23,18 @@ export function Header() {
         </section>
         <section className="flex gap-4">
           <ThemeSwitcher />
-          <section className="flex gap-2">
-            <RegisterButton />
-            <LoginButon />
+          <section className="flex items-center gap-2">
+            {isLogged ? (
+              <>
+                <p>{user}</p>
+                <Button onClick={logout}>logout</Button>
+              </>
+            ) : (
+              <>
+                <RegisterButton />
+                <LoginButon />
+              </>
+            )}
           </section>
         </section>
       </section>

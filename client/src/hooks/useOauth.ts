@@ -1,8 +1,10 @@
 import { authAPI } from '@/api/auth/auth.api';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from './useAuth';
 
 export function useOauth() {
+  const { login } = useAuth();
   const location = useLocation();
   const redirect = useNavigate();
 
@@ -34,6 +36,7 @@ export function useOauth() {
 
   const loginUser = () => {
     authAPI.login(code!).then(() => {
+      login();
       setTimeout(() => {
         redirect('/');
       }, 5000);
