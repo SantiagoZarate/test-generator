@@ -5,9 +5,10 @@ import { envs } from '../config/envs';
 import { swaggerSpecs, swaggerUi, SwaggerUiOptions } from '../config/swagger';
 // Middlewares
 import { errorMiddleware } from './middlewares/errorMiddleware';
-import { setMiddleware } from './middlewares/setMiddleware';
+import { setBaseMiddleware } from './middlewares/setMiddleware';
 // Routes
 import chalk from 'chalk';
+import authRouter from './router/auth.router';
 import multipleChoiceTestRouter from './router/multipleChoiceTest.router';
 import testRouter from './router/test.router';
 import { healthcheck } from './utils/healthcheck';
@@ -15,11 +16,12 @@ import { redirectToDocs } from './utils/redirectToDocs';
 
 const app = express();
 
-setMiddleware(app);
+setBaseMiddleware(app);
 
 // Handlers
 app.get('/', redirectToDocs);
 app.get('/health', healthcheck);
+app.use('/api/auth', authRouter);
 app.use('/api/test', testRouter);
 app.use('/api/multiple-choice-test', multipleChoiceTestRouter);
 app.use(

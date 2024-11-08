@@ -3,7 +3,7 @@ import { Application, json, urlencoded } from 'express';
 import morgan from 'morgan';
 import { envs } from '../../config/envs';
 
-export function setMiddleware(app: Application) {
+export function setBaseMiddleware(app: Application) {
   // Allow incoming post requests
   app.use(json());
   app.use(
