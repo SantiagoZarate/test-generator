@@ -1,6 +1,6 @@
 import { userRepository } from '../repositories/user.repository';
 import { ScopeData } from '../types/auth/scopeData.types';
-import { BadRequestError } from '../utils/errors';
+import { BadRequestError, UnauthorizedError } from '../utils/errors';
 
 class UserService {
   async register(data: ScopeData) {
@@ -16,6 +16,16 @@ class UserService {
     });
 
     return result;
+  }
+
+  async login(data: ScopeData) {
+    const user = await userRepository.getByEmail(data.email);
+
+    if (!user) {
+      throw new UnauthorizedError('User is not registered');
+    }
+
+    return user;
   }
 }
 
