@@ -3,7 +3,7 @@ import { ScopeData } from '../types/auth/scopeData.types';
 import { GoogleCode } from '../types/googleCodeResponse.types';
 
 class AuthService {
-  async getAccesToken(code: string) {
+  async getAccesToken(code: string): Promise<GoogleCode> {
     const url = 'https://accounts.google.com/o/oauth2/token';
     const body = new URLSearchParams({
       grant_type: 'authorization_code',
@@ -20,19 +20,21 @@ class AuthService {
       },
       body,
     };
+    const res = await fetch(url, options).then((response) => response.json());
 
-    const res = await fetch(url, options)
-      .then((response) => response.json())
-      .then((response: GoogleCode) => response);
+    return res;
+  }
 
+  async getUserInfo(token: string): Promise<ScopeData> {
     const userInfoUrl = `https://www.googleapis.com/oauth2/v3/userinfo`;
+
     const userInfo: ScopeData = await fetch(userInfoUrl, {
       headers: {
-        Authorization: `Bearer ${res.access_token}`,
+        Authorization: `Bearer ${token}`,
       },
     }).then((response) => response.json());
 
-    console.log(userInfo);
+    return userInfo;
   }
 }
 

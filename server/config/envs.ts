@@ -12,6 +12,7 @@ const envsShema = z.object({
   SEED: z.coerce.boolean().optional(),
   CLIENT_ID: z.string(),
   CLIENT_SECRET: z.string(),
+  JWT_SECRET: z.string(),
 });
 
 export const envs = envsShema.parse({
@@ -22,4 +23,5 @@ export const envs = envsShema.parse({
   SEED: process.env.SEED || false,
   CLIENT_ID: process.env.CLIENT_ID,
   CLIENT_SECRET: process.env.CLIENT_SECRET,
+  JWT_SECRET: process.env.JWT_SECRET,
 });
