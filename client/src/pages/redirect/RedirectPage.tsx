@@ -25,7 +25,7 @@ export function RedirectPage() {
       },
     };
 
-    fetch('api/auth?code=' + code, settings)
+    fetch('/api/auth/register?code=' + code, settings)
       .then((response) => response.json())
       .catch(() => {
         console.log('No anda el backend');
