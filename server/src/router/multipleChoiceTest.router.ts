@@ -8,7 +8,7 @@ const router = Router();
 
 router.get('/', controller.getAll);
 router.get('/:id', controller.getOne);
-router.delete('/:id', controller.delete);
+router.delete('/:id', validateToken, controller.delete);
 router.post(
   '/',
   validateToken,

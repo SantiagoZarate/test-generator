@@ -50,9 +50,7 @@ class MultipleChoiceTestController {
     const { id } = req.params;
     await multipleChoiceTestRepository.deleteById({ id });
 
-    res.status(StatusCodes.NO_CONTENT).json({
-      message: 'Multiple choice test deleted succesfully',
-    });
+    res.status(StatusCodes.NO_CONTENT);
   }
 }
 
