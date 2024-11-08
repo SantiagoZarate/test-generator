@@ -42,6 +42,8 @@ class AuthController {
     });
 
     res.json({
+      ok: true,
+      data: user,
       message: 'user logged in succesfully',
     });
   }
@@ -51,6 +53,14 @@ class AuthController {
     res.json({
       ok: true,
       message: 'log out succesfully',
+    });
+  }
+
+  async getUser(req: AuthRequest, res: Response) {
+    const userData = await userService.getUser({ id: req.user!.id });
+    res.json({
+      data: userData,
+      message: 'user data retrieved',
     });
   }
 }

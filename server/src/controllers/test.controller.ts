@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { testService } from '../services/test.service';
+import { AuthRequest } from '../types/authRequest';
 import { getPaginatedParams } from '../utils/getPaginatedParams';
 
 export const testController = {
@@ -30,9 +31,9 @@ export const testController = {
       data: result,
     });
   },
-  async create(req: Request, res: Response) {
+  async create(req: AuthRequest, res: Response) {
     const data = req.body;
-    const result = await testService.create(data);
+    const result = await testService.create({ ...data, user_id: req.user?.id });
 
     return res.status(StatusCodes.CREATED).json({
       ok: true,

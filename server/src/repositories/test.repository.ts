@@ -50,7 +50,7 @@ export class TestRepository {
     const test = await this._db.transaction(async (tx) => {
       const id = await tx
         .insert(testSchema)
-        .values({ ...data, user_id: 'a' })
+        .values(data)
         .returning({ id: testSchema.id });
 
       const questions = data.questions.map((q) => ({

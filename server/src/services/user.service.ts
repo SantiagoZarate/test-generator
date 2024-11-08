@@ -1,5 +1,6 @@
 import { userRepository } from '../repositories/user.repository';
 import { ScopeData } from '../types/auth/scopeData.types';
+import { UserSelect } from '../types/user.types';
 import { BadRequestError, UnauthorizedError } from '../utils/errors';
 
 class UserService {
@@ -25,6 +26,11 @@ class UserService {
       throw new UnauthorizedError('User is not registered');
     }
 
+    return user;
+  }
+
+  async getUser({ id }: UserSelect) {
+    const user = await userRepository.getById({ id });
     return user;
   }
 }
