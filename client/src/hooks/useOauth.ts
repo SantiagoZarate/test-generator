@@ -1,9 +1,8 @@
+import { authAPI } from '@/api/auth/auth.api';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-type AuthAEndpoints = '/api/auth/login?code=' | '/api/auth/register?code="';
-
-export function useOauth(apiUrl: AuthAEndpoints) {
+export function useOauth() {
   const location = useLocation();
   const redirect = useNavigate();
 
@@ -20,26 +19,29 @@ export function useOauth(apiUrl: AuthAEndpoints) {
       return;
     }
 
-    const settings: RequestInit = {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    };
-
-    fetch(apiUrl + code, settings)
-      .then((response) => response.json())
-      .then(() => {
-        setTimeout(() => {
-          redirect('/');
-        }, 5000);
-      })
-      .catch(() => {
-        console.error('Login failed');
-      });
+    if (!code) {
+      throw new Error('Code must be provided');
+    }
   }, []);
 
-  return {};
+  const registerUser = () => {
+    authAPI.register(code!).then(() => {
+      setTimeout(() => {
+        redirect('/');
+      }, 5000);
+    });
+  };
+
+  const loginUser = () => {
+    authAPI.login(code!).then(() => {
+      setTimeout(() => {
+        redirect('/');
+      }, 5000);
+    });
+  };
+
+  return {
+    registerUser,
+    loginUser,
+  };
 }

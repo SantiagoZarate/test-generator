@@ -1,7 +1,8 @@
 import { useOauth } from '@/hooks/useOauth';
 
 export function RedirectRegisterPage() {
-  useOauth('/api/auth/login?code=');
+  const { registerUser } = useOauth();
+  registerUser();
 
   return (
     <section>
