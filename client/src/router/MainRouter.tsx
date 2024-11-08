@@ -3,6 +3,7 @@ import { BrowseLayout } from '@/layouts/BrowseLayout';
 import { TestPage } from '@/pages/[id]';
 import { BrowseMultipleChoiceTestsPage } from '@/pages/browse/BrowseMultipleChoiceTestsPage';
 import { BrowseTestsPage } from '@/pages/browse/BrowseTestsPage';
+import { ProfileMultipleChoicePage } from '@/pages/profile/multiple-choice/ProfileMultipleChoicePage';
 import { ProfilePage } from '@/pages/profile/ProfilePage';
 import { RedirectLoginPage } from '@/pages/redirect/RedirectLoginPage';
 import { RedirectRegisterPage } from '@/pages/redirect/RedirectRegisterPage';
@@ -59,6 +60,10 @@ export const mainRouter = createBrowserRouter([
           {
             path: '/profile',
             element: <ProfilePage />,
+          },
+          {
+            path: '/profile/multiple-choice/:id',
+            element: <ProfileMultipleChoicePage />,
           },
         ],
       },

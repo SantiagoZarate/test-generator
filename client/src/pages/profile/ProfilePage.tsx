@@ -1,4 +1,5 @@
 import { userAPI } from '@/api/user/user.api';
+import { Text } from '@/components/ui/Text';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 
@@ -17,20 +18,27 @@ export function ProfilePage() {
   }
 
   return (
-    <section>
-      <header>Profile Page</header>
-      <ul className="grid grid-cols-4 gap-2">
-        {data?.multipleChoiceTests.map((test) => (
-          <li key={test.id}>
-            <Link
-              className="flex border border-border p-4"
-              to={'/multiple-choice/' + test.id}
-            >
-              <p>{test.title}</p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <section className="flex flex-col gap-8">
+      <header>
+        <h2>
+          <Text variant={'title'}>Profile page</Text>
+        </h2>
+      </header>
+      <section className="flex flex-col gap-2">
+        <Text>Multiple choice tests</Text>
+        <ul className="grid grid-cols-4 gap-2">
+          {data?.multipleChoiceTests.map((test) => (
+            <li className="rounded-xl border border-border" key={test.id}>
+              <Link
+                className="flex p-4"
+                to={'/profile/multiple-choice/' + test.id}
+              >
+                <p>{test.title}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
     </section>
   );
 }

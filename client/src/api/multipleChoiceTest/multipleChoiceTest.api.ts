@@ -1,24 +1,15 @@
-import {
-  GetAllTestsPaginated,
-  PaginatedResponse,
-  PostDataResponse,
-  Test,
-} from '../interface';
-import { MPTest, TestInsert } from './multipleChoiceTest.type';
+import { MultipleChoiceTestAPI } from '.';
+import { PaginatedResponse, PostDataResponse, Test } from '../interface';
 
 const ENDPOINT = '/api/multiple-choice-test';
 
-export const multipleChoiceTestAPI = {
-  async getOne(id: string): Promise<MPTest> {
+export const multipleChoiceTestAPI: MultipleChoiceTestAPI = {
+  async getOne(id: string) {
     return fetch(ENDPOINT + '/' + id)
       .then((response) => response.json())
       .then((response) => response.data);
   },
-  async getAll({
-    page = 1,
-  }: {
-    page?: number;
-  }): Promise<GetAllTestsPaginated<Test>> {
+  async getAll({ page = 1 }: { page?: number }) {
     return fetch(ENDPOINT + '?page=' + page)
       .then((response) => response.json())
       .then((response: PaginatedResponse<Test>) => ({
@@ -27,7 +18,7 @@ export const multipleChoiceTestAPI = {
         tests: response.data,
       }));
   },
-  async create(data: TestInsert): Promise<string> {
+  async create(data) {
     const options: RequestInit = {
       method: 'POST',
       headers: {
@@ -40,5 +31,15 @@ export const multipleChoiceTestAPI = {
     return fetch(ENDPOINT, options)
       .then((response) => response.json())
       .then((response: PostDataResponse) => response.results.id);
+  },
+  async delete(id) {
+    return fetch(ENDPOINT + '/' + id, {
+      method: 'DELETE',
+      credentials: 'include',
+    }).then((response) => {
+      if (!response.ok) {
+        console.log(response);
+      }
+    });
   },
 };
