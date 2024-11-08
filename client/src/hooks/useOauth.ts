@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-export function RedirectPage() {
+type AuthAEndpoints = '/api/auth/login?code=' | '/api/auth/register?code="';
+
+export function useOauth(apiUrl: AuthAEndpoints) {
   const location = useLocation();
+  const redirect = useNavigate();
 
   const queryParams = new URLSearchParams(location.search);
 
@@ -13,6 +16,7 @@ export function RedirectPage() {
 
   useEffect(() => {
     if (storedState !== state) {
+      console.error('Invalid CSRF token');
       return;
     }
 
@@ -25,12 +29,17 @@ export function RedirectPage() {
       },
     };
 
-    fetch('/api/auth/register?code=' + code, settings)
+    fetch(apiUrl + code, settings)
       .then((response) => response.json())
+      .then(() => {
+        setTimeout(() => {
+          redirect('/');
+        }, 5000);
+      })
       .catch(() => {
-        console.log('No anda el backend');
+        console.error('Login failed');
       });
   }, []);
 
-  return <section>LOGGED IN</section>;
+  return {};
 }

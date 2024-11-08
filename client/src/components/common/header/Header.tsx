@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { AcademicCapIcon } from '../../icons/AcademicCapIcon';
 import { ThemeSwitcher } from '../ThemeSwitcher';
 import './header.css';
+import { LoginButon } from './LoginButon';
 import { Navbar } from './NavBar';
 import { RegisterButton } from './RegisterButton';
 
@@ -18,7 +19,10 @@ export function Header() {
         </section>
         <section className="flex gap-4">
           <ThemeSwitcher />
-          <RegisterButton />
+          <section className="flex gap-2">
+            <RegisterButton />
+            <LoginButon />
+          </section>
         </section>
       </section>
     </header>
