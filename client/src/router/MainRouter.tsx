@@ -2,6 +2,7 @@ import { BrowseLayout } from '@/layouts/BrowseLayout';
 import { TestPage } from '@/pages/[id]';
 import { BrowseMultipleChoiceTestsPage } from '@/pages/browse/BrowseMultipleChoiceTestsPage';
 import { BrowseTestsPage } from '@/pages/browse/BrowseTestsPage';
+import { RedirectPage } from '@/pages/redirect/RedirectPage';
 import { createBrowserRouter } from 'react-router-dom';
 import { MainLayout } from '../layouts/MainLayout';
 import { BasicTestPage } from '../pages/basic-test/BasicTestPage';
@@ -20,6 +21,11 @@ export const mainRouter = createBrowserRouter([
       {
         element: <TestPage />,
         path: '/basic-test/:id',
+      },
+      {
+        element: <RedirectPage />,
+        path: '/redirect',
+        errorElement: <div>There was an error</div>,
       },
       {
         element: <BasicTestPage />,

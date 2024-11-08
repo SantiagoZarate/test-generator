@@ -3,6 +3,7 @@ import { AcademicCapIcon } from '../../icons/AcademicCapIcon';
 import { ThemeSwitcher } from '../ThemeSwitcher';
 import './header.css';
 import { Navbar } from './NavBar';
+import { RegisterButton } from './RegisterButton';
 
 export function Header() {
   return (
@@ -15,7 +16,10 @@ export function Header() {
           </Link>
           <Navbar />
         </section>
-        <ThemeSwitcher />
+        <section className="flex gap-4">
+          <ThemeSwitcher />
+          <RegisterButton />
+        </section>
       </section>
     </header>
   );
