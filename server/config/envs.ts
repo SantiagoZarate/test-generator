@@ -21,7 +21,7 @@ export const envs = envsShema.parse({
   DB_URL: process.env.TURSO_DB_URL || '',
   DB_TOKEN: process.env.TURSO_DB_TOKEN || '',
   SEED: process.env.SEED || false,
-  CLIENT_ID: process.env.CLIENT_ID,
-  CLIENT_SECRET: process.env.CLIENT_SECRET,
-  JWT_SECRET: process.env.JWT_SECRET,
+  CLIENT_ID: process.env.CLIENT_ID || '',
+  CLIENT_SECRET: process.env.CLIENT_SECRET || '',
+  JWT_SECRET: process.env.JWT_SECRET || '',
 });
