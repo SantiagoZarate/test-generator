@@ -2,13 +2,7 @@
 export interface APIResponse<D> {
   ok: boolean;
   data: D;
-}
-
-export interface Test {
-  id: string;
-  title: string;
-  created_at: string;
-  questionsCounts: number;
+  message: string;
 }
 
 export interface PostDataResponse {
@@ -32,3 +26,18 @@ type Pagination = {
     totalTests: number;
   };
 };
+
+// Entities
+export interface Test {
+  id: string;
+  title: string;
+  created_at: string;
+  questionsCounts: number;
+}
+
+export interface MultipleChoiceTest {
+  id: string;
+  created_at: Date;
+  title: string;
+  user_id: string;
+}
