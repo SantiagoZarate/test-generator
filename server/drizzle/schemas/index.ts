@@ -1,3 +1,5 @@
+import { userRelations, userSchema } from './user.schema';
+
 import {
   questionRelations,
   questionSchema,
@@ -26,4 +28,7 @@ export default {
   optionSchema,
   multipleChoiceQuestionRelations,
   multipleChoiceTestRelations,
+  // User
+  userRelations,
+  userSchema,
 };
