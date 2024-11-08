@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { authService } from '../services/auth.service';
 import { BadRequestError } from '../utils/errors';
 
 class AuthController {
@@ -8,6 +9,8 @@ class AuthController {
     if (!code) {
       throw new BadRequestError('Code must be provided');
     }
+
+    authService.getAccesToken(String(code));
 
     res.json({
       message: 'user created succesfully',
