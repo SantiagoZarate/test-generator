@@ -4,8 +4,6 @@ import { envs } from '../../config/envs';
 import { userService } from '../services/user.service';
 import { AuthRequest } from '../types/authRequest';
 
-const cookieName = 'sessionToken';
-
 class AuthController {
   async register(req: AuthRequest, res: Response) {
     // Store user on the app database
@@ -18,7 +16,7 @@ class AuthController {
     });
 
     // Send user token via cookies (contains userID)
-    res.cookie(cookieName, userToken, {
+    res.cookie('accessToken', userToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
@@ -33,9 +31,21 @@ class AuthController {
   async login(req: AuthRequest, res: Response) {
     const user = await userService.login(req.scopeData!);
 
-    const userToken = jsonwebtoken.sign({ id: user.id }, envs.JWT_SECRET);
+    const accessToken = jsonwebtoken.sign({ id: user.id }, envs.JWT_SECRET, {
+      expiresIn: '2m',
+    });
 
-    res.cookie(cookieName, userToken, {
+    const refreshToken = jsonwebtoken.sign({ id: user.id }, envs.JWT_SECRET, {
+      expiresIn: '7d',
+    });
+
+    res.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+    });
+
+    res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
@@ -49,7 +59,8 @@ class AuthController {
   }
 
   logout(_req: Request, res: Response) {
-    res.clearCookie(cookieName);
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
     res.json({
       ok: true,
       message: 'log out succesfully',
