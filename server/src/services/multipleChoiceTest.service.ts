@@ -9,6 +9,10 @@ class MultipleChoiceTestService {
   async getAll(config: PaginateConfig) {
     const totalTests = await this.repository.getCount();
 
+    if (totalTests === 0) {
+      return { testsWithMoreInfo: [], totalPages: 0, totalTests: 0 };
+    }
+
     const totalPages = Math.ceil(totalTests / config.limit);
 
     if (config.page < 0 || config.page > totalPages) {

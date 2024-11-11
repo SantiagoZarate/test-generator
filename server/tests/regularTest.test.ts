@@ -83,6 +83,15 @@ describe('REGULAR TEST', () => {
         .expect(StatusCodes.BAD_REQUEST);
     });
 
+    it('should return a 401 response when creating a test with unauthorized user', async () => {
+      const payload: TestSchemaValidation = {
+        title: 'new test',
+        questions: ['question 1'],
+      };
+
+      await request.post(URL).send(payload).expect(StatusCodes.UNAUTHORIZED);
+    });
+
     it('should return a 400 response when creating a test with empty questions array', async () => {
       const invalidPayload: TestSchemaValidation = {
         title: 'new test',
@@ -126,6 +135,14 @@ describe('REGULAR TEST', () => {
       await authRequest(userId)
         .delete(URL + '/' + test?.id)
         .expect(StatusCodes.NO_CONTENT);
+    });
+
+    it('should return a 401 response when deleting a test with unauthorized user', async () => {
+      const test = await db.query.testSchema.findFirst();
+
+      await request
+        .delete(URL + '/' + test?.id)
+        .expect(StatusCodes.UNAUTHORIZED);
     });
 
     it('should return a 404 response when deleting an invalid test', async () => {

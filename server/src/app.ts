@@ -12,6 +12,7 @@ import authRouter from './router/auth.router';
 import multipleChoiceTestRouter from './router/multipleChoiceTest.router';
 import testRouter from './router/test.router';
 import userRouter from './router/user.router';
+import { appRoutes } from './types/appRoutes.types';
 import { healthcheck } from './utils/healthcheck';
 import { redirectToDocs } from './utils/redirectToDocs';
 
@@ -21,13 +22,13 @@ setBaseMiddleware(app);
 
 // Handlers
 app.get('/', redirectToDocs);
-app.get('/health', healthcheck);
-app.use('/api/auth', authRouter);
-app.use('/api/test', testRouter);
-app.use('/api/user', userRouter);
-app.use('/api/multiple-choice-test', multipleChoiceTestRouter);
+app.get(appRoutes.health, healthcheck);
+app.use(appRoutes.auth, authRouter);
+app.use(appRoutes.test, testRouter);
+app.use(appRoutes.user, userRouter);
+app.use(appRoutes.multipleChoice, multipleChoiceTestRouter);
 app.use(
-  '/api/docs',
+  appRoutes.docs,
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpecs, SwaggerUiOptions),
 );
