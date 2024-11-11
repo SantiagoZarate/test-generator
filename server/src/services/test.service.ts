@@ -25,6 +25,8 @@ export const testService = {
     return test;
   },
   async create(data: TestInsert) {
+    console.log({ data });
+
     const test = await testRepository.create(data);
     return test;
   },

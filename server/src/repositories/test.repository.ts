@@ -47,6 +47,8 @@ export class TestRepository {
   }
 
   async create(data: TestInsert) {
+    console.log({ data });
+
     const test = await this._db.transaction(async (tx) => {
       const id = await tx
         .insert(testSchema)

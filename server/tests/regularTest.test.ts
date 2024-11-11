@@ -1,9 +1,12 @@
+import { eq } from 'drizzle-orm';
 import { StatusCodes } from 'http-status-codes';
 import { db } from '../drizzle/connection';
 import { seed } from '../drizzle/seed';
+import { MOCK_USER } from '../drizzle/seed/user.mock';
 import { TestSchemaValidation } from '../src/lib/zod-schemas/test.validation';
 import { DEFAULT_LIMIT } from '../src/utils/getPaginatedParams';
 import { request } from './jest.setup';
+import { authRequest } from './setup/authRequest';
 
 describe('REGULAR TEST', () => {
   const URL = '/api/test';
@@ -45,13 +48,27 @@ describe('REGULAR TEST', () => {
   });
 
   describe('POST /api/test', () => {
+    let userId: string | undefined;
+
+    // Use beforeEach to perform asynchronous setup
+    beforeEach(async () => {
+      const email = MOCK_USER.email;
+      const user = await db.query.userSchema.findFirst({
+        where: (user) => eq(user.email, email),
+      });
+      userId = user?.id;
+    });
+
     it('should return a 201 response when creating a test', async () => {
       const payload: TestSchemaValidation = {
         title: 'new test',
         questions: ['question 1'],
       };
 
-      await request.post(URL).send(payload).expect(StatusCodes.CREATED);
+      await authRequest(userId)
+        .post(URL)
+        .send(payload)
+        .expect(StatusCodes.CREATED);
     });
 
     it('should return a 400 response when creating a test with empty title', async () => {
@@ -60,7 +77,7 @@ describe('REGULAR TEST', () => {
         questions: ['question'],
       };
 
-      await request
+      await authRequest(userId)
         .post(URL)
         .send(invalidPayload)
         .expect(StatusCodes.BAD_REQUEST);
@@ -72,7 +89,7 @@ describe('REGULAR TEST', () => {
         questions: [],
       };
 
-      await request
+      await authRequest(userId)
         .post(URL)
         .send(invalidPayload)
         .expect(StatusCodes.BAD_REQUEST);
@@ -84,7 +101,7 @@ describe('REGULAR TEST', () => {
         questions: Array(11).fill('question'),
       };
 
-      await request
+      await authRequest(userId)
         .post(URL)
         .send(invalidPayload)
         .expect(StatusCodes.BAD_REQUEST);
@@ -92,16 +109,31 @@ describe('REGULAR TEST', () => {
   });
 
   describe('DELETE /api/test', () => {
+    let userId: string | undefined;
+
+    // Use beforeEach to perform asynchronous setup
+    beforeEach(async () => {
+      const email = MOCK_USER.email;
+      const user = await db.query.userSchema.findFirst({
+        where: (user) => eq(user.email, email),
+      });
+      userId = user?.id;
+    });
+
     it('should return a 204 response when deleting a test', async () => {
       const test = await db.query.testSchema.findFirst();
 
-      await request.delete(URL + '/' + test?.id).expect(StatusCodes.NO_CONTENT);
+      await authRequest(userId)
+        .delete(URL + '/' + test?.id)
+        .expect(StatusCodes.NO_CONTENT);
     });
 
     it('should return a 404 response when deleting an invalid test', async () => {
       const invalidID = 'invalid-id';
 
-      await request.delete(URL + '/' + invalidID).expect(StatusCodes.NOT_FOUND);
+      await authRequest(userId)
+        .delete(URL + '/' + invalidID)
+        .expect(StatusCodes.NOT_FOUND);
     });
   });
 });

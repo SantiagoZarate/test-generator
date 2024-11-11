@@ -18,6 +18,7 @@ export function validateToken(
 
   try {
     const verifiedToken = jsonwebtoken.verify(accessToken, envs.JWT_SECRET);
+    console.log({ verifiedToken });
     req.user = verifiedToken as UserData;
     return next();
   } catch (error) {
@@ -51,7 +52,6 @@ export function validateToken(
     });
 
     req.user = verifiedRefreshToken as UserData;
-    console.log('TOKEN EXPIRO PERO SE GENERO UNO NUEVO');
     return next();
   } catch (e) {
     console.log(e);
