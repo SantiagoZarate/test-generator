@@ -9,6 +9,8 @@ import {
   MultipleChoiceTestDTO,
   MultipleChoiceTestQuestionsDTO,
   multipleChoiceTestQuestionsSchemaDTO,
+  MultipleChoiceTestResultsDTO,
+  multipleChoiceTestResultsSchemaDTO,
 } from '../dtos/mutlipleChoiceTest.dto';
 import { MCTestInsert, MCTestSelect } from '../types/multipleChoiceTest.types';
 import { PaginateConfig } from '../utils/getPaginatedParams';
@@ -44,6 +46,7 @@ class MultipleChoiceTestRepository {
             options: true,
           },
         },
+        results: true,
       },
     });
 
@@ -54,6 +57,23 @@ class MultipleChoiceTestRepository {
     return multipleChoiceTestQuestionsSchemaDTO.parse(data);
   }
 
+  async getOneWithInfo({
+    id,
+  }: MCTestSelect): Promise<MultipleChoiceTestResultsDTO> {
+    const data = await db.query.multipleChoiceTestSchema.findFirst({
+      where: (test) => eq(test.id, id),
+      with: {
+        results: true,
+      },
+    });
+
+    if (!data) {
+      console.log('NO EXISTE');
+    }
+
+    return multipleChoiceTestResultsSchemaDTO.parse(data);
+  }
+
   async create(data: MCTestInsert): Promise<MCTestSelect> {
     const testID = await db.transaction(async (tx) => {
       const test = await tx
@@ -61,6 +81,7 @@ class MultipleChoiceTestRepository {
         .values({
           title: data.title,
           user_id: data.user_id,
+          rigth_answers_to_pass: data.rigth_answers_to_pass,
         })
         .returning({ id: this.entity.id });
 

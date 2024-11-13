@@ -32,6 +32,16 @@ class MultipleChoiceTestController {
     });
   }
 
+  async getOneWithInfo(req: Request, res: Response) {
+    const { id } = req.params;
+    const data = await multipleChoiceTestService.getOneWithInfo({ id });
+
+    res.json({
+      ok: true,
+      data,
+    });
+  }
+
   async create(req: AuthRequest, res: Response) {
     const data = req.body;
 

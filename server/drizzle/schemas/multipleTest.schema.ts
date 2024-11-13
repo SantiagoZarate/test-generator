@@ -19,6 +19,7 @@ export const multipleChoiceTestSchema = sqliteTable('multiple_choice_test', {
       onDelete: 'cascade',
     })
     .notNull(),
+  rigth_answers_to_pass: integer('rigth_answers_to_pass').notNull(),
 });
 
 export const multipleChoiceQuestionSchema = sqliteTable(
@@ -90,10 +91,10 @@ export const multipleChoiceQuestionRelations = relations(
 );
 
 export const multipleChoiceResultRelations = relations(
-  multipleChoiceQuestionSchema,
+  multipleChoiceResultSchema,
   ({ one }) => ({
     tests: one(multipleChoiceTestSchema, {
-      fields: [multipleChoiceQuestionSchema.test_id],
+      fields: [multipleChoiceResultSchema.test_id],
       references: [multipleChoiceTestSchema.id],
     }),
   }),

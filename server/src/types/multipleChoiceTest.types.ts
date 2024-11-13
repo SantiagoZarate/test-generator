@@ -1,6 +1,7 @@
 import { type InferInsertModel } from 'drizzle-orm';
 import {
   multipleChoiceQuestionSchema,
+  multipleChoiceResultSchema,
   multipleChoiceTestSchema,
   optionSchema,
 } from '../../drizzle/schemas/multipleTest.schema';
@@ -8,6 +9,10 @@ import { MPTestSchema } from '../lib/zod-schemas/multipleChoiceTest.validation';
 
 // Get TS types from Drizzle Schemas
 export type OptionRAW = Required<InferInsertModel<typeof optionSchema>>;
+
+export type ResultRAW = Required<
+  InferInsertModel<typeof multipleChoiceResultSchema>
+>;
 
 export type MultipleChoiceTestRAW = Required<
   InferInsertModel<typeof multipleChoiceTestSchema>
@@ -23,5 +28,8 @@ export type MultipleChoiceTestSchema = MultipleChoiceTestRAW & {
 };
 
 export type MCTestSelect = Pick<MultipleChoiceTestSchema, 'id'>;
-export type MCTestInsert = Pick<MultipleChoiceTestSchema, 'title' | 'user_id'> &
+export type MCTestInsert = Pick<
+  MultipleChoiceTestSchema,
+  'title' | 'user_id' | 'rigth_answers_to_pass'
+> &
   MPTestSchema;

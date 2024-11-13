@@ -1,5 +1,6 @@
 import { multipleChoiceQuestionRepository } from '../repositories/multipleChoiceQuestion.repository';
 import { multipleChoiceTestRepository } from '../repositories/multipleChoiceTest.repository';
+import { MCTestSelect } from '../types/multipleChoiceTest.types';
 import { BadRequestError } from '../utils/errors';
 import { PaginateConfig } from '../utils/getPaginatedParams';
 
@@ -32,6 +33,32 @@ class MultipleChoiceTestService {
     );
 
     return { testsWithMoreInfo, totalPages, totalTests };
+  }
+
+  async getOneWithInfo({ id }: MCTestSelect) {
+    const test = await this.repository.getOneWithInfo({ id });
+
+    const aprovedTests = test.results.filter(
+      (r) => r.right_answers >= test.rigth_answers_to_pass,
+    );
+
+    let totalScore = 0;
+    test.results.forEach((r) => {
+      totalScore += r.right_answers;
+    });
+
+    const averageScore = totalScore / test.results.length;
+    const countAprovedTests = aprovedTests.length;
+    const countDisaprovedTests = test.results.length - countAprovedTests;
+
+    return {
+      ...test,
+      info: {
+        averageScore,
+        countAprovedTests,
+        countDisaprovedTests,
+      },
+    };
   }
 }
 
