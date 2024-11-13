@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "1f57e9a0-7814-488e-adb0-348049294113",
+  "id": "a0c5e7c1-5b98-4236-8d92-3d07a85c13dc",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "multiple_choice_question": {
@@ -55,6 +55,58 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "multiple_choice_result": {
+      "name": "multiple_choice_result",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(CURRENT_TIMESTAMP)"
+        },
+        "test_id": {
+          "name": "test_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "right_answers": {
+          "name": "right_answers",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "multiple_choice_result_test_id_multiple_choice_test_id_fk": {
+          "name": "multiple_choice_result_test_id_multiple_choice_test_id_fk",
+          "tableFrom": "multiple_choice_result",
+          "tableTo": "multiple_choice_test",
+          "columnsFrom": [
+            "test_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "multiple_choice_test": {
       "name": "multiple_choice_test",
       "columns": {
@@ -83,6 +135,13 @@
         "user_id": {
           "name": "user_id",
           "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "rigth_answers_to_pass": {
+          "name": "rigth_answers_to_pass",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

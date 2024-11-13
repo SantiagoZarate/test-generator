@@ -6,11 +6,20 @@ CREATE TABLE `multiple_choice_question` (
 	FOREIGN KEY (`test_id`) REFERENCES `multiple_choice_test`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
+CREATE TABLE `multiple_choice_result` (
+	`id` text PRIMARY KEY NOT NULL,
+	`content` text DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
+	`test_id` text NOT NULL,
+	`right_answers` integer NOT NULL,
+	FOREIGN KEY (`test_id`) REFERENCES `multiple_choice_test`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
 CREATE TABLE `multiple_choice_test` (
 	`id` text PRIMARY KEY NOT NULL,
 	`created_at` text DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
 	`title` text NOT NULL,
 	`user_id` text NOT NULL,
+	`rigth_answers_to_pass` integer NOT NULL,
 	FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
