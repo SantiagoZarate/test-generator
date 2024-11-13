@@ -8,7 +8,7 @@ const router = Router();
 
 router.get('/', controller.getAll);
 router.get('/:id', controller.getOne);
-router.get('/:id/info', controller.getOne);
+router.get('/:id/info', controller.getOneWithInfo);
 router.delete('/:id', validateToken, controller.delete);
 router.post(
   '/',
@@ -16,5 +16,6 @@ router.post(
   validateData(multipleChoiceTestSchemaValidation),
   controller.create,
 );
+router.post('/:id/result', controller.postResult);
 
 export default router;

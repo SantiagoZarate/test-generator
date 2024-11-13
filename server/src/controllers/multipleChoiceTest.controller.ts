@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { multipleChoiceResultRepository } from '../repositories/multipleChoiceResult.repository';
 import { multipleChoiceTestRepository } from '../repositories/multipleChoiceTest.repository';
 import { multipleChoiceTestService } from '../services/multipleChoiceTest.service';
 import { AuthRequest } from '../types/authRequest';
@@ -61,6 +62,21 @@ class MultipleChoiceTestController {
     await multipleChoiceTestRepository.deleteById({ id });
 
     res.status(StatusCodes.NO_CONTENT);
+  }
+
+  async postResult(req: Request, res: Response) {
+    const { right_answers } = req.body;
+    const { id } = req.params;
+
+    const data = await multipleChoiceResultRepository.create({
+      right_answers,
+      test_id: id,
+    });
+
+    res.status(StatusCodes.CREATED).json({
+      ok: true,
+      data,
+    });
   }
 }
 

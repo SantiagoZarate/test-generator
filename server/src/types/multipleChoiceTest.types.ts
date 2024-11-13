@@ -14,6 +14,9 @@ export type ResultRAW = Required<
   InferInsertModel<typeof multipleChoiceResultSchema>
 >;
 
+export type ResultInsert = Pick<ResultRAW, 'right_answers' | 'test_id'>;
+export type ResultSelect = Pick<ResultRAW, 'id'>;
+
 export type MultipleChoiceTestRAW = Required<
   InferInsertModel<typeof multipleChoiceTestSchema>
 >;
