@@ -9,6 +9,11 @@ export const multipleChoiceTestAPI: MultipleChoiceTestAPI = {
       .then((response) => response.json())
       .then((response) => response.data);
   },
+  async getOneWithInfo(id: string) {
+    return fetch(ENDPOINT + '/' + id + '/info')
+      .then((response) => response.json())
+      .then((response) => response.data);
+  },
   async getAll({ page = 1 }: { page?: number }) {
     return fetch(ENDPOINT + '?page=' + page)
       .then((response) => response.json())

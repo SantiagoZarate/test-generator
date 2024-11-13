@@ -18,7 +18,14 @@ export interface MultipleChoiceTestAPI {
    * @param id - The ID of the test to retrieve.
    * @returns A promise that resolves with the test data.
    */
-  getOne: (id: string) => Promise<MultipleChoiceTest>;
+  getOne: (id: string) => Promise<MultipleChoiceTestWithQuestions>;
+
+  /**
+   * Retrieves a single multiple choice test by its ID with some aditional information.
+   * @param id - The ID of the test to retrieve.
+   * @returns A promise that resolves with the test data.
+   */
+  getOneWithInfo: (id: string) => Promise<MultipleChoiceTestWithInfo>;
 
   /**
    * Creates a new multiple choice test.
@@ -47,7 +54,20 @@ interface MultipleChoiceTest {
   created_at: Date;
   title: string;
   user_id: string;
+}
+
+interface MultipleChoiceTestWithQuestions extends MultipleChoiceTest {
   questions: Question[];
+}
+
+interface MultipleChoiceTestWithInfo extends MultipleChoiceTest {
+  info: BasicAnalytics;
+}
+
+interface BasicAnalytics {
+  averageScore: null | number;
+  countAprovedTests: number;
+  countDisaprovedTests: number;
 }
 
 interface Question {
