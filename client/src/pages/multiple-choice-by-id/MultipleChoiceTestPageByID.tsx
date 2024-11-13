@@ -1,5 +1,6 @@
 import { multipleChoiceTestAPI } from '@/api/multipleChoiceTest/multipleChoiceTest.api';
 import { Button } from '@/components/ui/Button';
+import { toast } from '@/components/ui/use-toast';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -20,11 +21,6 @@ export function MultipleChoiceTestPageByID() {
     setChoseAnswer(newAnswers);
   };
 
-  const handleFinishTest = () => {
-    setShowResults(true);
-    console.log({ chosenAnswer });
-  };
-
   const handleResetTest = () => {
     setShowResults(false);
     setChoseAnswer([]);
@@ -41,6 +37,20 @@ export function MultipleChoiceTestPageByID() {
     return (
       data?.questions[index]?.options.findIndex((opt) => opt.isCorrect) ?? -1
     );
+  };
+
+  const handleSubmitResult = () => {
+    setShowResults(true);
+    multipleChoiceTestAPI
+      .postResult(id!, {
+        right_answers: calculateTotalScore(),
+      })
+      .then(() => {
+        toast({
+          title: 'Test result sent succesfully',
+          description: 'Thanks for submit your results!',
+        });
+      });
   };
 
   return (
@@ -92,7 +102,7 @@ export function MultipleChoiceTestPageByID() {
             disabled={
               chosenAnswer.length !== data?.questions.length || showResults
             }
-            onClick={handleFinishTest}
+            onClick={handleSubmitResult}
           >
             Finish
           </Button>

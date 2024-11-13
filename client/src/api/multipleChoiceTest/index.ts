@@ -35,6 +35,13 @@ export interface MultipleChoiceTestAPI {
   create: (data: TestInsert) => Promise<string>;
 
   /**
+   * Creates a new multiple choice test.
+   * @param data - The data of the test to create.
+   * @returns A promise that resolves with the ID of the newly created test.
+   */
+  postResult: (id: string, data: ResultInsert) => Promise<{ id: string }>;
+
+  /**
    * Deletes a multiple choice test by its ID.
    * @param id - The ID of the test to delete.
    * @returns A promise that resolves with a message indicating success.
@@ -93,4 +100,8 @@ interface TestInsert {
     options: string[];
     answer: number;
   }[];
+}
+
+interface ResultInsert {
+  right_answers: number;
 }
