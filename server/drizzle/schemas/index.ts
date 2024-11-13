@@ -10,6 +10,8 @@ import {
 import {
   multipleChoiceQuestionRelations,
   multipleChoiceQuestionSchema,
+  multipleChoiceResultRelations,
+  multipleChoiceResultSchema,
   multipleChoiceTestRelations,
   multipleChoiceTestSchema,
   optionRelations,
@@ -22,6 +24,8 @@ export default {
   questionSchema,
   testRelations,
   // Multiple Choice
+  multipleChoiceResultRelations,
+  multipleChoiceResultSchema,
   multipleChoiceQuestionSchema,
   multipleChoiceTestSchema,
   optionRelations,
