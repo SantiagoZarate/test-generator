@@ -30,6 +30,6 @@ export type MultipleChoiceTestSchema = MultipleChoiceTestRAW & {
 export type MCTestSelect = Pick<MultipleChoiceTestSchema, 'id'>;
 export type MCTestInsert = Pick<
   MultipleChoiceTestSchema,
-  'title' | 'user_id' | 'rigth_answers_to_pass'
+  'title' | 'user_id' | 'right_answers_to_pass'
 > &
   MPTestSchema;

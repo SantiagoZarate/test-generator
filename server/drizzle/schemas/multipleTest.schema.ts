@@ -19,7 +19,7 @@ export const multipleChoiceTestSchema = sqliteTable('multiple_choice_test', {
       onDelete: 'cascade',
     })
     .notNull(),
-  rigth_answers_to_pass: integer('rigth_answers_to_pass').notNull(),
+  right_answers_to_pass: integer('right_answers_to_pass').notNull(),
 });
 
 export const multipleChoiceQuestionSchema = sqliteTable(

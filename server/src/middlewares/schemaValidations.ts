@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { z, ZodError } from 'zod';
+import { ZodError, z } from 'zod';
 import { BadRequestError } from '../utils/errors';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function validateData(schema: z.ZodObject<any, any>) {
+export function validateData(schema: z.ZodTypeAny) {
   return (req: Request, _res: Response, next: NextFunction) => {
     try {
       schema.parse(req.body);

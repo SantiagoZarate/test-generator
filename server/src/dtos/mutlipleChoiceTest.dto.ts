@@ -7,7 +7,7 @@ export const multipleChoiceTestSchemaDTO = z.object({
   id: z.string(),
   title: z.string(),
   created_at: z.string(),
-  rigth_answers_to_pass: z.coerce.number(),
+  right_answers_to_pass: z.coerce.number(),
 }) satisfies z.ZodType<Omit<MultipleChoiceTestRAW, 'user_id'>>;
 
 export type MultipleChoiceTestDTO = z.infer<typeof multipleChoiceTestSchemaDTO>;

@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "a0c5e7c1-5b98-4236-8d92-3d07a85c13dc",
+  "id": "797a87fc-2781-4061-99fd-03272142d460",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "multiple_choice_question": {
@@ -139,8 +139,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "rigth_answers_to_pass": {
-          "name": "rigth_answers_to_pass",
+        "right_answers_to_pass": {
+          "name": "right_answers_to_pass",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,

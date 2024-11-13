@@ -81,7 +81,7 @@ class MultipleChoiceTestRepository {
         .values({
           title: data.title,
           user_id: data.user_id,
-          rigth_answers_to_pass: data.rigth_answers_to_pass,
+          right_answers_to_pass: data.right_answers_to_pass,
         })
         .returning({ id: this.entity.id });
 

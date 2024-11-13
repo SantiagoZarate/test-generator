@@ -39,7 +39,7 @@ class MultipleChoiceTestService {
     const test = await this.repository.getOneWithInfo({ id });
 
     const aprovedTests = test.results.filter(
-      (r) => r.right_answers >= test.rigth_answers_to_pass,
+      (r) => r.right_answers >= test.right_answers_to_pass,
     );
 
     let totalScore = 0;
