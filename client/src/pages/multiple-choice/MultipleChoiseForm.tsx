@@ -18,6 +18,10 @@ export function MultipleChoiseForm() {
     updateNewQuestion,
     testTitle,
     updateTitle,
+    decreaseRightAnswersToPass,
+    increaseRightAnswersToPass,
+    rightAnswersToPass,
+    questions,
   } = useMultipleChoiceTestStore((state) => state);
 
   const handleSubmit = (e: FormEvent) => {
@@ -31,17 +35,46 @@ export function MultipleChoiseForm() {
       onSubmit={handleSubmit}
       className="flex flex-col gap-4 print:hidden"
     >
-      <label htmlFor="title" className="flex flex-col gap-2">
-        Test title
-        <input
-          className="rounded-lg border border-neutral-600 bg-neutral-900 p-2"
-          placeholder="My new test"
-          name="title"
-          id="title"
-          value={testTitle}
-          onChange={(e) => updateTitle(e.target.value)}
-        />
-      </label>
+      <header className="flex items-center gap-2">
+        <label htmlFor="title" className="flex flex-1 flex-col gap-2">
+          Test title
+          <input
+            className="rounded-lg border border-neutral-600 bg-neutral-900 p-2"
+            placeholder="My new test"
+            name="title"
+            id="title"
+            value={testTitle}
+            onChange={(e) => updateTitle(e.target.value)}
+          />
+        </label>
+        <label
+          htmlFor="right_answers_to_pass"
+          className="flex flex-1 flex-col gap-2"
+        >
+          Right answers to pass the thest
+          <section className="flex w-full items-center gap-2">
+            <button
+              className="rounded-md bg-primary p-2 text-background disabled:opacity-25"
+              type="button"
+              onClick={decreaseRightAnswersToPass}
+              disabled={!rightAnswersToPass}
+            >
+              -
+            </button>
+            <span className="w-full rounded-lg border border-neutral-600 bg-neutral-900 p-2">
+              {rightAnswersToPass}
+            </span>
+            <button
+              className="rounded-md bg-primary p-2 text-background disabled:opacity-25"
+              type="button"
+              onClick={increaseRightAnswersToPass}
+              disabled={rightAnswersToPass === questions.length}
+            >
+              +
+            </button>
+          </section>
+        </label>
+      </header>
       <label htmlFor="question" className="flex flex-col gap-2">
         New question
         <input

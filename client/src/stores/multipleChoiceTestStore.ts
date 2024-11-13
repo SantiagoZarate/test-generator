@@ -12,6 +12,7 @@ interface State {
   testTitle: string;
   correctAnswer: number;
   options: string[];
+  rightAnswersToPass: number;
 }
 
 interface Action {
@@ -24,6 +25,8 @@ interface Action {
   updateOptionValue: (optionIndex: number, value: string) => void;
   deleteQuestion: (questionIndex: number) => void;
   resetQuestions: () => void;
+  increaseRightAnswersToPass: () => void;
+  decreaseRightAnswersToPass: () => void;
 }
 
 const useMultipleChoiceTestStore = create<State & Action>((set) => ({
@@ -32,6 +35,7 @@ const useMultipleChoiceTestStore = create<State & Action>((set) => ({
   newQuestionValue: '',
   questions: [],
   testTitle: '',
+  rightAnswersToPass: 0,
   addOption() {
     set((prevState) => ({ ...prevState, options: [...prevState.options, ''] }));
   },
@@ -40,6 +44,28 @@ const useMultipleChoiceTestStore = create<State & Action>((set) => ({
   },
   updateTitle(newValue) {
     set((prevState) => ({ ...prevState, testTitle: newValue }));
+  },
+  decreaseRightAnswersToPass() {
+    set((prevState) => {
+      if (prevState.rightAnswersToPass === 0) {
+        return prevState;
+      }
+      return {
+        ...prevState,
+        rightAnswersToPass: prevState.rightAnswersToPass - 1,
+      };
+    });
+  },
+  increaseRightAnswersToPass() {
+    set((prevState) => {
+      if (prevState.rightAnswersToPass === prevState.questions.length) {
+        return prevState;
+      }
+      return {
+        ...prevState,
+        rightAnswersToPass: prevState.rightAnswersToPass + 1,
+      };
+    });
   },
   deleteOption(index) {
     set((prevState) => {

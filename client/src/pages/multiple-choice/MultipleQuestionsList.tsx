@@ -7,8 +7,13 @@ import { useMultipleChoiceTestStore } from '@/stores/multipleChoiceTestStore';
 import { useState } from 'react';
 
 export function MultipleQuestionsList() {
-  const { questions, deleteQuestion, resetQuestions, testTitle } =
-    useMultipleChoiceTestStore((state) => state);
+  const {
+    questions,
+    deleteQuestion,
+    resetQuestions,
+    testTitle,
+    rightAnswersToPass,
+  } = useMultipleChoiceTestStore((state) => state);
   const [isLoading] = useState(false);
   const [createdTestID, setCreatedTestID] = useState<string>('');
   const [isCreatingPost, setIsCreatingPost] = useState(false);
@@ -19,6 +24,7 @@ export function MultipleQuestionsList() {
       .create({
         title: testTitle,
         questions,
+        right_answers_to_pass: rightAnswersToPass,
       })
       .then(setCreatedTestID)
       .then(() => setIsCreatingPost(false));

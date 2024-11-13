@@ -67,6 +67,7 @@ interface Option {
 
 interface TestInsert {
   title: string;
+  right_answers_to_pass: number;
   questions: {
     content: string;
     options: string[];

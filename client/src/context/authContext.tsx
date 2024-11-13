@@ -24,7 +24,9 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   const getMe = async () => {
     const userInfo = await authAPI.getUser();
-    localStorage.setItem('test-builder-user', JSON.stringify(userInfo));
+    if (userInfo) {
+      localStorage.setItem('test-builder-user', JSON.stringify(userInfo));
+    }
     return userInfo;
   };
 
