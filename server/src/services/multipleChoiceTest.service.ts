@@ -37,17 +37,21 @@ class MultipleChoiceTestService {
 
   async getOneWithInfo({ id }: MCTestSelect) {
     const test = await this.repository.getOneWithInfo({ id });
+    const questionsCount =
+      await multipleChoiceQuestionRepository.getQuestionCountByTest({ id });
 
     const aprovedTests = test.results.filter(
       (r) => r.right_answers >= test.right_answers_to_pass,
     );
 
-    let totalScore = 0;
-    test.results.forEach((r) => {
-      totalScore += r.right_answers;
-    });
+    const totalScore = test.results.reduce(
+      (acc, curr) => acc + curr.right_answers,
+      0,
+    );
 
-    const averageScore = totalScore / test.results.length;
+    const averageScore = parseFloat(
+      (totalScore / test.results.length).toFixed(1),
+    );
     const countAprovedTests = aprovedTests.length;
     const countDisaprovedTests = test.results.length - countAprovedTests;
 
@@ -57,6 +61,7 @@ class MultipleChoiceTestService {
         averageScore,
         countAprovedTests,
         countDisaprovedTests,
+        questionsCount,
       },
     };
   }

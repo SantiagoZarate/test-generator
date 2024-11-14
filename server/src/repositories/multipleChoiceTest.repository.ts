@@ -119,6 +119,15 @@ class MultipleChoiceTestRepository {
 
     return data.rowsAffected === 1;
   }
+
+  async getQuestionsCount({ id }: MCTestSelect): Promise<number> {
+    const data = await db
+      .select({ count: count(multipleChoiceQuestionSchema.id) })
+      .from(multipleChoiceTestSchema)
+      .where(eq(multipleChoiceTestSchema.id, id));
+
+    return data[0].count ?? 0;
+  }
 }
 
 export const multipleChoiceTestRepository = new MultipleChoiceTestRepository();
