@@ -75,6 +75,7 @@ interface BasicAnalytics {
   averageScore: null | number;
   countAprovedTests: number;
   countDisaprovedTests: number;
+  questionsCount: number;
 }
 
 interface Question {

@@ -7,7 +7,8 @@ const textStyles = cva('first-letter:capitalize', {
     variant: {
       detail: 'text-xs opacity-50',
       regular: 'text-base',
-      title: 'text-xl font-semibold',
+      subtitle: 'text-xl font-semibold',
+      title: 'text-3xl font-bold',
     },
   },
   defaultVariants: {
