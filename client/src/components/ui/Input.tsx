@@ -9,7 +9,7 @@ export const Input = React.forwardRef<
     {...args}
     ref={ref}
     className={cn(
-      'rounded-lg border border-border bg-card p-2 first-letter:uppercase',
+      'rounded-lg border border-border bg-input p-2 first-letter:uppercase',
       args.className
     )}
   />
