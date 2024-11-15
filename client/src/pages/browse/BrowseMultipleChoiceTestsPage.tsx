@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/Button';
 import { useGetMultipleChoiceTests } from '@/hooks/useGetMultipleChoiceTetst';
 import { BrowseList } from './BrowseList';
+import { NoTestsFound } from './NoTestsFound';
 
 export function BrowseMultipleChoiceTestsPage() {
   const { tests, isError, isLoading, fetchNextPage, hasNextPage } =
@@ -10,6 +11,7 @@ export function BrowseMultipleChoiceTestsPage() {
     <section>
       {isError && <div>There was an error</div>}
       {isLoading && <div>Loading...</div>}
+      {!isLoading && tests.length === 0 && <NoTestsFound />}
       {!isLoading && (
         <section className="flex flex-col">
           <BrowseList tests={tests ?? []} />
