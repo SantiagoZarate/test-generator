@@ -1,4 +1,5 @@
 import { NextFunction, Response } from 'express';
+import { envs } from '../../../config/envs';
 import { authService } from '../../services/auth.service';
 import { AuthRequest } from '../../types/authRequest';
 import { BadRequestError } from '../../utils/errors';
@@ -15,12 +16,13 @@ export async function checkCode(
   }
 
   const isLogin = req.path.includes('/login');
-  const redirectUri = isLogin
-    ? 'http://localhost:7000/redirect-login'
-    : 'http://localhost:7000/redirect';
+  const redirectUri = isLogin ? '/redirect-login' : '/redirect';
 
   // Exchange the code for the access token
-  const info = await authService.getAccesToken(String(code), redirectUri);
+  const info = await authService.getAccesToken(
+    String(code),
+    envs.CLIENT_DOMAIN + redirectUri,
+  );
 
   // Consume Google API to get user info
   const userInfo = await authService.getUserInfo(info.access_token);
