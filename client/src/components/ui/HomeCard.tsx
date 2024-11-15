@@ -9,7 +9,7 @@ interface Props {
   draw: JSX.Element;
 }
 
-export function Card({ description, title, href, draw }: Props) {
+export function HomeCard({ description, title, href, draw }: Props) {
   return (
     <li className="group/grid relative overflow-hidden rounded-md border border-border bg-card transition hover:bg-background">
       <GridGradientBackground />

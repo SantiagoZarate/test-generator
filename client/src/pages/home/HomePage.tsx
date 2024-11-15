@@ -1,4 +1,4 @@
-import { Card } from '../../components/ui/Card';
+import { HomeCard } from '@/components/ui/HomeCard';
 import { homePageLinks } from '../../data/home-page-links';
 
 export function HomePage() {
@@ -6,7 +6,7 @@ export function HomePage() {
     <section className="">
       <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {homePageLinks.map((link) => (
-          <Card
+          <HomeCard
             key={link.title}
             description={link.description}
             title={link.title}

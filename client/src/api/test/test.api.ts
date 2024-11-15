@@ -10,8 +10,11 @@ import { GetDataResponse } from './test.api.type';
 
 const ENDPOINT = '/api/test';
 
+// TODO - Create testAPI interface like i did on multipleChoiceTest api
 export const testAPI = {
-  create: (data: TestInsert): Promise<APIResponse<PostDataResponse>> => {
+  create: (
+    data: Omit<TestInsert, 'user_id'>
+  ): Promise<APIResponse<PostDataResponse>> => {
     const options: RequestInit = {
       method: 'POST',
       headers: {
@@ -28,8 +31,10 @@ export const testAPI = {
         return {
           title: data.title,
           id: data.id,
+          // TODO - Change the created_at to be a Date
           created_at: '',
           questions: data.questions.map((q) => q.content),
+          user_id: data.user_id,
         };
       })
     );

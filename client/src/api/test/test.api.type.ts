@@ -3,6 +3,7 @@ export interface GetDataResponse {
   created_at: Date;
   title: string;
   questions: Question[];
+  user_id: string;
 }
 
 export interface Question {
