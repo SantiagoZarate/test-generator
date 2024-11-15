@@ -1,6 +1,7 @@
 import { LoginButon } from '@/components/common/header/LoginButon';
 import { Text } from '@/components/ui/Text';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { LoginForm } from './LoginForm';
 import './loginPage.css';
 import { animation } from './loginSectionAnimation';
@@ -18,7 +19,12 @@ export function LoginPage() {
         <LoginForm />
         <LoginButon />
       </motion.section>
-      <footer>HERE IS GONNA BE A FORM</footer>
+      <footer>
+        you don't have an account?{' '}
+        <Link className="font-bold underline" to={'/auth/signup'}>
+          sign up!
+        </Link>
+      </footer>
     </section>
   );
 }
