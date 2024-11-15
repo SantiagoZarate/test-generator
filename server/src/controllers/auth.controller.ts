@@ -5,10 +5,27 @@ import { userService } from '../services/user.service';
 import { AuthRequest } from '../types/authRequest';
 
 class AuthController {
-  async register(req: AuthRequest, res: Response) {
-    // Store user on the app database
-    console.log('REGISTERING', req.scopeData);
+  async register(req: Request, res: Response) {
+    const data = await userService.registerWithPassword(req.body);
 
+    res.json({
+      ok: true,
+      message: 'user registered succesfully',
+      data,
+    });
+  }
+
+  async login(req: Request, res: Response) {
+    const data = await userService.login(req.body);
+
+    res.json({
+      ok: true,
+      message: 'user logged in succesfully',
+      data,
+    });
+  }
+
+  async googleRegister(req: AuthRequest, res: Response) {
     const userID = await userService.register(req.scopeData!);
 
     const userToken = jsonwebtoken.sign({ id: userID.id }, envs.JWT_SECRET, {
@@ -28,7 +45,7 @@ class AuthController {
     });
   }
 
-  async login(req: AuthRequest, res: Response) {
+  async googleLogin(req: AuthRequest, res: Response) {
     const user = await userService.login(req.scopeData!);
 
     const accessToken = jsonwebtoken.sign({ id: user.id }, envs.JWT_SECRET, {
