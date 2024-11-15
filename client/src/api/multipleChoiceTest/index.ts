@@ -71,7 +71,7 @@ interface MultipleChoiceTestWithInfo extends MultipleChoiceTest {
   info: BasicAnalytics;
 }
 
-interface BasicAnalytics {
+export interface BasicAnalytics {
   averageScore: null | number;
   countAprovedTests: number;
   countDisaprovedTests: number;

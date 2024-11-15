@@ -6,7 +6,7 @@ import { toast } from '@/components/ui/use-toast';
 import { multipleChoiceTestDetailQuery } from '@/router/profileRouter';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { MultipleChoiceChart } from './MultipleChoiceChart';
+import { InformationGrid } from './InformationGrid';
 
 export function ProfileMultipleChoicePage() {
   const { id } = useParams();
@@ -33,6 +33,9 @@ export function ProfileMultipleChoicePage() {
     });
   };
 
+  const testHasResult =
+    data!.info.countAprovedTests + data!.info.countDisaprovedTests > 0;
+
   return (
     <section className="flex flex-col gap-4">
       <header className="flex items-center justify-between">
@@ -47,43 +50,18 @@ export function ProfileMultipleChoicePage() {
           </Link>
         </section>
       </header>
-      <section className="grid grid-cols-2 divide-x border-y lg:grid-cols-4">
-        <AnalyticBox
-          description="Average Score"
-          value={data?.info.averageScore + '/' + data!.info.questionsCount}
-        />
-        <AnalyticBox
-          description="Disaproved tests"
-          value={data!.info.countDisaprovedTests}
-        />
-        <AnalyticBox
-          description="Aproved tests"
-          value={data!.info.countAprovedTests}
-        />
-        <MultipleChoiceChart
-          aproved={data!.info.countAprovedTests}
-          disaproved={data!.info.countDisaprovedTests}
-        />
-      </section>
+      {testHasResult ? (
+        <InformationGrid info={data!.info} />
+      ) : (
+        <div className="flex items-center justify-center rounded-lg border-2 border-dashed bg-input p-12 backdrop-blur-sm">
+          <p>No one has completed this test yet, information will be here</p>
+        </div>
+      )}
       <footer className="flex justify-end">
         <Button onClick={() => handleDelete()}>
           <BinIcon /> Delete test
         </Button>
       </footer>
-    </section>
-  );
-}
-
-interface Props {
-  value: number | string;
-  description: string;
-}
-
-function AnalyticBox({ description, value }: Props) {
-  return (
-    <section className="flex aspect-square h-full flex-col items-center justify-center gap-2 overflow-hidden">
-      <Text>{value}</Text>
-      <Text variant={'subtitle'}>{description}</Text>
     </section>
   );
 }
