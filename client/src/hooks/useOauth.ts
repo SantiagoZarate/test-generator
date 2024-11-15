@@ -25,7 +25,7 @@ export function useOauth() {
   }, []);
 
   const registerUser = () => {
-    authAPI.register(code!).then(() => {
+    authAPI.googleRegister(code!).then(() => {
       setTimeout(() => {
         redirect('/');
       }, 5000);
@@ -33,7 +33,7 @@ export function useOauth() {
   };
 
   const loginUser = () => {
-    return authAPI.login(code!);
+    return authAPI.googleLogin(code!);
   };
 
   return {

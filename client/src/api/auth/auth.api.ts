@@ -1,15 +1,17 @@
+import { AuthAPI } from '.';
+
 const ENDPOINT = '/api/auth';
 
-const authAPI = {
-  async register(code: string) {
-    authRequest(ENDPOINT + '/register?code=' + code)
+const authAPI: AuthAPI = {
+  async googleRegister(code: string) {
+    authRequest(ENDPOINT + '/google/register?code=' + code)
       .then((response) => response.json())
       .catch(() => {
         console.error('Login failed');
       });
   },
-  async login(code: string) {
-    authRequest(ENDPOINT + '/login?code=' + code)
+  async googleLogin(code: string) {
+    authRequest(ENDPOINT + '/google/login?code=' + code)
       .then((response) => response.json())
       .catch(() => {
         console.error('Login failed');
@@ -21,6 +23,19 @@ const authAPI = {
     })
       .then((response) => response.json())
       .catch((e) => console.log(e));
+  },
+  async login(data) {
+    return fetch(ENDPOINT + '/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then((response) => response.json());
+  },
+  async register() {
+    throw new Error('Not yet implemented');
   },
   async getUser() {
     return fetch(ENDPOINT + '/me', {

@@ -13,22 +13,22 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-const formSchema = z.object({
+const loginSchema = z.object({
   password: z.string().min(8, 'Password must be 8 characters at least'),
   username: z.string().min(6, 'Username must be 6 characters lenght at least'),
 });
 
-type FormSchema = z.infer<typeof formSchema>;
+export type LoginSchema = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       password: '',
     },
   });
 
-  const handleSubmit = (data: FormSchema) => {
+  const handleSubmit = (data: LoginSchema) => {
     console.log({ data });
   };
 

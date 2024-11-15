@@ -11,7 +11,7 @@ interface AuthContextProps {
   getMe: () => void;
 }
 
-interface User {
+export interface User {
   name: string;
   email: string;
   id: string;
