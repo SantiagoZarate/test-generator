@@ -1,4 +1,4 @@
-import { TestInsert, TestSchema, TestSelect } from '@backend/test.types';
+import { TestInsert, TestSelect } from '@backend/test.types';
 import {
   APIResponse,
   GetAllTestsPaginated,
@@ -22,7 +22,7 @@ export const testAPI = {
 
     return fetch(ENDPOINT, options).then((response) => response.json());
   },
-  getById: ({ id }: TestSelect): Promise<TestSchema> => {
+  getById: ({ id }: TestSelect) => {
     return fetch(ENDPOINT + '/' + id).then((response) =>
       response.json().then(({ data }: APIResponse<GetDataResponse>) => {
         return {
