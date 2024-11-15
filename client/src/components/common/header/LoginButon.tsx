@@ -11,5 +11,20 @@ export function LoginButon() {
     window.location.replace(url);
   };
 
-  return <Button onClick={handleRedirectGoogle}>login</Button>;
+  return (
+    <Button
+      onClick={handleRedirectGoogle}
+      className="h-auto p-1 font-bold"
+      type="button"
+    >
+      Sign in with
+      <figure className="w-6">
+        <img
+          className="size-full"
+          src="/images/google-icon.webp"
+          alt="Google image logo"
+        />
+      </figure>
+    </Button>
+  );
 }

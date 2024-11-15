@@ -1,3 +1,4 @@
+import { LoginButon } from '@/components/common/header/LoginButon';
 import { IdentificationMicroIcon } from '@/components/icons/IdentificationMicroIcon';
 import { KeyMicroIcon } from '@/components/icons/KeyMicroIcon';
 import { Button } from '@/components/ui/Button';
@@ -93,16 +94,7 @@ export function LoginPage() {
             <Button>Log in</Button>
           </Form>
         </form>
-        <Button className="h-auto p-1 font-bold" type="button">
-          Sign in with
-          <figure className="w-6">
-            <img
-              className="size-full"
-              src="/images/google-icon.webp"
-              alt="Google image logo"
-            />
-          </figure>
-        </Button>
+        <LoginButon />
       </section>
       HERE IS GONNA BE A FORM
     </section>

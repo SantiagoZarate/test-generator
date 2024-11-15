@@ -1,8 +1,6 @@
 import { Button } from '@/components/ui/Button';
 import { useAuth } from '@/hooks/useAuth';
 import { Link } from 'react-router-dom';
-import { LoginButon } from './LoginButon';
-import { RegisterButton } from './RegisterButton';
 
 export function AuthSection() {
   const { isLogged, user, logout } = useAuth();
@@ -16,8 +14,9 @@ export function AuthSection() {
         </>
       ) : (
         <>
-          <RegisterButton />
-          <LoginButon />
+          <Link to={'/auth/login'}>
+            <Button className="px-6">Login</Button>
+          </Link>
         </>
       )}
     </section>
