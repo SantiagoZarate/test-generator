@@ -10,7 +10,7 @@ export const testService = {
     const totalTests = await testRepository.getCount();
 
     if (totalTests === 0) {
-      return { testsWithMoreInfo: [], totalPages: 0, totalTests: 0 };
+      return { tests: [], totalPages: 0, totalTests: 0 };
     }
 
     const totalPages = Math.ceil(totalTests / config.limit);
