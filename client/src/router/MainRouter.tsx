@@ -2,6 +2,7 @@ import { BaseLayout } from '@/layouts/BaseLayout';
 import { BrowseLayout } from '@/layouts/BrowseLayout';
 import { ProtectedRouteLayout } from '@/layouts/ProtectedRouteLayout';
 import { TestPage } from '@/pages/[id]';
+import { AboutPage } from '@/pages/about/AboutPage';
 import { BrowseMultipleChoiceTestsPage } from '@/pages/browse/BrowseMultipleChoiceTestsPage';
 import { BrowseTestsPage } from '@/pages/browse/BrowseTestsPage';
 import { ProfileMultipleChoicePage } from '@/pages/profile/multiple-choice/ProfileMultipleChoicePage';
@@ -26,6 +27,10 @@ export const mainRouter = createBrowserRouter([
             element: <HomePage />,
             path: '/',
             index: true,
+          },
+          {
+            element: <AboutPage />,
+            path: '/about',
           },
           {
             element: <TestPage />,
