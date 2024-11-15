@@ -9,7 +9,9 @@ export const testService = {
   async getAll(config: PaginateConfig) {
     const totalTests = await testRepository.getCount();
 
-    console.log(config);
+    if (totalTests === 0) {
+      return { testsWithMoreInfo: [], totalPages: 0, totalTests: 0 };
+    }
 
     const totalPages = Math.ceil(totalTests / config.limit);
 
