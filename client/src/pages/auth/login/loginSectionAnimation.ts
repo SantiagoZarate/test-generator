@@ -13,7 +13,7 @@ export const animation: Variants = {
     },
   },
   initial: {
-    y: 200,
+    y: 100,
     scale: 0.8,
     filter: 'blur(10px)',
     opacity: 0.6,

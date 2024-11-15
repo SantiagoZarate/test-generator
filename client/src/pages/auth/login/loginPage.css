@@ -2,25 +2,24 @@
   --transition-time: 250ms;
 }
 
-#key-icon,
-#identification-icon {
+/* When i focus/hover an input, animate the icon */
+/* Span is the element that wraps the icon */
+label > span {
   opacity: 0;
   transition: opacity var(--transition-time);
 
   /* Edit direct icon siblin */
-  & ~ * {
+  & ~ p {
     transform: translateX(-1.5em);
     transition: transform var(--transition-time);
   }
 }
 
-html:has(#password:focus) #key-icon,
-html:has(#password:hover) #key-icon,
-html:has(#username:focus) #identification-icon,
-html:has(#username:hover) #identification-icon {
+label:has(~ input:focus) span,
+label:has(~ input:hover) span {
   opacity: 1;
 
-  & ~ * {
+  & ~ p {
     transform: translateX(0);
   }
 }
