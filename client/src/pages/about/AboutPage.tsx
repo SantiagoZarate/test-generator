@@ -27,12 +27,14 @@ export function AboutPage() {
         <header>
           <Text variant={'title'}>About Us</Text>
         </header>
-        <p className="prose prose-invert">
-          Welcome to Test Builder, the ultimate platform for creating, sharing,
-          and managing tests! Whether you're an educator, a student, or a
-          professional looking to share knowledge, our web app makes it easy to
-          create engaging multiple-choice tests and thought-provoking open-ended
-          tests.
+        <p className="prose prose-invert text-primary/90">
+          Welcome to Test Builder, the ultimate platform for{' '}
+          <span className="font-bold">
+            creating, sharing, and managing tests!
+          </span>{' '}
+          Whether you're an educator, a student, or a professional looking to
+          share knowledge, our web app makes it easy to create engaging
+          multiple-choice tests and thought-provoking open-ended tests.
         </p>
       </section>
       <section className="flex flex-col gap-4">
