@@ -10,6 +10,7 @@ export const userSchema = sqliteTable('user', {
     .primaryKey(),
   email: text('email').notNull(),
   name: text('name').notNull(),
+  password: text('password'),
 });
 
 export const userRelations = relations(userSchema, ({ many }) => ({
