@@ -1,3 +1,4 @@
+import { authAPI } from '@/api/auth/auth.api';
 import { EnvelopeMicroIcon } from '@/components/icons/EnvelopeMicroIcon';
 import { IdentificationMicroIcon } from '@/components/icons/IdentificationMicroIcon';
 import { KeyMicroIcon } from '@/components/icons/KeyMicroIcon';
@@ -43,7 +44,9 @@ export function SignUpForm() {
 
   const handleSubmit = (data: SignUpSchema) => {
     console.log({ data });
-    form.reset();
+    authAPI.register(data).then(() => {
+      form.reset();
+    });
   };
 
   return (
@@ -130,7 +133,7 @@ export function SignUpForm() {
             </FormItem>
           )}
         />
-        <Button>Log in</Button>
+        <Button>Create account</Button>
       </Form>
     </form>
   );

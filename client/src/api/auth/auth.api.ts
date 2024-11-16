@@ -34,8 +34,15 @@ const authAPI: AuthAPI = {
       body: JSON.stringify(data),
     }).then((response) => response.json());
   },
-  async register() {
-    throw new Error('Not yet implemented');
+  async register(data) {
+    return fetch(ENDPOINT + '/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then((response) => response.json());
   },
   async getUser() {
     return fetch(ENDPOINT + '/me', {

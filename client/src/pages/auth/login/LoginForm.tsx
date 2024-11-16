@@ -1,4 +1,5 @@
-import { IdentificationMicroIcon } from '@/components/icons/IdentificationMicroIcon';
+import { authAPI } from '@/api/auth/auth.api';
+import { EnvelopeMicroIcon } from '@/components/icons/EnvelopeMicroIcon';
 import { KeyMicroIcon } from '@/components/icons/KeyMicroIcon';
 import { Button } from '@/components/ui/Button';
 import {
@@ -14,8 +15,8 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const loginSchema = z.object({
+  email: z.string().email(),
   password: z.string().min(8, 'Password must be 8 characters at least'),
-  username: z.string().min(6, 'Username must be 6 characters lenght at least'),
 });
 
 export type LoginSchema = z.infer<typeof loginSchema>;
@@ -25,10 +26,14 @@ export function LoginForm() {
     resolver: zodResolver(loginSchema),
     defaultValues: {
       password: '',
+      email: '',
     },
   });
 
   const handleSubmit = (data: LoginSchema) => {
+    authAPI.login(data).then(() => {
+      form.reset();
+    });
     console.log({ data });
   };
 
@@ -41,16 +46,20 @@ export function LoginForm() {
       <Form {...form}>
         <FormField
           control={form.control}
-          name="username"
+          name="email"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-2">
               <FormLabel htmlFor="username" className="flex items-center gap-2">
                 <span id="identification-icon">
-                  <IdentificationMicroIcon />
+                  <EnvelopeMicroIcon />
                 </span>
-                <p>Username</p>
+                <p>Email</p>
               </FormLabel>
-              <Input id="username" placeholder="LionelMessi" {...field} />
+              <Input
+                id="username"
+                placeholder="youremail@gmail.com"
+                {...field}
+              />
               <FormMessage />
             </FormItem>
           )}
