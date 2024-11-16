@@ -1,4 +1,4 @@
-import { compare } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 import { userRepository } from '../repositories/user.repository';
 import { ScopeData } from '../types/auth/scopeData.types';
 import { UserSelect } from '../types/user.types';
@@ -36,12 +36,13 @@ class UserService {
       throw new BadRequestError('User is already registered');
     }
 
-    // const hashedPassword = await hash(payload.password, 8);
+    const hashedPassword = await hash(payload.password, 8);
 
     // TODO - Add password to user entity
-    const result = await userRepository.create({
+    const result = await userRepository.createWithPassword({
       email: payload.email,
       name: payload.username,
+      password: hashedPassword,
     });
 
     return result;
@@ -64,7 +65,7 @@ class UserService {
     return user;
   }
 
-  async login(data: ScopeData) {
+  async login(data: Pick<ScopeData, 'email'>) {
     const user = await userRepository.getByEmail(data.email);
 
     if (!user) {

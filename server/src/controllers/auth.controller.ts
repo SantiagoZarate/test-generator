@@ -16,12 +16,32 @@ class AuthController {
   }
 
   async login(req: Request, res: Response) {
-    const data = await userService.login(req.body);
+    const user = await userService.loginWithPassword(req.body);
+
+    const accessToken = jsonwebtoken.sign({ id: user.id }, envs.JWT_SECRET, {
+      expiresIn: '2m',
+    });
+
+    const refreshToken = jsonwebtoken.sign({ id: user.id }, envs.JWT_SECRET, {
+      expiresIn: '7d',
+    });
+
+    res.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+    });
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+    });
 
     res.json({
       ok: true,
       message: 'user logged in succesfully',
-      data,
+      data: user,
     });
   }
 

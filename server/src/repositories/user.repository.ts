@@ -4,6 +4,19 @@ import { userSchema } from '../../drizzle/schemas/user.schema';
 import { UserInsert, UserSelect } from '../types/user.types';
 
 class UserRepository {
+  async createWithPassword(payload: UserInsert & { password: string }) {
+    const data = await db
+      .insert(userSchema)
+      .values({
+        email: payload.email,
+        name: payload.name,
+        password: payload.password,
+      })
+      .returning({ id: userSchema.id });
+
+    return data[0];
+  }
+
   async create(payload: UserInsert) {
     const data = await db
       .insert(userSchema)
