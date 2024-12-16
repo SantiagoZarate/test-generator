@@ -1,22 +1,25 @@
 import { create } from 'zustand';
 
+type Option = {
+  content: string;
+  isCorrect: boolean;
+};
+
 interface MultipleChoice {
   content: string;
-  options: string[];
-  answer: number;
+  options: Option[];
 }
 
 interface State {
   questions: MultipleChoice[];
   newQuestionValue: string;
   testTitle: string;
-  correctAnswer: number;
-  options: string[];
+  options: Option[];
   rightAnswersToPass: number;
 }
 
 interface Action {
-  updateCorrectOption: (newValue: number) => void;
+  toggleOptionCorrect: (optionIndex: number) => void;
   updateNewQuestion: (value: string) => void;
   updateTitle: (value: string) => void;
   deleteOption: (index: number) => void;
@@ -37,10 +40,26 @@ const useMultipleChoiceTestStore = create<State & Action>((set) => ({
   testTitle: '',
   rightAnswersToPass: 0,
   addOption() {
-    set((prevState) => ({ ...prevState, options: [...prevState.options, ''] }));
+    set((prevState) => {
+      const isFirstOption = prevState.options.length === 0;
+
+      return {
+        ...prevState,
+        options: [
+          ...prevState.options,
+          { content: '', isCorrect: isFirstOption },
+        ],
+      };
+    });
   },
-  updateCorrectOption(newValue) {
-    set((prevState) => ({ ...prevState, correctAnswer: newValue }));
+  toggleOptionCorrect(optionIndex) {
+    set((prevState) => {
+      const updatedOptions = [...prevState.options];
+      // Toggle the option isCorrect property
+      updatedOptions[optionIndex]!.isCorrect =
+        !updatedOptions[optionIndex]!.isCorrect;
+      return { ...prevState, options: updatedOptions };
+    });
   },
   updateTitle(newValue) {
     set((prevState) => ({ ...prevState, testTitle: newValue }));
@@ -71,13 +90,10 @@ const useMultipleChoiceTestStore = create<State & Action>((set) => ({
     set((prevState) => {
       const firstHalf = prevState.options.slice(0, index);
       const secondHalf = prevState.options.slice(index + 1);
-      const correct =
-        prevState.correctAnswer === index ? 0 : prevState.correctAnswer;
 
       return {
         ...prevState,
         options: [...firstHalf, ...secondHalf],
-        correctAnswer: correct,
       };
     });
   },
@@ -93,7 +109,6 @@ const useMultipleChoiceTestStore = create<State & Action>((set) => ({
       questions: [
         ...prevState.questions,
         {
-          answer: prevState.correctAnswer,
           content: prevState.newQuestionValue,
           options: prevState.options,
         },
@@ -106,7 +121,7 @@ const useMultipleChoiceTestStore = create<State & Action>((set) => ({
   updateOptionValue(optionIndex, value) {
     set((prevState) => {
       const newOptions = [...prevState.options];
-      newOptions[optionIndex] = value;
+      newOptions[optionIndex]!.content = value;
       return {
         ...prevState,
         options: newOptions,

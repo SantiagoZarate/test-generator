@@ -2,6 +2,7 @@ import { PlusIconMIcroIcon } from '@/components/icons/PlusIconMIcroIcon';
 import { Button } from '@/components/ui/Button';
 import { DeleteButton } from '@/components/ui/DeleteButton';
 import { Input } from '@/components/ui/Input';
+import { toast } from '@/components/ui/use-toast';
 import { useMultipleChoiceTestStore } from '@/stores/multipleChoiceTestStore';
 import { FormEvent } from 'react';
 
@@ -9,11 +10,10 @@ export function MultipleChoiseForm() {
   const {
     addOption,
     addQuestion,
-    correctAnswer,
     deleteOption,
     newQuestionValue,
     options,
-    updateCorrectOption,
+    toggleOptionCorrect,
     updateOptionValue,
     updateNewQuestion,
     testTitle,
@@ -27,6 +27,24 @@ export function MultipleChoiseForm() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     addQuestion();
+  };
+
+  const handleToggleOptionCorrect = (optionIndex: number) => {
+    const correctOptionsCount = options.reduce(
+      (acc, curr) => acc + (curr.isCorrect ? 1 : 0),
+      0
+    );
+
+    // Siempre tiene que haber una respuesta correcta como minimo
+    if (correctOptionsCount === 1 && options[optionIndex]!.isCorrect) {
+      toast({
+        title: 'No se modifico el estado',
+        description: 'Debe haber como minimo 1 respuesta correcta',
+      });
+      return;
+    }
+
+    toggleOptionCorrect(optionIndex);
   };
 
   return (
@@ -87,36 +105,36 @@ export function MultipleChoiseForm() {
           onChange={(e) => updateNewQuestion(e.target.value)}
         />
       </label>
-      {options.map((option, index) => (
+      {options.map((option, optionIndex) => (
         <label
           className="flex flex-col gap-1 capitalize"
-          htmlFor={`option-${index}`}
-          key={index}
+          htmlFor={`option-${optionIndex}`}
+          key={optionIndex}
         >
-          {`option ${index + 1}`}
+          {`option ${optionIndex + 1}`}
           <span className="flex gap-2">
             <Input
-              placeholder={`Option ${index + 1} answer`}
+              placeholder={`Option ${optionIndex + 1} answer`}
               className="flex-1 text-xs"
-              id={`option-${index}`}
-              value={option}
+              id={`option-${optionIndex}`}
+              value={option.content}
               type="text"
-              onChange={(e) => updateOptionValue(index, e.target.value)}
+              onChange={(e) => updateOptionValue(optionIndex, e.target.value)}
             />
             <input
-              onChange={() => updateCorrectOption(index)}
-              checked={index === correctAnswer}
-              id={'option-checkbox' + index}
+              onChange={() => handleToggleOptionCorrect(optionIndex)}
+              id={'option-checkbox' + optionIndex}
+              checked={option.isCorrect}
               className="peer"
               name="option"
-              type="radio"
+              type="checkbox"
               hidden
             />
             <label
               className="size-8 cursor-pointer rounded-md border border-neutral-600 bg-transparent transition hover:bg-neutral-700 peer-checked:bg-green-400"
-              htmlFor={'option-checkbox' + index}
+              htmlFor={'option-checkbox' + optionIndex}
             />
-            <DeleteButton onDelete={() => deleteOption(index)} />
+            <DeleteButton onDelete={() => deleteOption(optionIndex)} />
           </span>
         </label>
       ))}
