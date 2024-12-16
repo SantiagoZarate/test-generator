@@ -12,11 +12,11 @@ export function DeleteButton({ onDelete, className }: Props) {
       type="button"
       onClick={() => onDelete()}
       className={cn(
-        'rounded-md border border-neutral-500 bg-neutral-900 p-1 transition hover:bg-neutral-700',
+        'aspect-square size-8 rounded-md border border-neutral-500 bg-neutral-900 p-1 transition hover:bg-neutral-700',
         className
       )}
     >
-      <CrossMicroIcon />
+      <CrossMicroIcon className="mx-auto fill-white" />
     </button>
   );
 }

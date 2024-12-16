@@ -113,7 +113,7 @@ export function MultipleChoiseForm() {
               hidden
             />
             <label
-              className="size-8 cursor-pointer rounded-md border border-neutral-600 bg-transparent transition peer-checked:bg-green-400"
+              className="size-8 cursor-pointer rounded-md border border-neutral-600 bg-transparent transition hover:bg-neutral-700 peer-checked:bg-green-400"
               htmlFor={'option-checkbox' + index}
             />
             <DeleteButton onDelete={() => deleteOption(index)} />
@@ -123,7 +123,7 @@ export function MultipleChoiseForm() {
       <Button
         onClick={addOption}
         type="button"
-        className="border-2 border-dashed bg-neutral-900"
+        className="border-2 border-dashed bg-neutral-900 text-foreground"
       >
         Add option
         <PlusIconMIcroIcon />
