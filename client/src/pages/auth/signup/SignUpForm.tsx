@@ -11,8 +11,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/Input';
+import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 const signUpSchema = z
@@ -32,6 +34,7 @@ const signUpSchema = z
 export type SignUpSchema = z.infer<typeof signUpSchema>;
 
 export function SignUpForm() {
+  const redirect = useNavigate();
   const form = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -43,9 +46,13 @@ export function SignUpForm() {
   });
 
   const handleSubmit = (data: SignUpSchema) => {
-    console.log({ data });
     authAPI.register(data).then(() => {
       form.reset();
+      toast({
+        title: 'Signed up',
+        description: 'user account created succesfully!',
+      });
+      redirect('/auth/login');
     });
   };
 

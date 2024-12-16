@@ -13,6 +13,7 @@ export function RedirectLoginPage() {
       setTimeout(() => {
         getMe();
         redirect('/');
+        window.location.reload();
       }, 5000);
     });
   }, []);
@@ -21,7 +22,12 @@ export function RedirectLoginPage() {
     <section>
       {isError && <div>Hubo un error</div>}
       {isLoading && <div>loading...</div>}
-      {!isError && !isLoading && <h1>User logged in</h1>}
+      {!isError && !isLoading && (
+        <section className="flex items-center justify-center">
+          <h1 className="font-semibold">Logged in!</h1>
+          <p className="text-sm">Redirecting user to home page...</p>
+        </section>
+      )}
     </section>
   );
 }
