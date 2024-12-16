@@ -1,9 +1,11 @@
 interface Props {
-  options: string[];
-  correctOption: number;
+  options: {
+    content: string;
+    isCorrect: boolean;
+  }[];
 }
 
-export function OptionsList({ correctOption, options }: Props) {
+export function OptionsList({ options }: Props) {
   return (
     <ul className="flex flex-col gap-1">
       {options.map((option, index) => (
@@ -11,11 +13,11 @@ export function OptionsList({ correctOption, options }: Props) {
           <span className="hidden size-4 border border-neutral-600 print:block" />
           <p
             className={`text-sm capitalize ${
-              correctOption === index &&
+              option.isCorrect &&
               'text-green-600 underline print:font-normal print:no-underline'
             }`}
           >
-            {option}
+            {option.content}
           </p>
         </li>
       ))}

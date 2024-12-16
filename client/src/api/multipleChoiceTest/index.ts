@@ -98,8 +98,10 @@ interface TestInsert {
   right_answers_to_pass: number;
   questions: {
     content: string;
-    options: string[];
-    answer: number;
+    options: {
+      content: string;
+      isCorrect: boolean;
+    }[];
   }[];
 }
 

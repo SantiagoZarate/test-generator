@@ -67,10 +67,7 @@ export function MultipleQuestionsList() {
               <p className="text-xl font-bold capitalize">
                 {multipleChoice.content}
               </p>
-              <OptionsList
-                correctOption={multipleChoice.answer}
-                options={multipleChoice.options}
-              />
+              <OptionsList options={multipleChoice.options} />
             </li>
           ))}
         </ul>
