@@ -2,8 +2,14 @@ import { z } from 'zod';
 
 const questionSchemaValidations = z.object({
   content: z.string(),
-  options: z.array(z.string()).min(2),
-  answer: z.coerce.number().min(0),
+  options: z
+    .array(
+      z.object({
+        content: z.string(),
+        isCorrect: z.coerce.boolean(),
+      }),
+    )
+    .min(2),
 });
 
 export const multipleChoiceTestSchemaValidation = z

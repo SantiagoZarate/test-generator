@@ -98,8 +98,8 @@ class MultipleChoiceTestRepository {
 
           const newOptions = question.options.map((option, index) => ({
             question_id: savedQuestion[0].id,
-            content: option,
-            isCorrect: index === question.answer,
+            content: option.content,
+            isCorrect: option.isCorrect,
             order: index + 1,
           }));
 
