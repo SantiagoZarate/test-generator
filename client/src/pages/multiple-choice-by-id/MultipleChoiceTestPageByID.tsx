@@ -50,7 +50,7 @@ export function MultipleChoiceTestPageByID() {
   };
 
   const calculateTotalScore = () => {
-    return data?.questions.reduce((score, question, questionIndex) => {
+    return data?.questions.reduce((score, _question, questionIndex) => {
       const correctAnswers = getCorrectAnswers(questionIndex);
       const selectedAnswers = chosenAnswers[questionIndex] || [];
 
