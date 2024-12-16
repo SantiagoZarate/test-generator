@@ -2,18 +2,24 @@ import { multipleChoiceTestAPI } from '@/api/multipleChoiceTest/multipleChoiceTe
 import { Button } from '@/components/ui/Button';
 import { toast } from '@/components/ui/use-toast';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 export function MultipleChoiceTestPageByID() {
   const { id } = useParams();
   const [chosenAnswer, setChoseAnswer] = useState<number[]>([]);
   const [showResults, setShowResults] = useState<boolean>(false);
+  const [showQuestionAnswer, setShowQuestionAnswer] = useState<boolean[]>([]);
 
   const { isLoading, isError, data } = useQuery({
     queryKey: ['multiple-choice-test'],
     queryFn: () => multipleChoiceTestAPI.getOne(id!),
   });
+
+  // Set the array with falses once the data has loaded
+  useEffect(() => {
+    setShowQuestionAnswer(Array(data?.questions.length).fill(false));
+  }, [data]);
 
   const handleUpdateAnswer = (index: number, value: number) => {
     const newAnswers = [...chosenAnswer];
@@ -53,6 +59,11 @@ export function MultipleChoiceTestPageByID() {
       });
   };
 
+  const isQuestionCorrect = (questionIndex: number) => {
+    const correctAnswerIndex = getIndexOfCorrectAnswer(questionIndex);
+    return chosenAnswer[questionIndex] === correctAnswerIndex;
+  };
+
   return (
     <section className="flex flex-col gap-12">
       <header>
@@ -61,9 +72,25 @@ export function MultipleChoiceTestPageByID() {
       <section className="flex flex-col gap-8">
         {data?.questions.map((question, index) => (
           <article className="flex flex-col gap-4" key={question.id}>
-            <p className="text-lg font-semibold">
-              {index + 1} - {question.content}
-            </p>
+            <div>
+              <p className="text-lg font-semibold">
+                {index + 1} - {question.content}
+              </p>
+              {showResults && !isQuestionCorrect(index) && (
+                <button
+                  className="rounded-md bg-foreground px-3 text-background transition hover:bg-muted"
+                  onClick={() =>
+                    setShowQuestionAnswer((prevState) => {
+                      const updated = [...prevState];
+                      updated[index] = !updated[index];
+                      return updated;
+                    })
+                  }
+                >
+                  Mostrar respuesta correcta
+                </button>
+              )}
+            </div>
             <ul className="flex flex-col">
               {question.options.map((option, optionIndex) => {
                 let optionClass =
@@ -71,9 +98,14 @@ export function MultipleChoiceTestPageByID() {
                 if (showResults && chosenAnswer[index] !== undefined) {
                   if (chosenAnswer[index] === optionIndex) {
                     optionClass += option.isCorrect
-                      ? ' bg-green-500'
-                      : ' bg-red-500';
+                      ? !showQuestionAnswer[index] && ' bg-green-500'
+                      : !showQuestionAnswer[index] && ' bg-red-500';
                   }
+                }
+
+                // Highlight the correct answer in yellow when showQuestionAnswer is true
+                if (showQuestionAnswer[index] && option.isCorrect) {
+                  optionClass += ' bg-yellow-500'; // Add your yellow background class
                 }
 
                 return (
