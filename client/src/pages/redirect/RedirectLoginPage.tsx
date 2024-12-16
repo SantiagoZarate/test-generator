@@ -23,7 +23,7 @@ export function RedirectLoginPage() {
       {isError && <div>Hubo un error</div>}
       {isLoading && <div>loading...</div>}
       {!isError && !isLoading && (
-        <section className="flex items-center justify-center">
+        <section className="flex flex-col items-center justify-center gap-4">
           <h1 className="font-semibold">Logged in!</h1>
           <p className="text-sm">Redirecting user to home page...</p>
         </section>
