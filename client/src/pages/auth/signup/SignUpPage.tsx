@@ -1,4 +1,4 @@
-import { RegisterButton } from '@/components/common/header/RegisterButton';
+import { GoogleLoginButon } from '@/components/common/header/GoogleLoginButon';
 import { Text } from '@/components/ui/Text';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -16,7 +16,7 @@ export function SignUpPage() {
         className="flex w-full flex-col gap-8 rounded-lg bg-card p-6"
       >
         <SignUpForm />
-        <RegisterButton />
+        <GoogleLoginButon />
       </motion.section>
       <footer>
         already have an account?{' '}

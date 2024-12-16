@@ -84,6 +84,11 @@ class UserService {
     const data = await userRepository.getUserProfile({ id });
     return data;
   }
+
+  async getUserByEmail({ email }: { email: string }) {
+    const data = await userRepository.getByEmail(email);
+    return data;
+  }
 }
 
 export const userService = new UserService();

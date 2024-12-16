@@ -21,7 +21,6 @@ authRouter.get('/logout', authController.logout);
 authRouter.get('/me', validateToken, authController.getUser);
 
 // OAUTH Provider
-authRouter.post('/google/register', checkCode, authController.googleRegister);
 authRouter.post('/google/login', checkCode, authController.googleLogin);
 
 export default authRouter;

@@ -1,6 +1,6 @@
 import { authAPI } from '@/api/auth/auth.api';
 import { useEffect } from 'react';
-import { redirect, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export function useOauth() {
   const location = useLocation();
@@ -24,20 +24,11 @@ export function useOauth() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const registerUser = () => {
-    authAPI.googleRegister(code!).then(() => {
-      setTimeout(() => {
-        redirect('/');
-      }, 5000);
-    });
-  };
-
   const loginUser = () => {
     return authAPI.googleLogin(code!);
   };
 
   return {
-    registerUser,
     loginUser,
   };
 }

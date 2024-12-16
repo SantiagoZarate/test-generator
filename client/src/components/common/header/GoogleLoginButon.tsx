@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/Button';
 import { envs } from '@/config/envs';
 
-export function LoginButon() {
+export function GoogleLoginButon() {
   const handleRedirectGoogle = () => {
     const state = window.crypto.randomUUID();
     localStorage.setItem('latestCSRFToken', state);

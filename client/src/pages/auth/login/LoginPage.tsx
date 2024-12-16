@@ -1,4 +1,4 @@
-import { LoginButon } from '@/components/common/header/LoginButon';
+import { GoogleLoginButon } from '@/components/common/header/GoogleLoginButon';
 import { Text } from '@/components/ui/Text';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -17,7 +17,7 @@ export function LoginPage() {
         className="flex w-full flex-col gap-8 rounded-lg bg-card p-6"
       >
         <LoginForm />
-        <LoginButon />
+        <GoogleLoginButon />
       </motion.section>
       <footer>
         you don't have an account?{' '}

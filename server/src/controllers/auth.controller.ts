@@ -45,28 +45,17 @@ class AuthController {
     });
   }
 
-  async googleRegister(req: AuthRequest, res: Response) {
-    const userID = await userService.register(req.scopeData!);
-
-    const userToken = jsonwebtoken.sign({ id: userID.id }, envs.JWT_SECRET, {
-      expiresIn: '1h',
-    });
-
-    // Send user token via cookies (contains userID)
-    res.cookie('accessToken', userToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-    });
-
-    res.json({
-      data: userID,
-      message: 'user created succesfully',
-    });
-  }
-
   async googleLogin(req: AuthRequest, res: Response) {
-    const user = await userService.login(req.scopeData!);
+    const existingUser = await userService.getUserByEmail({
+      email: req.scopeData!.email,
+    });
+
+    let user;
+    if (existingUser) {
+      user = existingUser;
+    } else {
+      user = await userService.register(req.scopeData!);
+    }
 
     const accessToken = jsonwebtoken.sign({ id: user.id }, envs.JWT_SECRET, {
       expiresIn: '2m',
