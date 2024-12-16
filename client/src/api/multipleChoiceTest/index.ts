@@ -61,6 +61,7 @@ interface MultipleChoiceTest {
   created_at: Date;
   title: string;
   user_id: string;
+  right_answers_to_pass: number;
 }
 
 interface MultipleChoiceTestWithQuestions extends MultipleChoiceTest {
