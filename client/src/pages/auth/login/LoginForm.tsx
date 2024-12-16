@@ -10,8 +10,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/Input';
+import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 const loginSchema = z.object({
@@ -22,6 +24,7 @@ const loginSchema = z.object({
 export type LoginSchema = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
+  const redirect = useNavigate();
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -33,6 +36,12 @@ export function LoginForm() {
   const handleSubmit = (data: LoginSchema) => {
     authAPI.login(data).then(() => {
       form.reset();
+      redirect('/');
+      toast({
+        title: 'Logged in',
+        description: 'User succesfully logged in!',
+      });
+      window.location.reload();
     });
     console.log({ data });
   };

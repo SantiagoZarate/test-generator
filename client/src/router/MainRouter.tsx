@@ -5,6 +5,8 @@ import { TestPage } from '@/pages/[id]';
 import { AboutPage } from '@/pages/about/AboutPage';
 import { BrowseMultipleChoiceTestsPage } from '@/pages/browse/BrowseMultipleChoiceTestsPage';
 import { BrowseTestsPage } from '@/pages/browse/BrowseTestsPage';
+import { MultipleChoiceTestPageByID } from '@/pages/multiple-choice-by-id/MultipleChoiceTestPageByID';
+import { MultipleChoicePage } from '@/pages/multiple-choice/MultipleChoiceTestPage';
 import { ProfileMultipleChoicePage } from '@/pages/profile/multiple-choice/ProfileMultipleChoicePage';
 import { ProfilePage } from '@/pages/profile/ProfilePage';
 import { RedirectLoginPage } from '@/pages/redirect/RedirectLoginPage';
@@ -14,7 +16,6 @@ import { MainLayout } from '../layouts/MainLayout';
 import { BasicTestPage } from '../pages/basic-test/BasicTestPage';
 import { HomePage } from '../pages/home/HomePage';
 import { authRouter } from './authRouter';
-import { multipleChoiceRouter } from './multipleChoiceRouter';
 
 export const mainRouter = createBrowserRouter([
   {
@@ -47,10 +48,6 @@ export const mainRouter = createBrowserRouter([
             errorElement: <div>There was an error</div>,
           },
           {
-            element: <BasicTestPage />,
-            path: '/basic-test',
-          },
-          {
             element: <BrowseLayout />,
             path: '/browse',
             children: [
@@ -75,9 +72,20 @@ export const mainRouter = createBrowserRouter([
                 path: '/profile/multiple-choice/:id',
                 element: <ProfileMultipleChoicePage />,
               },
+              {
+                element: <MultipleChoicePage />,
+                path: '/multiple-choice',
+              },
+              {
+                element: <BasicTestPage />,
+                path: '/basic-test',
+              },
             ],
           },
-          ...multipleChoiceRouter,
+          {
+            element: <MultipleChoiceTestPageByID />,
+            path: '/multiple-choice/:id',
+          },
         ],
       },
       ...authRouter,

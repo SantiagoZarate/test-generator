@@ -51,6 +51,7 @@ export function SignUpForm() {
 
   return (
     <form
+      data-login
       action=""
       className="flex flex-col gap-4 border-b pb-8"
       onSubmit={form.handleSubmit(handleSubmit)}
