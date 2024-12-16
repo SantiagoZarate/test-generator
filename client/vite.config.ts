@@ -3,6 +3,7 @@
 import react from '@vitejs/plugin-react';
 import path from 'node:path';
 import { defineConfig } from 'vite';
+import { VitePluginRadar } from 'vite-plugin-radar';
 
 import { config } from 'dotenv';
 const envPath = `.env.${process.env.NODE_ENV}`;
@@ -10,7 +11,15 @@ config({ path: envPath });
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    VitePluginRadar({
+      enableDev: true,
+      analytics: {
+        id: process.env.VITE_GOOGLE_ANALYTIC_MEASUREMENT_ID!,
+      },
+    }),
+  ],
   test: {
     environment: 'happy-dom',
   },

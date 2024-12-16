@@ -74,6 +74,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.10(ts-node@10.9.2(@types/node@22.5.0)(typescript@5.5.4)))
+      vite-plugin-radar:
+        specifier: 0.9.6
+        version: 0.9.6(vite@5.4.2(@types/node@22.5.0))
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -5132,6 +5135,11 @@ packages:
     resolution: {integrity: sha512-LdsW4pxj0Ot69FAoXZ1yTnA9bjGohr2yNBU7QKRxpz8ITSkhuDl6h3zS/tvgz4qrNjeRnvrWeXQ8ZF7Um4W00Q==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
+
+  vite-plugin-radar@0.9.6:
+    resolution: {integrity: sha512-tLvUt7+iZznxYa8GmCrZBV3Q0fLQApsyg9EIJgaen8DjGky3vFIq9KoDWAoVMs9FZ5qbsSBb3YfSvoqwVV+5xw==}
+    peerDependencies:
+      vite: ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
 
   vite@5.4.2:
     resolution: {integrity: sha512-dDrQTRHp5C1fTFzcSaMxjk6vdpKvT+2/mIdE07Gw2ykehT49O0z/VHS3zZ8iV/Gh8BJJKHWOe5RjaNrW5xf/GA==}
@@ -10435,6 +10443,10 @@ snapshots:
       - sugarss
       - supports-color
       - terser
+
+  vite-plugin-radar@0.9.6(vite@5.4.2(@types/node@22.5.0)):
+    dependencies:
+      vite: 5.4.2(@types/node@22.5.0)
 
   vite@5.4.2(@types/node@22.5.0):
     dependencies:
