@@ -9,3 +9,7 @@ export interface GetDataResponse {
 export interface Question {
   content: string;
 }
+
+export interface PostTestResponse {
+  id: string;
+}

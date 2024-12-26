@@ -59,7 +59,7 @@ export function BasicTestPage() {
 
   const memoizedHandleDelete = useCallback(
     (text: string) => handleDeleteQuestion(text),
-    [questions]
+    []
   );
 
   const handleShare = () => {
@@ -84,8 +84,11 @@ export function BasicTestPage() {
           });
           return;
         }
+
         linkCreated.current = questions;
-        setShareLink(response.data.results.id);
+        setShareLink(
+          window.location.origin + '/multiple-choice/' + response.data[0]!.id
+        );
         toast({
           title: 'Link created',
         });
@@ -142,17 +145,12 @@ export function BasicTestPage() {
       )}
       {shareLink && (
         <section className="flex items-center justify-center gap-4 rounded-md border-dashed border-border bg-card p-4 print:hidden">
-          <a
-            className="hover:underline"
-            href={`http://localhost:5173/${shareLink}`}
-          >
+          <a className="hover:underline" target="_blank" href={shareLink}>
             Go to test shared link
           </a>
           <Button
             onClick={() => {
-              navigator.clipboard.writeText(
-                `http://localhost:5173/${shareLink}`
-              );
+              navigator.clipboard.writeText(shareLink);
               toast({ title: 'Copied to clipboard' });
             }}
           >

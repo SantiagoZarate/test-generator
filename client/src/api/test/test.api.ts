@@ -3,10 +3,9 @@ import {
   APIResponse,
   GetAllTestsPaginated,
   PaginatedResponse,
-  PostDataResponse,
   Test,
 } from '../interface';
-import { GetDataResponse } from './test.api.type';
+import { GetDataResponse, PostTestResponse } from './test.api.type';
 
 const ENDPOINT = '/api/test';
 
@@ -14,7 +13,7 @@ const ENDPOINT = '/api/test';
 export const testAPI = {
   create: (
     data: Omit<TestInsert, 'user_id'>
-  ): Promise<APIResponse<PostDataResponse>> => {
+  ): Promise<APIResponse<PostTestResponse[]>> => {
     const options: RequestInit = {
       method: 'POST',
       headers: {
