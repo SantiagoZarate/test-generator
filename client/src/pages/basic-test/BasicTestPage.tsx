@@ -1,9 +1,6 @@
 import { testAPI } from '@/api/test/test.api';
 import { ClipboardIcon } from '@/components/icons/ClipboardIcon';
-import { SparkelIcon } from '@/components/icons/SparkelIcon';
 import { toast } from '@/components/ui/use-toast';
-import { MIN_QUESTIONS_FOR_AI } from '@/data/constants';
-import { getAiGeneratedSuggestions } from '@/lib/perplexity';
 import { useCallback, useRef, useState } from 'react';
 import ActionsFooter from '../../components/common/ActionsFooter';
 import { FireIcon } from '../../components/icons/FireIcon';
@@ -18,26 +15,12 @@ import './hover.css';
 export function BasicTestPage() {
   const [value, setValue] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const [loadingAI, setLoadingAI] = useState<boolean>(false);
   const [loadingShareLink, setLoadingShareLink] = useState<boolean>(false);
-  const [AISuggestions, setAISuggestions] = useState<string[]>([]);
   const linkCreated = useRef<string[]>([]);
   const [shareLink, setShareLink] = useState<string>('');
   const [questions, setQuestion] = useState<string[]>(
     import.meta.env.MODE === 'development' ? INITIAL_QUESTIONS : []
   );
-
-  const handleGetAiSuggestions = async () => {
-    setLoadingAI(true);
-    await getAiGeneratedSuggestions(questions)
-      .then((response) => {
-        console.log(response);
-        setAISuggestions(response.slice(0, 3));
-      })
-      .finally(() => {
-        setLoadingAI(false);
-      });
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -138,42 +121,6 @@ export function BasicTestPage() {
         </label>
         <Button disabled={!value.length}>submit</Button>
       </form>
-      <section className="flex justify-center print:hidden">
-        {questions.length >= MIN_QUESTIONS_FOR_AI ? (
-          <>
-            <Button
-              data-testid="ai-button"
-              disabled={loadingAI}
-              onClick={handleGetAiSuggestions}
-              className="inline-flex h-12 w-full items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
-            >
-              get ai generated suggestions
-            </Button>
-            <ul className="group flex flex-col py-4">
-              {AISuggestions.map((suggestion, index) => (
-                <li
-                  className="flex cursor-pointer items-center gap-2 rounded-md p-4 transition hover:-translate-y-1 hover:bg-card"
-                  onClick={() => {
-                    handleAddQuestion(suggestion);
-                    setAISuggestions((prevState) =>
-                      prevState.filter((p) => p !== suggestion)
-                    );
-                  }}
-                  key={index}
-                >
-                  <SparkelIcon />
-                  {suggestion}
-                </li>
-              ))}
-            </ul>
-          </>
-        ) : (
-          <p>
-            Add {MIN_QUESTIONS_FOR_AI - (questions.length ?? 0)} more questions
-            to allow AI Assistance
-          </p>
-        )}
-      </section>
       {questions.length ? (
         <QuestionsLayout
           footer={
