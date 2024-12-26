@@ -9,7 +9,7 @@ export function Hero() {
         />
       </div>
       <article className="relative z-10 mx-auto flex max-w-screen-lg flex-col items-center justify-center gap-2 py-24">
-        <h1 className="text-center text-6xl font-black">
+        <h1 className="px-5 text-center text-xl font-black sm:text-3xl xl:text-6xl">
           Craft the Perfect Exam for Every Lesson
         </h1>
         <p>Design diverse assessments tailored to your students' needs.</p>
