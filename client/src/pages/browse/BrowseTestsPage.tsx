@@ -15,7 +15,7 @@ export function BrowseTestsPage() {
       {!isLoading && !isError && tests.length === 0 && <NoTestsFound />}
       {!isLoading && !isError && (
         <section className="flex flex-col">
-          <BrowseList tests={tests ?? []} />
+          <BrowseList tests={tests ?? []} typeOfTest="/basic-test/" />
           {hasNextPage && (
             <Button onClick={() => fetchNextPage()}>load more</Button>
           )}

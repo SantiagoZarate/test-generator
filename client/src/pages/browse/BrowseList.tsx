@@ -6,15 +6,16 @@ import { Link } from 'react-router-dom';
 
 interface Props {
   tests: Test[];
+  typeOfTest: '/multiple-choice/' | '/basic-test/';
 }
 
-export function BrowseList({ tests }: Props) {
+export function BrowseList({ tests, typeOfTest }: Props) {
   return (
     <MotionList className="flex flex-col divide-y divide-border">
       {tests.map((test) => (
         <MotionItem className="group py-1" key={test.id}>
           <Link
-            to={`/multiple-choice/${test.id}`}
+            to={typeOfTest + test.id}
             className="flex cursor-pointer items-center justify-between rounded-lg p-1 px-2 transition hover:bg-border"
           >
             <section className="flex items-center gap-2">

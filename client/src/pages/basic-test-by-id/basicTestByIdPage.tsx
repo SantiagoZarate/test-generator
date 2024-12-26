@@ -2,17 +2,28 @@ import { testAPI } from '@/api/test/test.api';
 import { Item } from '@/components/ui/Item';
 import { List } from '@/components/ui/List';
 import { PrintButton } from '@/components/ui/PrintButton';
-import { TestSchema } from '@backend/test.types';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-export function TestPage() {
+export function BasicTestByIdPage() {
   const { id } = useParams();
-  const [test, setTest] = useState<TestSchema>();
 
-  useEffect(() => {
-    testAPI.getById({ id: id! }).then((res) => setTest(res));
-  }, []);
+  const {
+    data: test,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['basic-test', id],
+    queryFn: () => testAPI.getById({ id: id! }),
+  });
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>There was an error, try again later!</p>;
+  }
 
   return (
     <>

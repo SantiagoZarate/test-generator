@@ -1,8 +1,8 @@
 import { BaseLayout } from '@/layouts/BaseLayout';
 import { BrowseLayout } from '@/layouts/BrowseLayout';
 import { ProtectedRouteLayout } from '@/layouts/ProtectedRouteLayout';
-import { TestPage } from '@/pages/[id]';
 import { AboutPage } from '@/pages/about/AboutPage';
+import { BasicTestByIdPage } from '@/pages/basic-test-by-id/basicTestByIdPage';
 import { BrowseMultipleChoiceTestsPage } from '@/pages/browse/BrowseMultipleChoiceTestsPage';
 import { BrowseTestsPage } from '@/pages/browse/BrowseTestsPage';
 import { MultipleChoiceTestPageByID } from '@/pages/multiple-choice-by-id/MultipleChoiceTestPageByID';
@@ -34,7 +34,7 @@ export const mainRouter = createBrowserRouter([
             path: '/about',
           },
           {
-            element: <TestPage />,
+            element: <BasicTestByIdPage />,
             path: '/basic-test/:id',
           },
           {
