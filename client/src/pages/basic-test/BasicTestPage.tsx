@@ -113,7 +113,7 @@ export function BasicTestPage() {
             Add a new question!
           </span>
           <Input
-            placeholder="why does javascript suck?"
+            placeholder="what would happen if P = NP was proved?"
             onChange={handleChangeValue}
             name="question"
             value={value}
@@ -129,7 +129,10 @@ export function BasicTestPage() {
           footer={
             <ActionsFooter
               loadingShare={loadingShareLink}
-              onClearAll={() => setQuestion([])}
+              onClearAll={() => {
+                setQuestion([]);
+                setShareLink('');
+              }}
               onShare={() => handleShare()}
             />
           }
