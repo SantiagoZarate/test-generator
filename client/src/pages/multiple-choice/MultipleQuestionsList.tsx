@@ -46,7 +46,7 @@ export function MultipleQuestionsList() {
             </a>
           )}
           <ActionsFooter
-            loadingShare={isLoading || createdTestID.length > 1}
+            disabled={isLoading || createdTestID.length > 1}
             onShare={handleShare}
             onClearAll={() => resetQuestions()}
             isCreatingTest={isCreatingPost}
