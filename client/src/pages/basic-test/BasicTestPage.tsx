@@ -1,6 +1,7 @@
 import { testAPI } from '@/api/test/test.api';
 import { ClipboardIcon } from '@/components/icons/ClipboardIcon';
 import { toast } from '@/components/ui/use-toast';
+import { TestTube2Icon } from 'lucide-react';
 import { useCallback, useRef, useState } from 'react';
 import ActionsFooter from '../../components/common/ActionsFooter';
 import { FireIcon } from '../../components/icons/FireIcon';
@@ -18,6 +19,7 @@ export function BasicTestPage() {
   const [loadingShareLink, setLoadingShareLink] = useState<boolean>(false);
   const linkCreated = useRef<string[]>([]);
   const [shareLink, setShareLink] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
   const [questions, setQuestion] = useState<string[]>(
     import.meta.env.MODE === 'development' ? INITIAL_QUESTIONS : []
   );
@@ -75,7 +77,7 @@ export function BasicTestPage() {
     setLoadingShareLink(true);
 
     testAPI
-      .create({ questions, title: 'Mocked test title' })
+      .create({ questions, title })
       .then((response) => {
         if (!response.ok) {
           toast({
@@ -87,7 +89,7 @@ export function BasicTestPage() {
 
         linkCreated.current = questions;
         setShareLink(
-          window.location.origin + '/multiple-choice/' + response.data[0]!.id
+          window.location.origin + '/basic-test/' + response.data[0]!.id
         );
         toast({
           title: 'Link created',
@@ -98,6 +100,11 @@ export function BasicTestPage() {
       });
   };
 
+  const handleUpdateTitle = (value: string) => {
+    if (value.startsWith(' ')) return;
+    setTitle(value);
+  };
+
   return (
     <>
       <form
@@ -105,8 +112,23 @@ export function BasicTestPage() {
         action="create basic test form"
         data-testid="basic-test-form"
         onSubmit={handleSubmit}
-        className="flex w-full flex-col gap-4 print:hidden"
+        className="flex w-full flex-col gap-6 print:hidden"
       >
+        <label htmlFor="title" className="flex flex-col gap-2">
+          <span className="flex gap-2">
+            <TestTube2Icon />
+            Test title
+          </span>
+          <Input
+            onChange={(e) => handleUpdateTitle(e.currentTarget.value)}
+            placeholder="General knowledge test"
+            name="title"
+            id="title"
+            value={title}
+            type="text"
+          />
+          {error && <span className="text-sm text-red-600">{error}</span>}
+        </label>
         <label htmlFor="question" className="flex flex-col gap-2">
           <span className="flex gap-2">
             <FireIcon />
@@ -128,12 +150,18 @@ export function BasicTestPage() {
         <QuestionsLayout
           footer={
             <ActionsFooter
-              loadingShare={loadingShareLink}
               onClearAll={() => {
                 setQuestion([]);
                 setShareLink('');
+                setTitle('');
               }}
               onShare={() => handleShare()}
+              disabled={
+                loadingShareLink ||
+                title.length === 0 ||
+                questions.length === 0 ||
+                questions.length > 10
+              }
             />
           }
           list={

@@ -1,6 +1,6 @@
+import React from 'react';
 import { DeleteButton } from '../ui/DeleteButton';
 import { Item } from '../ui/Item';
-import React from 'react';
 import { List } from '../ui/List';
 
 interface Props {
@@ -13,7 +13,7 @@ function QuestionsList({ onDelete, questions }: Props) {
       {questions.map((q, index) => (
         <Item key={q + index}>
           <DeleteButton
-            className="absolute right-0 top-[20%] mx-2 opacity-0 group-hover:opacity-100"
+            className="absolute inset-0 my-auto ml-auto opacity-0 group-hover:opacity-100"
             onDelete={() => onDelete(q)}
           />
           {index + 1}. {q}

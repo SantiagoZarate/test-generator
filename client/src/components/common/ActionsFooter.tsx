@@ -7,15 +7,15 @@ import { PrintButton } from '../ui/PrintButton';
 interface Props {
   onClearAll: () => void;
   onShare: () => void;
-  loadingShare: boolean;
   isCreatingTest?: boolean;
+  disabled?: boolean;
 }
 
 function ActionsFooter({
   onClearAll,
   onShare,
-  loadingShare,
   isCreatingTest = false,
+  disabled,
 }: Props) {
   return (
     <footer className="flex justify-end gap-2 print:hidden">
@@ -28,7 +28,7 @@ function ActionsFooter({
         Clear All
         <BinIcon />
       </Button>
-      <Button disabled={loadingShare || isCreatingTest} onClick={onShare}>
+      <Button disabled={disabled} onClick={onShare}>
         {isCreatingTest ? 'Loading...' : 'Share'}
         <LinkIcon />
       </Button>
