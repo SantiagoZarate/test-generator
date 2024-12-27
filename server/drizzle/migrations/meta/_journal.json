@@ -15,6 +15,13 @@
       "when": 1731731954686,
       "tag": "0001_wise_penance",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1735259082718,
+      "tag": "0002_windy_master_mold",
+      "breakpoints": true
     }
   ]
 }

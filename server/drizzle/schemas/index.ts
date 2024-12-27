@@ -4,6 +4,8 @@ import {
   questionRelations,
   questionSchema,
   testRelations,
+  testResultRelations,
+  testResultSchema,
   testSchema,
 } from './test.schema';
 
@@ -23,6 +25,8 @@ export default {
   questionRelations,
   questionSchema,
   testRelations,
+  testResultRelations,
+  testResultSchema,
   // Multiple Choice
   multipleChoiceResultRelations,
   multipleChoiceResultSchema,
