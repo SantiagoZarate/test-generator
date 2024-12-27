@@ -1,7 +1,11 @@
 import { count, eq } from 'drizzle-orm';
 import { db } from '../../drizzle/connection';
-import { questionSchema, testSchema } from '../../drizzle/schemas/test.schema';
-import { TestInsert, TestSelect } from '../types/test.types';
+import {
+  questionSchema,
+  testResultSchema,
+  testSchema,
+} from '../../drizzle/schemas/test.schema';
+import { TestInsert, TestPostResult, TestSelect } from '../types/test.types';
 import { NotFoundError } from '../utils/errors';
 import { PaginateConfig } from '../utils/getPaginatedParams';
 
@@ -71,5 +75,14 @@ export class TestRepository {
   async delete({ id }: TestSelect) {
     const data = await db.delete(testSchema).where(eq(testSchema.id, id));
     return data.rowsAffected === 1;
+  }
+
+  async postResult(payload: TestPostResult) {
+    const data = await db.insert(testResultSchema).values({
+      test_id: payload.id,
+      answers: payload.answers.join('|'),
+    });
+
+    return data.rowsAffected >= 1;
   }
 }

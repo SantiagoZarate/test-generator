@@ -15,5 +15,6 @@ router.post(
   validateData(testSchemaValidation),
   controller.create,
 );
+router.post('/:id/result', controller.postResult);
 
 export default router;

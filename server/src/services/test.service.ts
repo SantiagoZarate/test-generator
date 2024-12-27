@@ -1,5 +1,5 @@
 import { TestRepository } from '../repositories/test.repository';
-import { TestInsert, TestSelect } from '../types/test.types';
+import { TestInsert, TestPostResult, TestSelect } from '../types/test.types';
 import { BadRequestError, NotFoundError } from '../utils/errors';
 import { PaginateConfig } from '../utils/getPaginatedParams';
 
@@ -37,5 +37,8 @@ export const testService = {
     if (!deleted) {
       throw new NotFoundError(`Test with id: ${id} not found`);
     }
+  },
+  async postResult(payload: TestPostResult) {
+    await testRepository.postResult(payload);
   },
 };

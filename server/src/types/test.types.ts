@@ -9,3 +9,7 @@ export type TestSchema = Required<
 
 export type TestSelect = Pick<TestSchema, 'id'>;
 export type TestInsert = Pick<TestSchema, 'title' | 'questions' | 'user_id'>;
+
+export type TestPostResult = Pick<TestSchema, 'id'> & {
+  answers: string[];
+};

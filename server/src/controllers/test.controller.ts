@@ -48,4 +48,14 @@ export const testController = {
       message: 'Test deleted succesfully',
     });
   },
+  async postResult(req: Request, res: Response) {
+    const { id } = req.params;
+    await testService.postResult({
+      answers: req.body,
+      id,
+    });
+    res.status(StatusCodes.CREATED).json({
+      message: 'result posted',
+    });
+  },
 };
