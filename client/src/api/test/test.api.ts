@@ -9,6 +9,7 @@ import {
   GetDataResponse,
   GetDataWithMoreInfoResponse,
   PostTestResponse,
+  PostTestResult,
 } from './test.api.type';
 
 const ENDPOINT = '/api/test';
@@ -62,6 +63,19 @@ export const testAPI = {
       response
         .json()
         .then(({ data }: APIResponse<GetDataWithMoreInfoResponse>) => data)
+    );
+  },
+  postResult: (payload: PostTestResult) => {
+    const options: RequestInit = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    };
+
+    return fetch(ENDPOINT + '/' + payload.id + '/result', options).then(
+      (response) => response.json()
     );
   },
 };

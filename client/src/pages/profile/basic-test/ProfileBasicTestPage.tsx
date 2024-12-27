@@ -41,7 +41,7 @@ export function ProfileBasicTestPage() {
         title={test.title}
         typeOfTest="/basic-test/"
       />
-      <section className="grid grid-cols-2 gap-6">
+      <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <section className="flex flex-col gap-6 rounded-md bg-primary/10 p-6">
           <Text variant={'subtitle'}>Questions</Text>
           <ul className="flex flex-col gap-2 text-sm text-secondary">

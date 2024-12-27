@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/Input';
 import { PrintButton } from '@/components/ui/PrintButton';
+import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
@@ -46,8 +47,18 @@ export function BasicTestByIdPage() {
   }, [test]);
 
   const handleSubmitTest = (data: BasicTestSchema) => {
-    console.log({ data });
     prevAnswers.current = data.answers.toString();
+    testAPI
+      .postResult({
+        answers: data.answers,
+        id: id!,
+      })
+      .then(() => {
+        toast({
+          title: 'Result submitted',
+          description: 'Thanks for your submission',
+        });
+      });
   };
 
   const handleResetTest = () => {

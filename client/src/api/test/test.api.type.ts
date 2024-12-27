@@ -30,3 +30,8 @@ export interface Question {
 export interface PostTestResponse {
   id: string;
 }
+
+export interface PostTestResult {
+  answers: string[];
+  id: string;
+}
