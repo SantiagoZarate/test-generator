@@ -16,5 +16,6 @@ router.post(
   controller.create,
 );
 router.post('/:id/result', controller.postResult);
+router.get('/:id/info', controller.getMoreInfo);
 
 export default router;

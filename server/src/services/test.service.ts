@@ -41,4 +41,11 @@ export const testService = {
   async postResult(payload: TestPostResult) {
     await testRepository.postResult(payload);
   },
+  async getMoreInfo({ id }: TestSelect) {
+    const testWithResponses = await testRepository.getWithResponses({ id });
+    if (!testWithResponses) {
+      throw new NotFoundError(`Test with id: ${id} not found`);
+    }
+    return testRepository;
+  },
 };

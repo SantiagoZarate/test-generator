@@ -51,11 +51,24 @@ export const testController = {
   async postResult(req: Request, res: Response) {
     const { id } = req.params;
     await testService.postResult({
-      answers: req.body,
+      answers: req.body.answers,
       id,
     });
     res.status(StatusCodes.CREATED).json({
       message: 'result posted',
+    });
+  },
+  async getMoreInfo(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const data = await testService.postResult({
+      answers: req.body.answers,
+      id,
+    });
+
+    res.status(StatusCodes.OK).json({
+      message: 'result posted',
+      data,
     });
   },
 };

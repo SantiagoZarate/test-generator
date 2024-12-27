@@ -78,11 +78,25 @@ export class TestRepository {
   }
 
   async postResult(payload: TestPostResult) {
+    console.log({ payload });
+
     const data = await db.insert(testResultSchema).values({
       test_id: payload.id,
       answers: payload.answers.join('|'),
     });
 
     return data.rowsAffected >= 1;
+  }
+
+  async getWithResponses({ id }: TestSelect) {
+    const data = await db.query.testSchema.findFirst({
+      where: (table) => eq(table.id, id),
+      with: {
+        questions: true,
+        results: true,
+      },
+    });
+
+    return data;
   }
 }
