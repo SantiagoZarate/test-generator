@@ -51,8 +51,6 @@ export class TestRepository {
   }
 
   async create(data: TestInsert) {
-    console.log({ data });
-
     const test = await this._db.transaction(async (tx) => {
       const id = await tx
         .insert(testSchema)
@@ -89,11 +87,19 @@ export class TestRepository {
   }
 
   async getWithResponses({ id }: TestSelect) {
-    const data = await db.query.testSchema.findFirst({
-      where: (table) => eq(table.id, id),
+    const data = await this._db.query.testSchema.findFirst({
+      where: (table, { eq }) => eq(table.id, id),
       with: {
-        questions: true,
-        results: true,
+        questions: {
+          columns: {
+            test_id: false,
+          },
+        },
+        results: {
+          columns: {
+            test_id: false,
+          },
+        },
       },
     });
 

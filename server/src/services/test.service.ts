@@ -46,6 +46,19 @@ export const testService = {
     if (!testWithResponses) {
       throw new NotFoundError(`Test with id: ${id} not found`);
     }
-    return testRepository;
+
+    // console.dir(testWithResponses.results);
+
+    // return testWithResponses;
+
+    // Split the answers, because they were stored as a string instead of array of string
+    // Delimited with the character "|"
+    return {
+      ...testWithResponses,
+      results: testWithResponses.results.map((r) => ({
+        ...r,
+        answers: r.answers.split('|'),
+      })),
+    };
   },
 };

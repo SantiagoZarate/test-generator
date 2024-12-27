@@ -7,6 +7,7 @@ import { BrowseMultipleChoiceTestsPage } from '@/pages/browse/BrowseMultipleChoi
 import { BrowseTestsPage } from '@/pages/browse/BrowseTestsPage';
 import { MultipleChoiceTestPageByID } from '@/pages/multiple-choice-by-id/MultipleChoiceTestPageByID';
 import { MultipleChoicePage } from '@/pages/multiple-choice/MultipleChoiceTestPage';
+import { ProfileBasicTestPage } from '@/pages/profile/basic-test/ProfileBasicTestPage';
 import { ProfileMultipleChoicePage } from '@/pages/profile/multiple-choice/ProfileMultipleChoicePage';
 import { ProfilePage } from '@/pages/profile/ProfilePage';
 import { RedirectLoginPage } from '@/pages/redirect/RedirectLoginPage';
@@ -71,6 +72,10 @@ export const mainRouter = createBrowserRouter([
               {
                 path: '/profile/multiple-choice/:id',
                 element: <ProfileMultipleChoicePage />,
+              },
+              {
+                path: '/profile/basic-test/:id',
+                element: <ProfileBasicTestPage />,
               },
               {
                 element: <MultipleChoicePage />,

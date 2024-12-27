@@ -25,6 +25,18 @@ export function ProfilePage() {
         </h2>
       </header>
       <section className="flex flex-col gap-2">
+        <Text>Open ended tests</Text>
+        <ul className="grid grid-cols-4 gap-2">
+          {data?.tests.map((test) => (
+            <li className="rounded-xl border border-border" key={test.id}>
+              <Link className="flex p-4" to={'/profile/basic-test/' + test.id}>
+                <p>{test.title}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section className="flex flex-col gap-2">
         <Text>Multiple choice tests</Text>
         <ul className="grid grid-cols-4 gap-2">
           {data?.multipleChoiceTests.map((test) => (

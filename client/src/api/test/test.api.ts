@@ -5,7 +5,11 @@ import {
   PaginatedResponse,
   Test,
 } from '../interface';
-import { GetDataResponse, PostTestResponse } from './test.api.type';
+import {
+  GetDataResponse,
+  GetDataWithMoreInfoResponse,
+  PostTestResponse,
+} from './test.api.type';
 
 const ENDPOINT = '/api/test';
 
@@ -52,5 +56,12 @@ export const testAPI = {
           ...response.info,
         },
       }));
+  },
+  getByIdWithInfo: ({ id }: TestSelect) => {
+    return fetch(ENDPOINT + '/' + id + '/info').then((response) =>
+      response
+        .json()
+        .then(({ data }: APIResponse<GetDataWithMoreInfoResponse>) => data)
+    );
   },
 };

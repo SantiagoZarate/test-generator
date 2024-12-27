@@ -61,14 +61,13 @@ export const testController = {
   async getMoreInfo(req: Request, res: Response) {
     const { id } = req.params;
 
-    const data = await testService.postResult({
-      answers: req.body.answers,
+    const result = await testService.getMoreInfo({
       id,
     });
 
     res.status(StatusCodes.OK).json({
-      message: 'result posted',
-      data,
+      ok: true,
+      data: result,
     });
   },
 };

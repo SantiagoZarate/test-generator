@@ -1,0 +1,1 @@
+ALTER TABLE `test_result` RENAME COLUMN `test_result_id` TO `id`;
