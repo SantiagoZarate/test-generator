@@ -23,7 +23,9 @@ export function ProfileMultipleChoicePage() {
   };
 
   const testHasResult =
-    data!.info.countAprovedTests + data!.info.countDisaprovedTests > 0;
+    (data?.info.countAprovedTests || 0) +
+      (data?.info.countDisaprovedTests || 0) >
+    0;
 
   if (isLoading) {
     return <section>Loading...</section>;
