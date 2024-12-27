@@ -1,18 +1,19 @@
 import { multipleChoiceTestAPI } from '@/api/multipleChoiceTest/multipleChoiceTest.api';
-import { BinIcon } from '@/components/icons/BinIcon';
-import { Button } from '@/components/ui/Button';
-import { Text } from '@/components/ui/Text';
+import { ProfileTestFooter } from '@/components/profile/ProfileTestFooter';
+import { ProfileTestHeader } from '@/components/profile/ProfileTestHeader';
 import { toast } from '@/components/ui/use-toast';
 import { multipleChoiceTestDetailQuery } from '@/router/profileRouter';
 import { useQuery } from '@tanstack/react-query';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { InformationGrid } from './InformationGrid';
 
 export function ProfileMultipleChoicePage() {
   const { id } = useParams();
   const redirect = useNavigate();
 
-  const { isLoading, data } = useQuery(multipleChoiceTestDetailQuery(id!));
+  const { isLoading, data, isError } = useQuery(
+    multipleChoiceTestDetailQuery(id!)
+  );
 
   const handleDelete = () => {
     multipleChoiceTestAPI.delete(id!).then(() => {
@@ -21,35 +22,24 @@ export function ProfileMultipleChoicePage() {
     });
   };
 
+  const testHasResult =
+    data!.info.countAprovedTests + data!.info.countDisaprovedTests > 0;
+
   if (isLoading) {
     return <section>Loading...</section>;
   }
 
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.origin + '/multiple-choice/' + id);
-    toast({
-      title: 'Copied to clipboard',
-      description: 'Share the link with your friends',
-    });
-  };
-
-  const testHasResult =
-    data!.info.countAprovedTests + data!.info.countDisaprovedTests > 0;
+  if (isError || !data) {
+    return <section>There was an error, try again later!</section>;
+  }
 
   return (
     <section className="flex flex-col gap-4">
-      <header className="flex items-center justify-between">
-        <section className="flex flex-col gap-2">
-          <Text variant={'title'}>{data?.title}</Text>
-          <Text>2 de diciembre 2024</Text>
-        </section>
-        <section className="flex gap-2">
-          <Button onClick={handleCopyLink}>Copy Link</Button>
-          <Link to={'/multiple-choice/' + id}>
-            <Button>Go to Test</Button>
-          </Link>
-        </section>
-      </header>
+      <ProfileTestHeader
+        id={data?.id}
+        title={data?.title}
+        typeOfTest="/multiple-choice/"
+      />
       {testHasResult ? (
         <InformationGrid info={data!.info} />
       ) : (
@@ -57,11 +47,7 @@ export function ProfileMultipleChoicePage() {
           <p>No one has completed this test yet, information will be here</p>
         </div>
       )}
-      <footer className="flex justify-end">
-        <Button onClick={() => handleDelete()}>
-          <BinIcon /> Delete test
-        </Button>
-      </footer>
+      <ProfileTestFooter onDelete={handleDelete} />
     </section>
   );
 }
